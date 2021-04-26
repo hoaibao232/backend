@@ -1,0 +1,93 @@
+<div class="mt-4">
+  <h3>QUẢN LÝ ĐƠN HÀNG SELLER</h3>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="/me/stored/orders/all">Tất cả <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="/me/stored/orders/notapproved">Chờ xác nhận</a>
+      <a class="nav-item nav-link" href="/me/stored/orders/toship">Chờ lấy hàng</a>
+      <a class="nav-item nav-link" href="/me/stored/orders/shipping">Đang giao</a>
+      <a class="nav-item nav-link" href="/me/stored/orders/completed">Đã giao</a>
+      <a class="nav-item nav-link" href="/me/stored/orders/canceled">Đã hủy</a>
+    </div>
+  </div>
+</nav>
+
+
+    <div>
+      
+      
+    </div>
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ID đơn hàng</th>
+      <th scope="col">Sản phẩm</th>
+      <th scope="col" colspan="1">Số lượng</th>
+      <th scope="col" colspan="1">Tổng tiền</th>
+      <th scope="col" colspan="1">Địa chỉ giao hàng</th>
+      <th scope="col" colspan="1">Người mua</th>
+      <th scope="col" colspan="1">Thời gian tạo</th>
+      <th scope="col" colspan="1">Trạng thái</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each orders}}
+    <tr>
+      <th scope="row">{{sum @index 1}}</th>
+       <td>{{this._id}}</td>
+      {{!-- <td>{{this.productname}}</td> --}}
+
+    {{!-- <td>
+      {{#each products}}
+        {{#unless @first}}, {{/unless}}
+        {{this._id}}
+      {{/each}}</td> --}}
+
+      <td>
+      {{#each products}}
+        {{#unless @first}}, {{/unless}}
+        {{this.tittle}}
+      {{/each}}</td>
+
+         <td>
+       {{#each products}}
+        {{#unless @first}}, {{/unless}}
+        {{this.quantity}}
+      {{/each}}</td>
+      
+        <td>
+       {{#each products}}
+        {{#unless @first}}, {{/unless}}
+        {{this.total_cost}}
+      {{/each}}</td>
+
+      {{!-- <td>{{this.quantity}}</td> --}}
+      {{!-- <td>{{this.totalprice}}</td> --}}
+       <td>{{this.address}}</td>
+
+      <td> {{this.name}} </td>
+    
+
+       <td>{{this.createdAt}}</td>
+     <td>{{this.status}}</td>
+    </tr>
+    {{else}}
+    <tr>
+      <td colspan="5" class="text-center"> 
+      Bạn chưa đăng khóa học nào.
+       <a href="/courses/create">Đăng khóa học.</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+</div>
+
+
+
+
+

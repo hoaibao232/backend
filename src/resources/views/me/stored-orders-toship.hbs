@@ -1,0 +1,177 @@
+<form name="container-form" class="mt-4" method="POST" action="/me/stored/handle-form-actions">
+  <h3>QUẢN LÝ ĐƠN HÀNG SELLER</h3>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  
+  
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="/me/stored/orders/all">Tất cả <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="/me/stored/orders/notapproved">Chờ xác nhận</a>
+      <a class="nav-item nav-link active" href="/me/stored/orders/toship">Chờ lấy hàng</a>
+      <a class="nav-item nav-link" href="/me/stored/orders/shipping">Đang giao</a>
+      <a class="nav-item nav-link" href="/me/stored/orders/completed">Đã giao</a>
+      <a class="nav-item nav-link" href="/me/stored/orders/canceled">Đã hủy</a>
+      <a class="nav-item nav-link" href="#">Trả hàng/hoàn tiền</a>
+    </div>
+  </div>
+</nav>
+
+
+    <div class="mt-4 d-flex align-items-center">
+      <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
+      <label class="form-check-label" for="checkbox-all">
+        Chọn tất cả
+      </label>
+      </div>
+
+    <select class="form-control form-control-sm checkbox-select-all-options" name="action" required>
+      <option value ="">-- Hành động --</option>
+      <option value = "toship">Đã chuẩn bị hàng</option>
+    </select>
+
+    <button class="btn btn-primary btn-sm check-all-submit-btn" disabled> Thực hiện </button>
+
+    </div>
+
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col" colspan="2">#</th>
+      <th scope="col">ID đơn hàng</th>
+      <th scope="col">Sản phẩm</th>
+      <th scope="col" colspan="1">Số lượng</th>
+      <th scope="col" colspan="1">Tổng tiền</th>
+      <th scope="col" colspan="1">Người mua</th>
+      <th scope="col" colspan="1">Địa chỉ giao hàng</th>
+      <th scope="col" colspan="1">Thao tác</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each orders}}
+    <tr>
+      <td>
+        <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="orderIds[]" value="{{this._id}}">
+        </div>
+      </td>
+
+      <th scope="row">{{sum @index 1}}</th>
+       <td>{{this._id}}</td>
+        <td>
+      {{#each products}}
+        {{#unless @first}}, {{/unless}}
+        {{this.tittle}}
+      {{/each}}</td>
+
+         <td>
+       {{#each products}}
+        {{#unless @first}}, {{/unless}}
+        {{this.quantity}}
+      {{/each}}</td>
+      
+        <td>
+       {{#each products}}
+        {{#unless @first}}, {{/unless}}
+        {{this.total_cost}}
+      {{/each}}</td>
+
+        <td> {{this.name}} </td>
+       <td>{{this.address}}</td>
+      {{!-- <td>{{this.productname}}</td>
+      <td>{{this.quantity}}</td>
+      <td>{{this.totalprice}}</td> --}}
+     <td>
+       <a href="/me/stored/orders/{{this._id}}/shipment-ready" class="btn btn-primary">Đã chuẩn bị hàng</a>
+       {{!-- <a href="" class="btn btn-primary" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-course-modal">Hủy bỏ</a> --}}
+     </td>
+    </tr>
+    {{else}}
+    <tr>
+      <td colspan="5" class="text-center"> 
+      Bạn không có đơn hàng nào chờ lấy hàng.
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+</form>
+
+
+<div id="delete-course-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Hủy đơn hàng</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn hủy đơn hàng này?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete-course" type="button" class="btn btn-danger">Xóa bỏ</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<form name="delete-course-form" method="GET"></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (){
+        var orderId;
+        var btnDeleteCourse = document.getElementById('btn-delete-course')
+        var deleteForm = document.forms['delete-course-form']
+        var checkboxAll = $('#checkbox-all')
+        var orderItemCheckbox = $('input[name="orderIds[]"]')
+        var checkAllSubmitBtn = $('.check-all-submit-btn')
+        var containerForm = document.forms['container-form']
+
+        //when dialog confirm clicked
+         $('#delete-course-modal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) 
+        orderId = button.data('id')
+    });
+
+    btnDeleteCourse.onclick = function(){
+        deleteForm.action = '/me/stored/orders/' + orderId + '/cancel';
+        deleteForm.submit();
+    };
+
+    //Checkbox all changed
+    checkboxAll.change(function() {
+      var isCheckedAll = $(this).prop('checked');
+       orderItemCheckbox.prop('checked', isCheckedAll);
+       renderCheckAllSubmitBn();
+    });
+
+    //Order item checkbox changed
+    orderItemCheckbox.change(function(){
+      var isCheckedAll = orderItemCheckbox.length === $('input[name="orderIds[]"]:checked').length;
+      checkboxAll.prop('checked', isCheckedAll );
+       renderCheckAllSubmitBn();
+    })
+
+
+    //Re-render button submit all
+    function renderCheckAllSubmitBn(){
+      var checkCount = $('input[name="orderIds[]"]:checked').length;
+      if (checkCount > 0)
+      {
+        checkAllSubmitBtn.attr('disabled', false);
+      }
+      else{
+        checkAllSubmitBtn.attr('disabled', true);
+      }
+    } 
+
+
+});
+</script>

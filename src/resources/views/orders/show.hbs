@@ -1,0 +1,108 @@
+{{#if success }}
+    <div class="alert alert-success" role="alert">
+    Bạn đã đặt hàng thành công!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+
+  {{ else }}
+   {{#if errors }}
+       <section class="errors">
+        <ul>
+          {{#each errors }}
+         <div class="alert alert-danger" role="alert">
+          {{this.msg}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+         {{/each}}
+    </ul>
+  </section>
+{{/if}}
+{{/if}}
+
+
+
+<div class="mt-4">
+    <div>
+      <h3>QUẢN LÝ ĐƠN HÀNG</h3>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="/order/show">Tất cả <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="/order/notapproved">Chờ xác nhận</a>
+      <a class="nav-item nav-link" href="/order/toship">Chờ lấy hàng</a>
+      <a class="nav-item nav-link" href="/order/shipping">Đang giao</a>
+      <a class="nav-item nav-link" href="/order/completed">Đã giao</a>
+      <a class="nav-item nav-link" href="/order/canceled">Đã hủy</a>
+    </div>
+    </div>
+  </nav>
+
+
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ID đơn hàng</th>
+      <th scope="col">Sản phẩm</th>
+      <th scope="col" colspan="1">Số lượng</th>
+      <th scope="col" colspan="1">Tổng tiền</th>
+      <th scope="col" colspan="1">Người bán</th>
+      <th scope="col" colspan="1">Trạng thái</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each orders}}
+    <tr>
+      <th scope="row">{{sum @index 1}}</th>
+      <td>{{this._id}}</td>
+       {{!-- <td style="text-align: center">
+         <input type="email" class="form-control" id="exampleInputEmail1" value="{{this.quantity}}">
+        </td> --}}
+
+
+        <td>
+      {{#each products}}
+        {{#unless @first}}, {{/unless}}
+        {{this.tittle}}
+      {{/each}}</td>
+
+    
+      <td>{{#each products}}
+        {{#unless @first}}, {{/unless}}
+        {{this.quantity}}
+      {{/each}}</td>
+
+      <td>{{#each products}}
+        {{#unless @first}}, {{/unless}}
+        {{this.total_cost}}
+      {{/each}}</td>
+
+       <td>{{#each products}}
+        {{#unless @first}}, {{/unless}}
+        {{this.sellerName}}
+      {{/each}}</td>
+     
+      <td>{{this.status}}</td>
+    
+
+    </tr>
+    {{else}}
+    <tr>
+      <td colspan="5" class="text-center"> 
+      Bạn chưa thêm sản phẩm nào.
+       <a href="/">Thêm sản phẩm.</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+</div>
+

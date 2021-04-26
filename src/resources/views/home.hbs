@@ -1,0 +1,31 @@
+<div class="mt-4">
+    <div class="row">
+        
+        {{#each books}}
+        <div class="col-sm-6 col-lg-4">
+            <div class="card">
+                 <a href="/books/{{this.slug}}">
+                 <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
+                 </a>
+        
+        
+        <div class="card-body">
+            <a href="/books/{{this.slug}}">
+            <h5 class="card-title">{{this.name}}</h5>
+            </a>
+            <p class="card-text">{{this.description}}</p>
+            <p class="card-text">Số lượng: {{this.quantities}}</p>
+            <p class="card-text">Giá tiền: {{this.price}}</p>
+            {{!-- <form method="GET" action="/cart/{{this.slug}}/add">
+            <button type="submit" class="btn btn-primary">Thêm giỏ hàng</button> --}}
+            <a href="/cart/{{this.slug}}/add" class="btn btn-primary"> Thêm giỏ hàng</a>
+            {{!-- </form> --}}
+            </div>
+       
+        </div>
+        </div>
+        {{/each}}
+        
+
+    </div>
+</div>

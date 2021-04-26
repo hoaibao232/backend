@@ -1,0 +1,138 @@
+{{#if success }}
+    <div class="alert alert-success" role="alert">
+    Cập nhật giỏ hàng thành công!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+
+  {{ else }}
+   {{#if errors }}
+       <section class="errors">
+        <ul>
+          {{#each errors }}
+         <div class="alert alert-danger" role="alert">
+          {{this.msg}}
+          {{this.value}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+         {{/each}}
+    </ul>
+  </section>
+{{/if}}
+{{/if}}
+
+<div class="mt-4">
+    <div>
+      <h3>GIỎ HÀNG</h3>
+    </div>
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Tên Sản Phẩm</th>
+      <th scope="col">Số lượng</th>
+      <th scope="col" colspan="1">Giá tiền</th>
+      <th scope="col" colspan="1">Tổng tiền</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each carts}}
+    <tr>
+      <th scope="row">{{sum @index 1}}</th>
+      <td>{{this.productname}}</td>
+       {{!-- <td style="text-align: center">
+         <input type="email" class="form-control" id="exampleInputEmail1" value="{{this.quantity}}">
+        </td> --}}
+
+      <td>
+      
+        <form method="POST" action="/cart/{{this._id}}?_method=PUT">
+         <div class="form-group">
+        <input type="text" class="form-control" value="{{this.quantity}}" id="quantity" name = "quantity">
+        </div>
+        </form>
+
+      </td>
+
+      <td>{{this.price}}</td>
+      
+     
+      <td class="cart-item-total-price__text">{{this.totalprice}}</td>
+       <td>
+          <a href="/order/{{this._id}}/create" class="btn btn-primary">Đặt hàng</a>
+          <a href="" class="btn btn-primary" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-course-modal">Xóa</a>
+      </td>
+
+    </tr>
+      
+    {{else}}
+    <tr>
+      <td colspan="5" class="text-center"> 
+      Bạn chưa thêm sản phẩm nào.
+       <a href="/">Thêm sản phẩm.</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<input class="buy-total-quantity11" value="1"></input>
+</div>
+
+
+<div id="delete-course-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa sản phẩm khỏi giỏ hàng</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn xóa sản phẩm này?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete-course" type="button" class="btn btn-danger">Xóa bỏ</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{!-- Delete hidden form --}}
+<form name="delete-course-form" method="POST"></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (){
+        var courseId;
+        var btnDeleteCourse = document.getElementById('btn-delete-course')
+        var deleteForm = document.forms['delete-course-form']
+         var $totalpricee = document.querySelector('.buy-total-quantity11');
+          getTotal();
+
+        //when dialog confirm clicked
+         $('#delete-course-modal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) 
+        courseId = button.data('id')
+    });
+
+    btnDeleteCourse.onclick = function(){
+        deleteForm.action = '/cart/' + courseId + '?_method=DELETE';
+        deleteForm.submit();
+
+    }
+
+    function getTotal(){
+        var sum = 0;
+        $(".cart-item-total-price__text").each(function() {   
+            sum += $(this).val() * 1;
+        });
+        $totalpricee.value =  sum; // an add function shouldn't really "alert"
+     };
+});
+</script>

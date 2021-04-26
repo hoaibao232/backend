@@ -1,0 +1,123 @@
+
+<div class="mt-4">
+  <h3>QUẢN LÝ ĐƠN HÀNG SELLER</h3>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  
+  
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="/me/stored/orders/all">Tất cả <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="/me/stored/orders/notapproved">Chờ xác nhận</a>
+      <a class="nav-item nav-link" href="/me/stored/orders/toship">Chờ lấy hàng</a>
+      <a class="nav-item nav-link" href="/me/stored/orders/shipping">Đang giao</a>
+      <a class="nav-item nav-link" href="/me/stored/orders/completed">Đã giao</a>
+      <a class="nav-item nav-link active" href="/me/stored/orders/canceled">Đã hủy</a>
+      <a class="nav-item nav-link" href="#">Trả hàng/hoàn tiền</a>
+    </div>
+  </div>
+</nav>
+
+
+    <div>
+      
+      
+    </div>
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ID đơn hàng</th>
+      <th scope="col">Sản phẩm</th>
+      <th scope="col" colspan="1">Số lượng</th>
+      <th scope="col" colspan="1">Tổng tiền</th>
+      <th scope="col" colspan="1">Người mua</th>
+      <th scope="col" colspan="1">Địa chỉ giao hàng</th>
+      <th scope="col" colspan="1">Trạng thái</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each orders}}
+    <tr>
+      <th scope="row">{{sum @index 1}}</th>
+       <td>{{this._id}}</td>
+       <td>
+      {{#each products}}
+        {{#unless @first}}, {{/unless}}
+        {{this.tittle}}
+      {{/each}}</td>
+
+         <td>
+       {{#each products}}
+        {{#unless @first}}, {{/unless}}
+        {{this.quantity}}
+      {{/each}}</td>
+      
+        <td>
+       {{#each products}}
+        {{#unless @first}}, {{/unless}}
+        {{this.total_cost}}
+      {{/each}}</td>
+
+        <td> {{this.name}} </td>
+       <td>{{this.address}}</td>
+
+      <td>{{this.status}}</td>
+    </tr>
+    {{else}}
+    <tr>
+      <td colspan="5" class="text-center"> 
+      Bạn chưa đăng khóa học nào.
+       <a href="/courses/create">Đăng khóa học.</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+</div>
+
+
+<div id="delete-course-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa khóa học</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn xóa khóa học này?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete-course" type="button" class="btn btn-danger">Xóa bỏ</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<form name="delete-course-form" method="POST"></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (){
+        var courseId;
+        var btnDeleteCourse = document.getElementById('btn-delete-course')
+        var deleteForm = document.forms['delete-course-form']
+
+        //when dialog confirm clicked
+         $('#delete-course-modal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) 
+        courseId = button.data('id')
+    });
+
+    btnDeleteCourse.onclick = function(){
+        deleteForm.action = '/courseS/' + courseId + '?_method=DELETE';
+        deleteForm.submit();
+
+    }
+});
+</script>

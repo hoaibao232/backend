@@ -1,0 +1,39 @@
+<div class="mt-4">
+    <h3>ĐĂNG SẢN PHẨM MỚI</h3>
+
+    <form method="POST" enctype = "multipart/form-data" action="/books/store">
+         <div class="form-group">
+    <label for="name">Tên sản phẩm</label>
+    <input type="text" class="form-control" id="name" name = "name">
+  </div>
+
+  <div class="form-group">
+    <label for="description">Mô tả</label>
+    <input type="text" class="form-control" id="description" name = "description">
+  </div>
+
+  <div class="form-group">
+    <label for="videoID">Video</label>
+    <input type="text" class="form-control" id="videoID" name = "videoID">
+  </div>
+
+  <div class="form-group">
+    <label for="price">Giá tiền</label>
+    <input type="text" class="form-control" id="price" name = "price">
+  </div>
+
+   <div class="form-group">
+    <label for="quantities">Số lượng sản phẩm</label>
+    <input type="text" class="form-control" id="quantities" name = "quantities">
+  </div>
+
+  <div class="form-group">
+    <label for="image">Hình ảnh</label>
+    <input type="file" class="form-control-file" id="image" name = "image">
+  </div>
+  
+
+  <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+</form>
+
+</div>

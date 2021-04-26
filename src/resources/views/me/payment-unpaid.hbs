@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+    crossorigin="anonymous" />
+    <link rel="stylesheet" href="../css/manageProduct.css">
+    <link rel="stylesheet" href="../css/base.css">
+</head>
+<body>
+    <div class="grid1">
+
+        <div class="container-fluid app-content">
+            <div class="row app-content0">
+                <div class="col-2 col1 d-flex">
+                     <nav class="category1">
+                    <div class="category__info">
+                        <div class="info-image">
+                            <img src={{seller.avatar}} alt="avatar">
+                        </div>
+                        
+                        <div class="info-name">
+                                {{seller.username}}
+                        </div>
+                           
+                       
+                    </div>
+                    <h3 class="category__heading">
+                        Tài khoản của tôi
+                    </h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="/seller/info" class="category-item__link">Hồ sơ</a>
+                        </li>
+                    
+
+                    </ul>
+                    <h3 class="category__heading">
+                        Quản lý sản phẩm
+                    </h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="/me/stored/books" class="category-item__link">Tất cả sản phẩm</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/books/create" class="category-item__link">Thêm sản phẩm</a>
+                        </li>
+
+                    </ul>
+                    <h3 class="category__heading">
+                        Quản lý đơn hàng
+                    </h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="/me/stored/orders/all" class="category-item__link">Tất cả đơn hàng</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/me/stored/orders/canceled" class="category-item__link">Đơn huỷ</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/me/stored/orders/return" class="category-item__link">Trả hàng/Hoàn tiền</a>
+                        </li>
+
+                    </ul>
+
+                     <h3 class="category__heading">
+                        Thanh toán
+                    </h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="/me/payment/unpaid" class="category-item__link">Sẽ thanh toán</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/me/payment/paid" class="category-item__link">Đã thanh toán</a>
+                        </li>
+                        
+                    </ul>
+                </nav>
+    
+                </div>
+                <div class="col">
+                    <div class="container-fluid Pay-content-0">
+                        <div class="Pay-title">
+                            Tổng Quan
+                        </div>
+                        <div class="row Pay-content">
+    
+                            <div class="col-4 Pay-content-1">
+                                <div class="Pay-label">Sẽ thanh toán</div>
+                                
+                                <div class="">
+                                    <div class="Pay-label-2">Tổng cộng</div>
+                                    <div class="Pay-coin d-flex align-items-baseline">
+                                        <div class="Pay-coin-label">
+                                            đ
+                                        </div>
+                                        <div class="Pay-coin-text">
+                                            {{totalUnpaid}}
+                                        </div>
+                                    </div>
+                                </div>
+    
+                            </div>
+                            <div class="col">
+                                <div class="Pay-label">Đã thanh toán</div>
+                                <div class="d-flex align-items-center justify-content-sm-between">
+    
+                                    <div class="">
+    
+                                        <div class="Pay-label-2">Tuần này</div>
+                                        <div class="Pay-coin d-flex align-items-baseline ">
+                                            <div class="Pay-coin-label">
+                                                đ
+                                            </div>
+                                            <div class="Pay-coin-text">
+                                                {{totalPaid}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="">
+    
+                                        <div class="Pay-label-2">Tháng này</div>
+                                        <div class="Pay-coin  d-flex align-items-baseline">
+                                            <div class="Pay-coin-label">
+                                                đ
+                                            </div>
+                                            <div class="Pay-coin-text">
+                                                0
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="">
+    
+                                        <div class="Pay-label-2">Tổng cộng</div>
+                                        <div class="Pay-coin  d-flex align-items-baseline">
+                                            <div class="Pay-coin-label">
+                                                đ
+                                            </div>
+                                            <div class="Pay-coin-text">
+                                                0
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class=" app-content-6 d-flex justify-content-between align-items-center">
+                            <div class="label">
+                                Chi Tiết
+                            </div>
+                            <div class="manage-product-search__input" placeholder="Tìm đơn hàng" type="search">
+                                <div class="manage-product-search__input-1">
+                                    <input class="form-control search-input" placeholder="Tìm sản phẩm"
+                                        type="search">
+                                </div>
+                                <div class="manage-product-search__input-2">
+                                    <i class="fas fa-search manage-product-search__icon"></i>
+                                </div>
+    
+                            </div>  
+    
+                        </div>
+                        <div class="app-content-3">
+                            <div class="manage-product-tab">
+                                <button class="btn1 btn-tab">
+                                      <a href="/me/payment/unpaid"> Sẽ thanh toán</a>
+                                </button>
+                                <button class="btn1 btn-tab">
+                                    <a href="/me/payment/paid"> Đã thanh toán</a>
+                                   
+                                </button>
+                              
+                            </div>
+                        </div>
+                        <div class="app-content-1">
+                            
+                            <div class="app-content-3">
+                                <div class="d-flex align-items-center justify-content-lg-between">
+                                    <div class="p-2 flex-fill">
+                                        <div class="manage-product-search__input" placeholder="Tìm đơn hàng" type="search">
+                                            <div class="manage-product-search__input-1">
+                                                <input class="form-control search-input" placeholder="Tìm sản phẩm"
+                                                    type="search">
+                                            </div>
+                                            <div class="manage-product-search__input-2">
+                                                <i class="fas fa-search manage-product-search__icon"></i>
+                                            </div>
+    
+                                        </div>  
+                                    </div>
+                                    
+    
+    
+                                </div>
+                                <div class="app-content-4 d-flex align-items-center justify-content-between">
+                                    <div class="orders-label">
+                                        Đơn hàng
+                                    </div>
+                                   
+                                </div>
+                                <div class="app-content-5">
+                                    <table class="table-manage-product">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th scope="col">#</th>
+                                                <th scope="col">
+                                                     ID đơn hàng
+                                                {{{sortable '_id' _sort}}}
+                                                </th>
+                                                <th scope="col">
+                                                    Người mua                                       
+                                                {{{sortable 'name' _sort}}}
+                                                </th>
+                                                <th scope="col">
+                                                    Trạng thái
+                                                    {{{sortable 'status' _sort}}}
+                                                </th>
+                                                <th scope="col">
+                                                    Số tiền
+                                                    {{{sortable 'products.total_cost' _sort}}}
+                                                </th>
+                                                <th scope="col">
+                                                    Thời gian tạo
+                                                    {{{sortable 'createdAt' _sort}}}
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                             {{#each orders}}
+                                        <tr class="">
+                                            <th scope="row">{{sum @index 1}}</th>
+                                            <td>{{this._id}}</td>
+                                            <td> {{this.name}}</td>
+                                            <td>{{this.status}}</td>
+
+                                      
+                                             <td>{{this.payment}}</td>
+                                            <td>{{this.createdAt}}</td>
+                                        
+                                        </tr>
+                                        {{else}}
+                                        <tr>
+                                        <td colspan="10" class="text-center"> 
+                                        Bạn không có đơn hàng nào chờ thanh toán!
+                                        {{!-- <a href="/courses/create">Đăng khóa học.</a> --}}
+                                        </td>
+                                        </tr>
+                                        {{/each}}
+                                        
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

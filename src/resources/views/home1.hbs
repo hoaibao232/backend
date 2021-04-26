@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopee</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
+   
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    
+</head>
+<body>
+    
+     
+       
+        <div class="container-fluid">
+           <div class="grid1">
+                <div class="grid__row app__content">
+                    <div class="grid__col-2">
+                        <nav class="category">
+                            <h3 class="category__heading">
+                                <i class="category__heading-icon fas fa-list"></i>
+                                DANH MỤC
+                            </h3>
+                            <ul class="category-list">
+                                <li class="category-item category-item--active">
+                                    <a href="#" class="category-item__link">Văn Học</a>
+                                </li>
+                                <li class="category-item">
+                                    <a href="#" class="category-item__link">Kinh Tế</a>
+                                </li>
+                                <li class="category-item">
+                                    <a href="#" class="category-item__link">Tâm Lý - Kĩ Năng Sống</a>
+                                </li>
+                                <li class="category-item">
+                                    <a href="#" class="category-item__link">Sách Thiếu Nhi</a>
+                                </li>
+                                <li class="category-item">
+                                    <a href="#" class="category-item__link">Tiểu Sử - Hồi Kí</a>
+                                </li>
+                                <li class="category-item">
+                                    <a href="#" class="category-item__link">Sách Học Ngoại Ngữ</a>
+                                </li>
+                                <li class="category-item">
+                                    <a href="#" class="category-item__link">Sách Giáo Khoa</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="grid__col-10">
+                        <div class="home-filter">
+                            <span class="home-filter__label">Sắp xếp theo</span>
+                            {{!-- <button class="home-filter__btn btn1">Phổ biến</button> --}}
+                            <a class="home-filter__btn btn1 btn--primary" href="?_sort&column=createdAt&type=desc">Mới nhất</a>
+                            <a class="home-filter__btn btn1" href="?_sort&column=sold&type=desc">Bán chạy</a>
+
+                            <div class="select-input">
+                                <span class="select-input__label">Giá</span>
+                                <i class="select-input__icon fas fa-angle-down"></i>
+                                <ul class="select-input__list">
+                                    <li class="select-input__item">
+                                        <a href="?_sort&column=price&type=asc" class="select-input__link">Giá: Thấp đến cao</a>
+                                    </li>
+                                    <li class="select-input__item">
+                                        <a href="?_sort&column=price&type=desc" class="select-input__link">Giá: Cao đến thấp</a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+
+                            <div class="home-filter__page">
+                                <span class="home-filter__page-num d-flex align-items-center">
+                                    <div class="home-filter__page-current" >{{current}}</div>
+                                    {{!-- <input type="text" class="home-filter__page-current" value="{{current}}"> --}}
+                                    <div class="">/</div>
+                                     {{!-- <input type="text" class="home-filter__page-current1" value={{pages}}> --}}
+                                     <div class="home-filter__page-current1">{{pages}}</div>
+                                    
+                                    
+                                </span>
+                               
+                                    
+
+                                <div class="home-filter__page-control">
+                                    {{!-- <a href="#" class="home-filter__page-btn home-filter__page-btn--disable"> --}}
+                                    <button class="home-filter__page-btn home-filter__page-btn--disable">
+                                        <i class="home-filter__page-btn-icon fas fa-angle-left"></i>
+                                    </button>
+                                    <button class="home-filter__page-btn1" type="button">
+                                        <i class="home-filter__page-btn-icon fas fa-angle-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    
+                        <div class="home-product">
+                            
+                            <div class="grid__row">
+                                {{#each books}}
+                                
+                                    <div class="grid__col-2-4">
+                                        
+                                        
+                                        <!-- Product Item -->
+                                          
+                                        
+                                        
+                                        <a href="/books/{{this.slug}}" class="home-product-item-link">
+                                        <div class="home-product-item">
+                                            
+                                                <div class="home-product-item__img" style="background-image: url(../{{this.image}})">
+                                                                {{!-- <img class="home-product-item__im" src="{{this.image}}" alt="{{this.name}}"> --}}
+                                                </div>
+                                          
+                                            <!-- Thay đổi tên -->
+                                            <h4 class="home-product-item__name">{{this.name}}
+                                            </h4>
+                                            <div class="home-product-item__price">
+                                                <!-- Giá cũ -->
+                                                {{!-- <span class="home-product-item__price-old">300.000đ</span> --}}
+                                                <!-- Giá hiện tại -->
+                                                <span class="home-product-item__price-current">{{this.price}}đ</span>
+                                                
+                                            </div>
+
+                                            <div class="home-product-item__action">
+
+                                                <!-- neu like thi them class  home-product-item__liked vao the span-->
+                                                <span class="home-product-item__like">
+                                                    <i class="home-product-item__like-icon far fa-heart"></i>
+                                                    <i class="home-product-item__liked-icon fas fa-heart"></i>
+
+                                                </span>
+
+                                                {{!-- <div class="home-product-item__rating">
+                                                    <i class="home-product-item__star--gold fas fa-star"></i>
+                                                    <i class="home-product-item__star--gold fas fa-star"></i>
+                                                    <i class="home-product-item__star--gold fas fa-star"></i>
+                                                    <i class="home-product-item__star--gold fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    
+                                                </div> --}}
+                                                <!-- Số sản phẩm đã bán -->
+                                                <span class="home-product-item__sold">{{this.sold}} đã bán</span>
+
+                                            </div>
+
+                                            <div class="home-product-item__origin">
+                                                <!-- Nhà xuất bản -->
+                                                <span class="home-product-item__brand">{{this.shopname}}</span>
+                                                <!-- Xuất xứ -->
+                                                {{!-- <span class="home-product-item__origin-name">Việt Nam</span> --}}
+                                            </div>
+                                            
+                                            <div class="home-product-item__favourite">
+                                                <i class="fas fa-check"></i>
+                                                <span>
+
+                                                    Yêu thích
+                                                </span>
+                                            </div>
+
+                                            {{!-- <div class="home-product-item__sale-off">
+                                                <!-- Số % giảm dựa vào giá cũ và giá mới -->
+                                                <span class="home-product-item__sale-off-percent">33%</span>
+                                                <div class="home-product-item__sale-off-label">GIẢM</div>
+                                            
+                                            </div>   --}}
+                                        </div>  
+                                         
+                                        </a>
+                                                        
+                                    
+                                </div>
+                                {{/each}}   
+                                
+                            </div>
+                            </div>
+                        </div>
+                       
+
+                    </div>
+                </div>
+           </div>
+       
+
+        
+   
+</body>
+
+<script>
+    var $next = document.querySelector('.home-filter__page-btn1');
+    var $previous = document.querySelector('.home-filter__page-btn');
+    var $current = document.querySelector('.home-filter__page-current');
+    var $pages = document.querySelector('.home-filter__page-current1');
+
+    
+
+     $next.addEventListener('click', function(){
+        if($current.innerText.length == 0) { $current.innerText = 1}
+        if(parseInt($current.innerText) < parseInt($pages.innerText))
+         {
+             $current.innerText = parseInt($current.innerText) + 1
+         }
+         else{
+              $current.innerText = parseInt($current.innerText);
+         }
+        
+        window.location.href=`?page=${$current.innerText}`;
+    }, false);
+
+    $previous.addEventListener('click', function(){
+        if($current.innerText.length == 0) { $current.innerText = 1}
+        $current.innerText = parseInt($current.innerText) > 1 ? parseInt($current.innerText) - 1 : parseInt($current.innerText);
+         //if($current.innerText.length == 0) { $current.innerText = 1}
+        window.location.href=`?page=${$current.innerText}`;
+    }, false);
+   
+</script>
+
+</html>

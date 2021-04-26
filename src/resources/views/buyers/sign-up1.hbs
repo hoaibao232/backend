@@ -1,0 +1,44 @@
+{{#if success }}
+    <div class="alert alert-success" role="alert">
+    <strong>Chúc mừng!</strong> Bạn đã đăng kí tài khoản mua hàng thành công.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+
+  {{ else }}
+   {{#if errors }}
+       <section class="errors">
+        <ul>
+          {{#each errors }}
+         <div class="alert alert-danger" role="alert">
+          {{this.msg}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+         {{/each}}
+    </ul>
+  </section>
+{{/if}}
+{{/if}}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng kí</title>
+    
+</head>
+<body>
+     <div class="grid__full-width app-login" style="background-image: url(https://cdn.mos.cms.futurecdn.net/KMetFQX5UXdhydvbBzUxDA-1200-80.jpg);">    
+       <div class="row d-flex justify-content-center app-login">
+            <div class="col-4 app-login-2">
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
