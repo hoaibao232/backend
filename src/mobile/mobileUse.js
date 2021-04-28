@@ -89,7 +89,7 @@ module.exports = function mobileUse(req,res,next)
             Book.find({})
                 .then(books => {
                     io.emit('serverHomeProducts', JSON.parse(JSON.stringify(books)));
-                    console.log(JSON.parse(JSON.stringify(books)))
+                    // console.log(JSON.parse(JSON.stringify(books)))
                     // console.log(arg);
                     
                 })
@@ -101,7 +101,7 @@ module.exports = function mobileUse(req,res,next)
                 Buyer.findOne({_id : arg})
                     .then(buyer => {
                         io.emit('serverBuyerProfile', JSON.parse(JSON.stringify(buyer)));
-                        console.log(JSON.parse(JSON.stringify(buyer)))
+                        // console.log(JSON.parse(JSON.stringify(buyer)))
                         // console.log(arg);
                     })
     
@@ -115,6 +115,7 @@ module.exports = function mobileUse(req,res,next)
                             buyername: arg.name,
                             address: arg.address,
                             phone: arg.phone,
+                            password : arg.password,
                          })
                          
                             .then({})
@@ -252,14 +253,14 @@ module.exports = function mobileUse(req,res,next)
 
                //CART TO ORDER
                socket.on('cartToOrders', (arg) => {
-                console.log(arg);
+                // console.log(arg);
                 var cartIds = [];
                 arg.forEach(function(document) 
                 {
                     cartIds.push(document._id);
                             
                 })
-                console.log(cartIds);
+                // console.log(cartIds);
 
                 Cart.find({_id: { $in : cartIds }})
                 .then(carts => {
@@ -290,43 +291,105 @@ module.exports = function mobileUse(req,res,next)
                                 })
                         })
 
-                        var books = [];
-                        Cart.find({_id: { $in : cartIds }})
-                            .then(carts => {
-                                carts.forEach(function(document) 
-                                {
-                                var output = 
-                                        {
-                                            quantity: document.quantity,
-                                            tittle: document.productname,
-                                            unit_cost: document.price,
-                                            total_cost: document.totalprice,
-                                            sellerId: document.sellerID,
-                                            bookId : document.productID,
-                                            cartId : document._id,
-                                            sellerName : document.sellerName,
-                                        }
-                                    
-                                    //console.log(output)
-                                    //books.push(output)    
-                                
-                                    // req.body.userID = req.signedCookies.userId;
-                                    // req.body.products = output;
-                                    const order = new Order({
-                                        userID : arg[0].userID,
-                                        products : output,
-
-                                    });
-                                    order.save();   
-                                    
+                        Cart.aggregate([
+                            { $group: { 
+                                _id: "$sellerID",
+                                count: { $sum:  1 },
+                                docs: { $push: "$_id"}
+                            }},
+                            { $match: {
+                                count: { $gt : 0 },
+                                // _id: { $in : req.body.cartIds }
+                            }}
+                        ])
+                        .then(result => {
+                            // console.log(result)
+                            result.forEach(function(group) {
+                            var kk = [];
+                            var total = 0;
+                            var sellername;
+                            Cart.find({ $and : [ {_id: { $in : group.docs }}, {_id: { $in : cartIds }}]   })
+                                .then(carts => {
+                                    // console.log(carts);
+                                    carts.forEach(function(document) {
+                                        console.log(document._id);
+                                        var output = 
+                                    {
+                                        quantity: document.quantity,
+                                        tittle: document.productname,
+                                        unit_cost: document.price,
+                                        total_cost: document.totalprice,
+                                        sellerId: document.sellerID,
+                                        bookId : document.productID,
+                                        cartId : document._id,
+                                        
+                                    }
+                                        console.log(document._id);
+                                        kk.push(output);
+                                        total = total + document.totalprice;
+                                        sellername = document.sellerName;
+                                    })
+    
+                                    // console.log(kk);
+                                    // console.log(group._id);
+                                    if(kk.length != 0)
+                                    {
+                                        var order1 = new Order(
+                                            {
+                                                name : arg[0].name,
+                                                address : arg[0].address,
+                                                addresspm : arg[0].addresspm,
+                                                phone : arg[0].phone,
+                                                userID : arg[0].userID,
+                                                products : kk,
+                                                sellerID : group._id,
+                                                payment : total,
+                                                sellerName : sellername,
+                                            }
+                                        );
+                                        order1.save();
+                                        
+                                    }
                                 })
-
-                                Cart.deleteMany({_id: { $in : cartIds }})
+                            })
+                            Cart.deleteMany({_id: { $in : cartIds }})
                                     .then({})
+            
+                        })
+
+                        // var books = [];
+                        // Cart.find({_id: { $in : cartIds }})
+                        //     .then(carts => {
+                        //         carts.forEach(function(document) 
+                        //         {
+                        //         var output = 
+                        //                 {
+                        //                     quantity: document.quantity,
+                        //                     tittle: document.productname,
+                        //                     unit_cost: document.price,
+                        //                     total_cost: document.totalprice,
+                        //                     sellerId: document.sellerID,
+                        //                     bookId : document.productID,
+                        //                     cartId : document._id,
+                        //                     sellerName : document.sellerName,
+                        //                 }
+                                    
+                                  
+                        //             const order = new Order({
+                        //                 userID : arg[0].userID,
+                        //                 products : output,
+
+                        //             });
+                        //             order.save();   
+                                    
+                        //         })
+
+                        //         Cart.deleteMany({_id: { $in : cartIds }})
+                        //             .then({})
 
                                 
                 
-                })
+                // })
 
                     
                 })
@@ -400,41 +463,37 @@ module.exports = function mobileUse(req,res,next)
                         var output1 = [];
                         orders.forEach(function(document) 
                         {
-                            var sent = [
-                                document.userID,
-                                // document.status,
-                                // document.products,
-                            ];
+                            
 
-                        output1.push(sent);         
+                        output1.push(document);         
                         })
-                        io.emit('serverOrderAllID', JSON.parse(JSON.stringify(output1)))
+                        io.emit('serverOrderAll', JSON.parse(JSON.stringify(output1)))
+                        console.log(output1);
 
-                        var output2 = [];
-                        orders.forEach(function(document) 
-                        {
-                            var sent = [
-                                document.status,
-                            ];
+                        // var output2 = [];
+                        // orders.forEach(function(document) 
+                        // {
+                        //     var sent = [
+                        //         document.status,
+                        //     ];
 
-                        output2.push(sent);         
-                        })
-                        io.emit('serverOrderAllStatus', JSON.parse(JSON.stringify(output2)))
+                        // output2.push(sent);         
+                        // })
+                        // io.emit('serverOrderAllStatus', JSON.parse(JSON.stringify(output2)))
 
-                        var output3 = [];
-                        orders.forEach(function(document) 
-                        {
-                            var sent = [
-                                
-                                document.products,
-                            ];
+                        // var output3 = [];
+                        // orders.forEach(function(document) 
+                        // {
+                        //     var sent = [
+                        //         document.products,
+                        //     ];
 
-                        output3.push(sent);         
-                        })
-                        io.emit('serverOrderAllProducts', JSON.parse(JSON.stringify(output3)))
-
+                        // output3.push(sent);         
+                        // })
+                        // io.emit('serverOrderAllProducts', JSON.parse(JSON.stringify(output3)))
 
 
+                        // console.log()
                        
                         // io.emit('serverOrderAll', JSON.parse(JSON.stringify(output1)))
                         // console.log(JSON.parse(JSON.stringify(output1)))
