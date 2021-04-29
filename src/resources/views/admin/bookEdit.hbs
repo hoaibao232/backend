@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sửa sản phẩm</title>
+   
+</head>
+<body>
+   
+        <div class="grid1">
+            <form class="container-info" method="POST" enctype = "multipart/form-data" action="/admin/stored/books/{{book._id}}?_method=PUT">
+                <div class="grid__row d-flex justify-content-center">
+                    <div class="info-label ">
+                        Thông tin sản phẩm
+                    </div>
+                </div>
+                <div class="grid__row row-info">
+                    <div  class="info-product info-product-name">
+                        <div class="grid__col-2 ">
+                            <div class="product-title">
+                                <div class="">*</div>
+                                <div class="product-title-text">Tên sản phẩm</div>
+                            </div>
+                        </div>
+                        <div class="grid__col-10">
+                            <div class="product-value">
+                                <input type="text" class="product-value-input" id="name" name = "name" value="{{book.name}}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div  class="info-product info-product-descript">
+                        <div class="grid__col-2">
+                            <div class="product-title">
+                                <div class="">*</div>
+                                <div class="product-title-text">Mô tả sản phẩm</div>
+                            </div>
+                        </div>
+                        <div class="grid__col-10">
+                            <div class="product-value-2">
+                                 <textarea cols="30" rows="14" maxlength="3000" style="width: 100%;" id="description" name = "description">{{book.description}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- <div class="info-product info-product-category">
+                        <div class="grid__col-2">
+                            <div class="product-title">
+                                <div class="">*</div>
+                                <div class="product-title-text">Danh mục</div>
+                            </div>
+                        </div>
+                        <div class="grid__col-10">
+                            <div class="product-value">
+                                <input type="text" class="product-value-input">
+                            </div>
+                        </div>
+                    </div> --}}
+
+                    {{!-- <div class="info-product info-product-author">
+                        <div class="grid__col-2">
+                            <div class="product-title">
+                                <div class="">*</div>
+                                <div class="product-title-text">Tác giả</div>
+                            </div>
+                        </div>
+                        <div class="grid__col-10">
+                            <div class="product-value">
+                                <input type="text" class="product-value-input">
+                            </div>
+                        </div>
+                    </div> --}}
+
+                    {{!-- <div class="info-product info-product-year-publish">
+                        <div class="grid__col-2">
+                            <div class="product-title">
+                                <div class="">*</div>
+                                <div class="product-title-text">Năm xuất bản</div>
+                            </div>
+                        </div>
+                        <div class="grid__col-10">
+                            <div class="product-value">
+                                <input type="text" class="product-value-input">
+                            </div>
+                        </div>
+                    </div> --}}
+
+                    {{!-- <div class="info-product info-product-quantity-page">
+                        <div class="grid__col-2">
+                            <div class="product-title">
+                                <div class="">*</div>
+                                <div class="product-title-text">Số trang</div>
+                            </div>
+                        </div>
+                        <div class="grid__col-10">
+                            <div class="product-value">
+                                <input type="text" class="product-value-input">
+                            </div>
+                        </div>
+                    </div> --}}
+
+                    <div class="info-product info-product-price">
+                        <div class="grid__col-2">
+                            <div class="product-title">
+                                <div class="">*</div>
+                                <div class="product-title-text">Giá</div>
+                            </div>
+                        </div>
+                        <div class="grid__col-10">
+                            <div class="product-value">
+                                <input type="text" class="product-value-input" id="price" name = "price"  value="{{book.price}}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-product info-product-warehouse">
+                        <div class="grid__col-2">
+                            <div class="product-title">
+                                <div class="">*</div>
+                                <div class="product-title-text">Kho hàng</div>
+                            </div>
+                        </div>
+                        <div class="grid__col-10">
+                            <div class="product-value">
+                                <input type="text" class="product-value-input" id="quantities" name = "quantities" value="{{book.quantities}}">
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- <div class="info-product info-product-classifycation">
+                        <div class="grid__col-2">
+                            <div class="product-title">
+                                <div class="">*</div>
+                                <div class="product-title-text">Phân loại hàng</div>
+                            </div>
+                        </div>
+                        <div class="grid__col-10">
+                            <div class="product-value">
+                                <input type="text" class="product-value-input">
+                            </div>
+                        </div>
+                    </div> --}}
+                    <div class="info-product info-product-classifycation">
+                        <div class="grid__col-2">
+                            <div class="product-title">
+                                <div class="">*</div>
+                                <div class="product-title-text">Hình ảnh</div>
+                            </div>
+                        </div>
+                        <div class="grid__col-10">
+                            <div class="product-value">
+                                <input type="file" class="form-control-file" id="image" name = "image">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-product d-flex justify-content-center">
+                        <button type="submit" class="btn1 btn--primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+             
+        </div>
+  
+</body>
+</html>

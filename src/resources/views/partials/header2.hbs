@@ -118,6 +118,51 @@
                             </ul>
 
                         </li>
+                        
+                        {{else if admin}}
+                       
+                        <li class="header__navbar-item header__navbar-user">
+                            <img src="{{admin.avatar}}" alt="" class="header__navbar-user-img">
+                            <span class="header__navbar-user-name">{{admin.username}}</span>
+                            <ul class="header__navbar-user-menu">
+                                <a href="/admin/info">
+                                    <li class="header__navbar-user-item">
+                                        Tài khoản của tôi
+                                    </li>
+                                </a>
+                                <a href="/admin/stored/buyers">
+                                    <li class="header__navbar-user-item">
+                                   Quản lý người mua
+                                    </li>
+                                </a>
+                                <a href="/admin/stored/sellers">
+                                    <li class="header__navbar-user-item">
+                                   Quản lý người bán
+                                    </li>
+                                </a>
+                                 <a href="/admin/stored/books">
+                                    <li class="header__navbar-user-item">
+                                   Quản lý sản phẩm
+                                    </li>
+                                </a>
+                                <a href="/admin/stored/orders/all">
+                                    <li class="header__navbar-user-item">
+                                        Quản lý đơn hàng
+                                    </li>
+                                </a>
+                                 <a href="/admin/payment/unpaid">
+                                    <li class="header__navbar-user-item">
+                                    Quản lý thanh toán
+                                    </li>
+                                </a>
+                                <a href="/admin/logout">
+                                    <li class="header__navbar-user-item">
+                                        Đăng xuất
+                                    </li>
+                                </a>
+                            </ul>
+
+                        </li>
 
                         {{else}}
 

@@ -37,7 +37,16 @@ class BooksController {
                 req.body.shopname = seller.shopname;
                 const book = new Book(req.body);
                 book.save()
-                    .then(() => res.redirect('/me/stored/books'))
+                    .then(() => {
+                    
+                        Seller.updateOne({_id: req.signedCookies.sellerId }, { $inc: {productsCount : 1} }, function(err, doc) {
+                            if (err) return console.error(err);
+                            console.log("Update book successfully!");
+                          });
+                        
+                     res.redirect('/me/stored/books')  
+                    }
+                    )
                     .catch(error => {});
             })
         

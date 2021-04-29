@@ -174,7 +174,10 @@ class BuyerController {
 
     update(req,res,next)
     {
-        req.body.avatar = "\\" + req.file.path.split('\\').slice(1).join('\\');
+        if(req.file)
+        {
+            req.body.avatar = "\\" + req.file.path.split('\\').slice(1).join('\\');
+        }
         Buyer.updateOne({_id: req.params.id }, req.body)
             .then(() => res.redirect('/buyer/info'))
             .catch(next);

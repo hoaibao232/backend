@@ -19,7 +19,7 @@ const server = require('http').createServer(express);
 const io = require('socket.io')(server);
 const fs = require('fs');
 
-const urlencodedParser = bodyParser.urlencoded({extended : false});
+const urlencodedParser = bodyParser.urlencoded({extended : true});
 
 const app = express();
 const port = 3001;

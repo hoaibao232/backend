@@ -9,7 +9,8 @@ const sellersRouter = require('./sellers');
 const AuthSeller = require('../middlewares/seller.auth.middleware');
 const AuthCommon = require('../middlewares/auth.middleware.common');
 const ordersRouter = require('./orders');
-
+const adminRouter = require('./admin');
+const AuthAdmin = require('../middlewares/admin.auth.middleware');
 
 function route(app)
 {
@@ -20,6 +21,7 @@ function route(app)
     app.use('/seller', sellersRouter);
     app.use('/order', ordersRouter);
     app.use('/cart', authMiddleware.requireAuth, cartsRouter);
+    app.use('/admin', adminRouter);
       app.use('/', siteRouter);
       //app.get('/news', (req, res) => {
         //res.render('news');

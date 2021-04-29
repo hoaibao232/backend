@@ -15,6 +15,17 @@ const Buyer = new Schema({
   }, {timestamps: true,
   });
 
+  Buyer.query.sortable = function (req) {
+    if(req.query.hasOwnProperty('_sort')) {
+      const isVaildtype = ['asc', 'desc'].includes(req.query.type);
+      return this.sort({
+        [req.query.column] : isVaildtype ? req.query.type : 'desc',
+      });
+  }
+  return this;
+
+  }
+
   mongoose.plugin(slug);
   Buyer.plugin(mongooseDelete,{ 
     deletedAt: true,  

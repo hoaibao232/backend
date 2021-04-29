@@ -1,0 +1,291 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+
+
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="container-fluid app-content">
+        <div class="row app-content0">
+            <div class="col-2 col1 d-flex ">
+                  <nav class="category1">
+                    <div class="category__info">
+                        <div class="info-image">
+                            <img src={{seller.avatar}} alt="avatar">
+                        </div>
+                        
+                        <div class="info-name">
+                                {{seller.username}}
+                        </div>
+                           
+                       
+                    </div>
+                    <h3 class="category__heading">
+                        Tài khoản của tôi
+                    </h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="/seller/info" class="category-item__link">Hồ sơ</a>
+                        </li>
+                    
+
+                    </ul>
+                    <h3 class="category__heading">
+                        Quản lý sản phẩm
+                    </h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="/me/stored/books" class="category-item__link">Tất cả sản phẩm</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/books/create" class="category-item__link">Thêm sản phẩm</a>
+                        </li>
+
+                    </ul>
+                    <h3 class="category__heading">
+                        Quản lý đơn hàng
+                    </h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="/me/stored/orders/all" class="category-item__link">Tất cả đơn hàng</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/me/stored/orders/canceled" class="category-item__link">Đơn huỷ</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/me/stored/orders/return" class="category-item__link">Trả hàng/Hoàn tiền</a>
+                        </li>
+
+                    </ul>
+
+                     <h3 class="category__heading">
+                        Thanh toán
+                    </h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="/me/payment/unpaid" class="category-item__link">Sẽ thanh toán</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/me/payment/paid" class="category-item__link">Đã thanh toán</a>
+                        </li>
+                        
+                    </ul>
+                </nav>  
+
+            </div>
+            <div class="col">
+                <div class="container-fluid">
+                    <div class="app-content-2">
+                        <div class="manage-product-tab">
+                            <a class="btn1 btn-tab active" href="/me/stored/books" >
+                                Tất cả <span class="sr-only">(current)</span>
+                            </a>
+                            <a class="btn1 btn-tab" href="/me/stored/books/active">
+                                Đang hoạt động
+                            </a>
+                            <a class="btn1 btn-tab" href="/me/stored/books/inactive">
+                               Hết hàng
+                            </a>
+                            <a class="btn1 btn-tab" href="/me/trash/books">
+                               Thùng rác({{deletedCount}})
+                            </a>
+                            
+                        </div>
+                    </div>
+                    <div class="app-content-1">
+                        
+                        <div class="app-content-3">
+                            <div class="d-flex align-items-center justify-content-lg-between">
+                                <div class="p-2 flex-fill">
+                                    <div class="manage-product-search__input" placeholder="Tìm đơn hàng" type="search">
+                                        <div class="manage-product-search__input-1">
+                                            <input class="form-control search-input" placeholder="Tìm sản phẩm"
+                                                type="search">
+                                        </div>
+                                        <div class="manage-product-search__input-2">
+                                            <i class="fas fa-search manage-product-search__icon"></i>
+                                        </div>
+
+                                    </div>  
+                                </div>
+                                <div class="p-2 flexx-fill d-flex align-items-center">
+                                    <div class="manage-product-order  d-flex align-items-center ">
+
+                                        
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="app-content-4 d-flex align-items-center justify-content-between">
+                                <div class="orders-label">
+                                    ĐƠN HÀNG CỦA NGƯỜI MUA
+                                   
+                                </div>
+                                <div class="orders-btn">
+
+                                </div>
+                            </div>
+                            <div class="app-content-5">
+                                <table class="table-manage-product table-striped text-center table-bordered">
+                                    <thead>
+                                        <colgroup>
+                                            <col width="20" span="1">
+                                            <col width="150" span="1">
+                                            <col width="500" span="1">
+                                            <col width="100" span="1">
+                                            <col width="90" span="1">
+                                            <col width="90" span="1">
+                                            <col width="120" span="1">
+                                            <col width="120" span="1">
+                                            <col width="140" span="1">
+                                            <col width="100" span="1">
+                                           
+                                        </colgroup>
+                                        <tr class="table-primary">
+                                            <th scope="col">#</th>
+                                            <th scope="col ">
+                                                ID đơn hàng
+                                                  {{{sortable '_id' _sort}}}
+                                            </th>
+                                            <th scope="col">
+                                                Sản phẩm
+                                                {{{sortable 'products.tittle' _sort}}}
+                                            </th>
+                                            <th scope="col">
+                                               Số lượng
+                                                {{{sortable 'products.quantity' _sort}}}
+                                            </th>
+                                            <th scope="col">
+                                                Tổng tiền
+                                                {{{sortable 'products.total_cost' _sort}}}
+                                            </th>
+                                            <th scope="col">
+                                               Người bán
+                                                {{{sortable 'products.sellerName' _sort}}}
+                                            </th>
+                                            <th scope="col">
+                                               Trạng thái
+                                                {{{sortable 'products.sellerName' _sort}}}
+                                            </th>
+                                            <th scope="col">
+                                              Thao tác
+                                            </th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each orders}}
+                                        <tr class="">
+                                            <th scope="row">{{sum @index 1}}</th>
+                                             <td>{{this._id}}</td>
+                                             <td>
+                                             {{#each products}}
+                                            {{#unless @first}}, {{/unless}}
+                                            {{this.tittle}}
+                                        {{/each}}</td>
+
+                                            <td>
+                                        {{#each products}}
+                                            {{#unless @first}}, {{/unless}}
+                                            {{this.quantity}}
+                                        {{/each}}</td>
+                                        
+                                              <td>{{this.payment}}</td>
+                                             <td> 
+                                            {{this.sellerName}}
+                                          </td>
+                                          <td>{{this.status}}</td>
+                                           <td>
+                                              <a href="/books/{{this._id}}/edit" class="btn btn-primary">Sửa</a>
+                                              <a href="" class="btn btn-primary" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-course-modal">Xóa</a>
+                                          </td>
+                                        </tr>
+                                        {{else}}
+                                        <tr>
+                                        <td colspan="6" class="text-center"> 
+                                        Bạn chưa đăng sản phẩm nào!
+                                        <a href="/courses/create">Đăng sản phẩm.</a>
+                                        </td>
+                                        </tr>
+                                        {{/each}}
+                                    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+  <div id="delete-course-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa khóa học</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn xóa khóa học này?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete-course" type="button" class="btn btn-danger">Xóa bỏ</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{!-- Delete hidden form --}}
+<form name="delete-course-form" method="POST"></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (){
+        var courseId;
+        var btnDeleteCourse = document.getElementById('btn-delete-course')
+        var deleteForm = document.forms['delete-course-form']
+
+        //when dialog confirm clicked
+         $('#delete-course-modal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) 
+        courseId = button.data('id')
+    });
+
+    btnDeleteCourse.onclick = function(){
+        deleteForm.action = '/books/' + courseId + '?_method=DELETE';
+        deleteForm.submit();
+
+    }
+});
+</script>
+
+
+
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+    
+</body>
+
+</html>

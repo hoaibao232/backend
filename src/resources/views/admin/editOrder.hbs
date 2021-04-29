@@ -1,0 +1,66 @@
+<div class="mt-4">
+    <div>
+      <h3>THÔNG TIN ĐƠN HÀNG</h3>
+    </div>
+
+    <div>
+        {{#each order}}
+        <form method="POST" action="/admin/stored/orders/all/{{this._id}}?_method=PUT">
+             
+          <div class="form-group">
+          <label for="email-input">ID</label>
+          <input type="email" class="form-control" value = {{this._id}} disabled>
+           </div>
+
+             <div class="form-group">
+          <label>Tên người nhận hàng</label>
+          <input type="text" class="form-control" id="name" name="name" value={{this.name}}>
+          </div>
+
+
+           <div class="form-group">
+          <label for="email-input">Sản phẩm</label>
+          
+         
+            {{#each products}}
+                {{#unless @first}}</br> 
+                {{/unless}}
+                {{this.tittle}}
+                 {{!-- <input type="text" class="form-control" id="tittle" name="tittle" value = {{order.products[0].titte}}> --}}
+            {{/each}}
+            
+         
+           </div>
+
+         
+          <div class="form-group">
+          <label>Tổng tiền</label>
+          <input type="number" class="form-control" id="payment" name="payment" value = {{this.payment}}>
+        </div>
+
+
+          
+        <div class="form-group">
+          <label>Địa chỉ giao hàng</label>
+          <input type="text" class="form-control" id="addresspm" name="addresspm" value = {{this.addresspm}}>
+        </div>
+
+         <div class="form-group">
+          <label>Số điện thoại</label>
+          <input type="text" class="form-control" id="phone" name="phone" value = {{this.phone}}>
+        </div>
+        
+         <div class="form-group">
+          <label>Trạng thái</label>
+          <input type="text" class="form-control" id="status" name="status" value = {{this.status}}>
+          </div>
+
+
+        <button type="submit" class="btn btn-primary">CẬP NHẬT</button>
+
+        </form>
+    {{/each}}
+
+    </div>
+
+</div>
