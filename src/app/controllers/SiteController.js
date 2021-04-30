@@ -7,7 +7,7 @@ class SiteController {
     // [GET] /
     index(req, res, next){
         let courseQuery = Book.find({});
-        var perPage = 5
+        var perPage = 10
         var page = req.query.page
        
         if(req.query.hasOwnProperty('_sort')) {
@@ -40,7 +40,7 @@ class SiteController {
     //[GET] /search
     search(req,res,next)
     {
-        var perPage = 5
+        var perPage = 10
         var page = req.query.page
        
         var searchQuery = req.query.search;

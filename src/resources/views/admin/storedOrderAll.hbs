@@ -197,7 +197,10 @@
                                         {{#each orders}}
                                         <tr class="">
                                             <th scope="row">{{sum @index 1}}</th>
-                                             <td>{{this._id}}</td>
+                                             <td>
+                                                 <a href="/admin/stored/orders/all/{{this._id}}/detail">
+                                                 {{this._id}}
+                                                 </a></td>
                                              <td>
                                              {{#each products}}
                                             {{#unless @first}}</br> {{/unless}}

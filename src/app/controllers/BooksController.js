@@ -88,6 +88,15 @@ class BooksController {
     //DELETE /course/:id
     destroy(req,res,next)
     {
+        Book.findOne({_id: req.params.id})
+        .then((books) => {
+                Seller.updateOne({_id: books.sellerID}, { $inc : {productsCount : -1} }, function(err, doc) {
+                  if (err) return console.error(err);
+                  console.log("Document inserted succussfully!");
+                   });
+        })
+    
+
        Book.delete({_id: req.params.id})
             .then(() => res.redirect('back'))
             .catch(next);
@@ -96,9 +105,10 @@ class BooksController {
     //DELETE /course/:id/force
     forceDestroy(req,res,next)
     {
+           
         Book.deleteOne({_id: req.params.id})
-        .then(() => res.redirect('back'))
-        .catch(next);
+            .then(() => res.redirect('back'))
+            .catch(next);
     }
 
      //[PATCH] /course/:id/restore

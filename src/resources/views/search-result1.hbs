@@ -66,20 +66,22 @@
                             </div>
 
                             <div class="home-filter__page">
-                                <span class="home-filter__page-num">
-                                    <input type="text" class="home-filter__page-current" value="{{current}}">
-                                    /
-                                     <input type="text" class="home-filter__page-current1" value={{pages}}>
+                                {{!-- <span class="home-filter__page-num">
+                                     <div class="home-filter__page-current" >{{current}}</div>
+                                   
+                                    <div class="">/</div>
+                                     
+                                     <div class="home-filter__page-current1">{{pages}}</div>
                                     
-                                </span>
-                                <div class="home-filter__page-control">
+                                </span> --}}
+                                {{!-- <div class="home-filter__page-control">
                                      <button class="home-filter__page-btn home-filter__page-btn--disable">
                                         <i class="home-filter__page-btn-icon fas fa-angle-left"></i>
                                     </button>
                                     <button class="home-filter__page-btn1" type="button">
                                         <i class="home-filter__page-btn-icon fas fa-angle-right"></i>
                                     </button>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 
@@ -185,14 +187,23 @@
     
 
      $next.addEventListener('click', function(){
-        $current.value = parseInt($current.value) < parseInt($pages.value) ?  parseInt($current.value) + 1 : parseInt($current.value);
-        if(isNaN($current.value)) { $current.value = parseInt("2")}
-        window.location.href=`?search={{searchQuery}}&_sort&column=sold&type=desc&page=${$current.value}`;
+        if($current.innerText.length == 0) { $current.innerText = 1}
+        if(parseInt($current.innerText) < parseInt($pages.innerText))
+         {
+             $current.innerText = parseInt($current.innerText) + 1
+         }
+         else{
+              $current.innerText = parseInt($current.innerText);
+         }
+        
+        window.location.href=`?page=${$current.innerText}`;
     }, false);
 
     $previous.addEventListener('click', function(){
-        $current.value = parseInt($current.value) > 1 ? parseInt($current.value) - 1 : parseInt($current.value);
-        window.location.href=`?search={{searchQuery}}&_sort&column=sold&type=desc&page=${$current.value}`;
+        if($current.innerText.length == 0) { $current.innerText = 1}
+        $current.innerText = parseInt($current.innerText) > 1 ? parseInt($current.innerText) - 1 : parseInt($current.innerText);
+         //if($current.innerText.length == 0) { $current.innerText = 1}
+        window.location.href=`?page=${$current.innerText}`;
     }, false);
    
 </script>

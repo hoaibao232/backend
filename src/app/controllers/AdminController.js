@@ -135,8 +135,9 @@ class AdminController {
     {
         Order.find({sellerID : req.params.id}).sortable(req)
             .then(orders => {
+                res.locals.seller = req.params.id;
                 res.render('admin/showSellerOrders', {
-                    orders : mutipleMongooseToObject(orders)
+                    orders : mutipleMongooseToObject(orders),
                 })
             })
     }
@@ -153,7 +154,7 @@ class AdminController {
 
     storedBookSeller(req,res,next)
     {
-        Seller.find({})
+        Seller.find({}).sortable(req)
             .then(sellers => {
                 res.render('admin/storedBookSeller', {
                     sellers : mutipleMongooseToObject(sellers)
@@ -296,8 +297,8 @@ class AdminController {
     forceDestroy(req,res,next)
     {
         Buyer.deleteOne({_id: req.params.id})
-        .then(() => res.redirect('back'))
-        .catch(next);
+            .then(() => res.redirect('back'))
+            .catch(next);
     }
 
     editSellers(req,res,next)
@@ -324,8 +325,8 @@ class AdminController {
     forceDestroySeller(req,res,next)
     {
         Seller.deleteOne({_id: req.params.id})
-        .then(() => res.redirect('back'))
-        .catch(next);
+            .then(() => res.redirect('back'))
+            .catch(next);
     }
 
     editBooks(req,res,next)
@@ -358,6 +359,14 @@ class AdminController {
 
     forceDestroyBook(req,res,next)
     {
+        Book.findOne({_id: req.params.id})
+        .then((books) => {
+                Seller.updateOne({_id: books.sellerID}, { $inc : {productsCount : -1} }, function(err, doc) {
+                  if (err) return console.error(err);
+                  console.log("Document inserted succussfully!");
+                   });
+        })
+
         Book.deleteOne({_id: req.params.id})
             .then(() => res.redirect('back'))
             .catch(next);
@@ -456,6 +465,23 @@ class AdminController {
             })
         })
     }
+
+    storedOrderDetail(req,res,next)
+    {
+        Order.find({_id : req.params.id }).sortable(req)
+            .then(orders => {
+                res.render('admin/storedOrderDetail', {
+                orders: mutipleMongooseToObject(orders),
+            })
+        })
+    }
+
+    forceDestroyOrderNow(req,res,next){
+        Order.deleteOne({_id: req.params.id})
+            .then(() => res.redirect('/admin/stored/orders/all'))
+            .catch(next);
+    }
+
 }
 
 module.exports = new AdminController();

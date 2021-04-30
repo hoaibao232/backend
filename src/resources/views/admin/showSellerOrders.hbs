@@ -86,10 +86,10 @@
                 <div class="container-fluid">
                     <div class="app-content-2">
                         <div class="manage-product-tab">
-                            <a class="btn1 btn-tab active" href="/stored/sellers    " >
+                            <a class="btn1 btn-tab active" href="/admin/stored/sellers/{{seller}}" >
                                 Đơn hàng <span class="sr-only">(current)</span>
                             </a>
-                            <a class="btn1 btn-tab" href="/me/stored/books/active">
+                            <a class="btn1 btn-tab" href="/admin/stored/books/seller/{{seller}}">
                                 Sản phẩm
                             </a>
                             
@@ -185,13 +185,13 @@
                                              <td>{{this._id}}</td>
                                              <td>
                                              {{#each products}}
-                                            {{#unless @first}}, {{/unless}}
+                                            {{#unless @first}}</br>{{/unless}}
                                             {{this.tittle}}
                                         {{/each}}</td>
 
                                             <td>
                                         {{#each products}}
-                                            {{#unless @first}}, {{/unless}}
+                                            {{#unless @first}}</br>{{/unless}}
                                             {{this.quantity}}
                                         {{/each}}</td>
                                         
@@ -201,15 +201,15 @@
                                           </td>
                                           <td>{{this.status}}</td>
                                            <td>
-                                              <a href="/books/{{this._id}}/edit" class="btn btn-primary">Sửa</a>
+                                              <a href="/admin/stored/sellers/{{this._id}}/editOrder" class="btn btn-primary">Sửa</a>
                                               <a href="" class="btn btn-primary" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-course-modal">Xóa</a>
                                           </td>
                                         </tr>
                                         {{else}}
                                         <tr>
-                                        <td colspan="6" class="text-center"> 
-                                        Bạn chưa đăng sản phẩm nào!
-                                        <a href="/courses/create">Đăng sản phẩm.</a>
+                                        <td colspan="8" class="text-center"> 
+                                        Người dùng này chưa đăng sản phẩm nào!
+                                        
                                         </td>
                                         </tr>
                                         {{/each}}
@@ -262,7 +262,7 @@
     });
 
     btnDeleteCourse.onclick = function(){
-        deleteForm.action = '/books/' + courseId + '?_method=DELETE';
+        deleteForm.action = '/admin/stored/sellers/' + courseId + '/forceDelete?_method=DELETE';
         deleteForm.submit();
 
     }

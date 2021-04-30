@@ -15,7 +15,7 @@ router.get('/info', AuthAdmin.requireAuthAdmin, adminController.adminInfo);
 router.put('/:id', AuthAdmin.requireAuthAdmin, upload.single('avatar'), adminController.update);
 router.get('/stored/buyers', AuthAdmin.requireAuthAdmin, adminController.storedBuyers);
 router.get('/stored/sellers', AuthAdmin.requireAuthAdmin, adminController.storedSellers);
-router.get('/stored/buyers/:id/detail', AuthAdmin.requireAuthAdmin, adminController.showOrderBuyers);
+
 router.get('/stored/buyers/:id/edit', AuthAdmin.requireAuthAdmin, adminController.editBuyers);
 router.delete('/stored/buyers/:id/force', AuthAdmin.requireAuthAdmin, adminController.forceDestroy);
 router.post('/stored/buyers/:id', upload.single('avatar'), AuthAdmin.requireAuthAdmin, adminController.updateInfoBuyers);
@@ -28,7 +28,17 @@ router.get('/stored/books/:id/edit', AuthAdmin.requireAuthAdmin, adminController
 router.put('/stored/books/:id', upload.single('avatar'), AuthAdmin.requireAuthAdmin, adminController.updateBooks);
 router.delete('/stored/books/:id/force', AuthAdmin.requireAuthAdmin, adminController.forceDestroyBook);
 
+router.get('/stored/buyers/:id/detail', AuthAdmin.requireAuthAdmin, adminController.showOrderBuyers);
+router.get('/stored/buyers/:id/detail/edit', AuthAdmin.requireAuthAdmin, adminController.editOrder);
+// router.put('/stored/buyers/:id/', AuthAdmin.requireAuthAdmin, adminController.updateOrder);
+router.delete('/stored/buyers/:id/detail/forceDelete', AuthAdmin.requireAuthAdmin, adminController.forceDestroyOrder);
+
 router.get('/stored/sellers/:id', AuthAdmin.requireAuthAdmin, adminController.showOrderSellers);
+router.get('/stored/sellers/:id/editOrder', AuthAdmin.requireAuthAdmin, adminController.editOrder);
+// router.put('/stored/sellers/:id/updateOrder', AuthAdmin.requireAuthAdmin, adminController.updateOrder);
+router.delete('/stored/sellers/:id/forceDelete', AuthAdmin.requireAuthAdmin, adminController.forceDestroyOrder);
+
+
 router.get('/stored/books', AuthAdmin.requireAuthAdmin, adminController.storedBook);
 router.get('/stored/books/seller', AuthAdmin.requireAuthAdmin, adminController.storedBookSeller);
 router.get('/stored/books/seller/:id', AuthAdmin.requireAuthAdmin, adminController.storedBookSellerManage);
@@ -41,6 +51,8 @@ router.get('/stored/orders/all/:id/edit', AuthAdmin.requireAuthAdmin, adminContr
 router.put('/stored/orders/all/:id', AuthAdmin.requireAuthAdmin, adminController.updateOrder);
 router.delete('/stored/orders/all/:id/force', AuthAdmin.requireAuthAdmin, adminController.forceDestroyOrder);
 
+router.get('/stored/orders/all/:id/detail', AuthAdmin.requireAuthAdmin, adminController.storedOrderDetail);
+
 router.get('/stored/orders/notApproved', AuthAdmin.requireAuthAdmin, adminController.storedOrdernotApproved);
 
 router.get('/stored/orders/toShip', AuthAdmin.requireAuthAdmin, adminController.storedOrdertoShip);
@@ -52,5 +64,7 @@ router.get('/stored/orders/completed', AuthAdmin.requireAuthAdmin, adminControll
 router.get('/stored/orders/canceled', AuthAdmin.requireAuthAdmin, adminController.storedOrderCanceled);
 
 router.get('/stored/orders/return', AuthAdmin.requireAuthAdmin, adminController.storedOrderReturn);
+
+router.delete('/stored/orders/all/:id/forceNow', AuthAdmin.requireAuthAdmin, adminController.forceDestroyOrderNow);
 
 module.exports = router;

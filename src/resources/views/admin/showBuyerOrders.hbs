@@ -85,7 +85,7 @@
             <div class="col">
                 <div class="container-fluid">
                     <div class="app-content-2">
-                        <div class="manage-product-tab">
+                        {{!-- <div class="manage-product-tab">
                             <a class="btn1 btn-tab active" href="/me/stored/books" >
                                 Tất cả <span class="sr-only">(current)</span>
                             </a>
@@ -99,7 +99,7 @@
                                Thùng rác({{deletedCount}})
                             </a>
                             
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="app-content-1">
                         
@@ -168,15 +168,15 @@
                                             </th>
                                             <th scope="col">
                                                 Tổng tiền
-                                                {{{sortable 'products.total_cost' _sort}}}
+                                                {{{sortable 'payment' _sort}}}
                                             </th>
                                             <th scope="col">
                                                Người bán
-                                                {{{sortable 'products.sellerName' _sort}}}
+                                                {{{sortable 'sellerName' _sort}}}
                                             </th>
                                             <th scope="col">
                                                Trạng thái
-                                                {{{sortable 'products.sellerName' _sort}}}
+                                                {{{sortable 'status' _sort}}}
                                             </th>
                                             <th scope="col">
                                               Thao tác
@@ -191,13 +191,13 @@
                                              <td>{{this._id}}</td>
                                              <td>
                                              {{#each products}}
-                                            {{#unless @first}}, {{/unless}}
+                                            {{#unless @first}} </br> {{/unless}}
                                             {{this.tittle}}
                                         {{/each}}</td>
 
                                             <td>
                                         {{#each products}}
-                                            {{#unless @first}}, {{/unless}}
+                                            {{#unless @first}}</br> {{/unless}}
                                             {{this.quantity}}
                                         {{/each}}</td>
                                         
@@ -207,15 +207,15 @@
                                           </td>
                                           <td>{{this.status}}</td>
                                            <td>
-                                              <a href="/books/{{this._id}}/edit" class="btn btn-primary">Sửa</a>
+                                              <a href="/admin/stored/buyers/{{this._id}}/detail/edit" class="btn btn-primary">Sửa</a>
                                               <a href="" class="btn btn-primary" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-course-modal">Xóa</a>
                                           </td>
                                         </tr>
                                         {{else}}
                                         <tr>
-                                        <td colspan="6" class="text-center"> 
-                                        Bạn chưa đăng sản phẩm nào!
-                                        <a href="/courses/create">Đăng sản phẩm.</a>
+                                        <td colspan="8" class="text-center"> 
+                                        Người dùng này chưa có đơn hàng nào!
+                                        
                                         </td>
                                         </tr>
                                         {{/each}}
@@ -235,13 +235,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Xóa khóa học</h5>
+        <h5 class="modal-title">Xóa đơn hàng</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Bạn chắc chắn muốn xóa khóa học này?</p>
+        <p>Bạn chắc chắn muốn xóa đơn hàng này?</p>
       </div>
       <div class="modal-footer">
         <button id="btn-delete-course" type="button" class="btn btn-danger">Xóa bỏ</button>
@@ -268,15 +268,12 @@
     });
 
     btnDeleteCourse.onclick = function(){
-        deleteForm.action = '/books/' + courseId + '?_method=DELETE';
+        deleteForm.action = '/admin/stored/buyers/' + courseId + '/detail/forceDelete?_method=DELETE';
         deleteForm.submit();
 
     }
 });
 </script>
-
-
-
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
