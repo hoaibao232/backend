@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Document</title>
+
+    <title>Chờ xác nhận</title>
 </head>
 
 <body>
@@ -18,7 +17,7 @@
                 <nav class="category1">
                     <div class="category__info">
                         <div class="info-image">
-                            <img src={{buyer.avatar}} alt="avatar">
+                            <img src="https://phunugioi.com/wp-content/uploads/2020/10/hinh-anh-avatar-doremon-cute.jpg" alt="avatar">
                         </div>
                         
                         <div class="info-name">
@@ -28,19 +27,33 @@
                        
                     </div>
                     <h3 class="category__heading">
-                        Tài khoản của tôi
+                        Tải khoản của tôi
                     </h3>
                     <ul class="category-list">
                         <li class="category-item">
-                            <a href="/buyer/info" class="category-item__link">Hồ sơ</a>
+                            <a href="#" class="category-item__link">Hồ sơ</a>
                         </li>
                         <li class="category-item">
-                            <a href="/order/show" class="category-item__link">Đơn mua</a>
+                            <a href="#" class="category-item__link">Đổi mật khẩu</a>
                         </li>
 
                     </ul>
                     
-                    
+                    <h3 class="category__heading">
+                        Quản lý đơn hàng
+                    </h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="/order/show" class="category-item__link">Tất cả đơn hàng</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/order/show" class="category-item__link">Đơn huỷ</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/order/show" class="category-item__link">Trả hàng/Hoàn tiền</a>
+                        </li>
+
+                    </ul>
                 </nav>
 
             </div>
@@ -48,7 +61,7 @@
                 <div class="container-fluid">
                     <div class="app-content-2">
                         <div class="manage-product-tab">
-                            <a class="btn1 btn-tab active" href="/order/show" >
+                            <a class="btn1 btn-tab active" href="/order/show">
                                 Tất cả <span class="sr-only">(current)</span>
                             </a>
                             <a class="btn1 btn-tab" href="/order/notapproved">
@@ -75,7 +88,7 @@
                         </div>
                     </div>
                     <div class="app-content-1">
-                        
+
                         <div class="app-content-3">
                             <div class="d-flex align-items-center justify-content-lg-between">
                                 <div class="p-2 flex-fill">
@@ -88,7 +101,7 @@
                                             <i class="fas fa-search manage-product-search__icon"></i>
                                         </div>
 
-                                    </div>  
+                                    </div>
                                 </div>
                                 <div class="p-2 flexx-fill d-flex align-items-center">
                                     <div class="manage-product-order  d-flex align-items-center ">
@@ -138,13 +151,13 @@
                                             <col width="120" span="1">
                                             <col width="140" span="1">
                                             <col width="100" span="1">
-                                           
+
                                         </colgroup>
                                         <tr class="table-primary">
                                             <th scope="col">#</th>
                                             <th scope="col ">
                                                 ID đơn hàng
-                                                  {{{sortable '_id' _sort}}}
+                                                {{{sortable '_id' _sort}}}
                                             </th>
                                             <th scope="col">
                                                 Sản phẩm
@@ -152,22 +165,22 @@
                                             </th>
                                             <th scope="col">
                                                 Số lượng
-                                                 {{{sortable 'products.quantity' _sort}}}
+                                                {{{sortable 'products.quantity' _sort}}}
                                             </th>
                                             <th scope="col">
-                                               Tổng tiền
-                                               {{{sortable 'products.total_cost' _sort}}}
+                                                Tổng tiền
+                                                {{{sortable 'products.total_cost' _sort}}}
                                             </th>
                                             <th scope="col">
-                                               Địa chỉ giao hàng
+                                                Địa chỉ giao hàng
                                                 {{{sortable 'address' _sort}}}
                                             </th>
                                             <th scope="col">
-                                               Người bán
-                                               {{{sortable 'products.sellerName' _sort}}}
+                                                Người bán
+                                                {{{sortable 'products.sellerName' _sort}}}
                                             </th>
                                             <th scope="col">
-                                               Thời gian tạo
+                                                Thời gian tạo
                                                 {{{sortable 'createdAt' _sort}}}
                                             </th>
                                             <th scope="col">
@@ -180,41 +193,41 @@
                                         {{#each orders}}
                                         <tr class="">
                                             <th scope="row">{{sum @index 1}}</th>
-                                             <td>{{this._id}}</td>
-                                             <td>
-                                        {{#each products}}
-                                            {{#unless @first}}, {{/unless}}
-                                            {{this.tittle}}
-                                        {{/each}}</td>
+                                            <td>{{this._id}}</td>
+                                            <td>
+                                                {{#each products}}
+                                                {{#unless @first}}, {{/unless}}
+                                                {{this.tittle}}
+                                                {{/each}}</td>
 
                                             <td>
-                                        {{#each products}}
-                                            {{#unless @first}}, {{/unless}}
-                                            {{this.quantity}}
-                                        {{/each}}</td>
-                                        
+                                                {{#each products}}
+                                                {{#unless @first}}, {{/unless}}
+                                                {{this.quantity}}
+                                                {{/each}}</td>
+
                                             <td>{{this.payment}}</td>
 
-                                        <td>{{this.address}}</td>
+                                            <td>{{this.address}}</td>
 
-                                        <td> 
-                                            {{this.sellerName}}
-                                          </td>
-                                        
+                                            <td>
+                                                {{this.sellerName}}
+                                            </td>
 
-                                        <td>{{this.createdAt}}</td>
-                                        <td>{{this.status}}</td>
+
+                                            <td>{{this.createdAt}}</td>
+                                            <td>{{this.status}}</td>
 
                                         </tr>
                                         {{else}}
                                         <tr>
-                                        <td colspan="10" class="text-center"> 
-                                        Bạn không có đơn hàng nào!
-                                        {{!-- <a href="/courses/create">Đăng khóa học.</a> --}}
-                                        </td>
+                                            <td colspan="10" class="text-center">
+                                                Bạn không có đơn hàng nào!
+                                                {{!-- <a href="/courses/create">Đăng khóa học.</a> --}}
+                                            </td>
                                         </tr>
                                         {{/each}}
-                                    
+
                                     </tbody>
                                 </table>
                             </div>
@@ -238,7 +251,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
         crossorigin="anonymous"></script>
-    
+
 </body>
 
 </html>

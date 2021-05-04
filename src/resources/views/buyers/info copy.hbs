@@ -1,0 +1,49 @@
+<div class="mt-4">
+    <div>
+      <h3>THÔNG TIN CÁ NHÂN</h3>
+    </div>
+
+    <div>
+
+        <form method="POST" enctype = "multipart/form-data" action="/buyer/{{buyer._id}}?_method=PUT">
+
+          <div class="form-group">
+          <label for="email-input">Email</label>
+          <input type="email" class="form-control" id="username" name="username" value = {{buyer.username}}>
+           </div>
+
+
+           <div class="form-group">
+          <label for="email-input">Mật khẩu</label>
+          <input type="password" class="form-control" id="password" name="password" value = {{buyer.password}}>
+           </div>
+
+          <div class="form-group">
+          <label>Biệt danh</label>
+          <input type="text" class="form-control" id="buyername" name="buyername" value = {{buyer.buyername}}>
+          </div>
+
+          <div class="form-group">
+          <label>Số điện thoại</label>
+          <input type="text" class="form-control" id="phone" name="phone" value = {{buyer.phone}}>
+        </div>
+
+
+          
+        <div class="form-group">
+          <label>Địa chỉ</label>
+          <input type="text" class="form-control" id="address" name="address" value = {{buyer.address}}>
+        </div>
+
+        <div class="form-group">
+        <label for="avatar">Ảnh đại diện</label>
+        <input type="file" class="form-control-file" id="avatar" name = "avatar">
+      </div>
+
+        <button type="submit" class="btn btn-primary">CẬP NHẬT</button>
+
+        </form>
+
+    </div>
+
+</div>

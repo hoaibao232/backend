@@ -1,49 +1,163 @@
-<div class="mt-4">
-    <div>
-      <h3>THÔNG TIN CÁ NHÂN</h3>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin cá nhân</title>
+      <!-- Bootstrap CSS -->
+    
+</head>
+<body>
+    
+    <div class="container-fluid app-content">
+        <div class="row app-content0">
+            <div class="col-2 col1 d-flex">
+                <nav class="category1">
+                    <div class="category__info">
+                        <div class="info-image">
+                            <img src="https://phunugioi.com/wp-content/uploads/2020/10/hinh-anh-avatar-doremon-cute.jpg" alt="avatar">
+                        </div>
+                        
+                        <div class="info-name">
+                                tên tài khoản
+                        </div>
+                           
+                       
+                    </div>
+                    <h3 class="category__heading">
+                        Tải khoản của tôi
+                    </h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="#" class="category-item__link">Hồ sơ</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="#" class="category-item__link">Đổi mật khẩu</a>
+                        </li>
+
+                    </ul>
+                    
+                    <h3 class="category__heading">
+                        Quản lý đơn hàng
+                    </h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="/order/show" class="category-item__link">Tất cả đơn hàng</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/order/show" class="category-item__link">Đơn huỷ</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/order/show" class="category-item__link">Trả hàng/Hoàn tiền</a>
+                        </li>
+
+                    </ul>
+                </nav>
+  
+            </div>
+            <div class="col">
+                <div class="container-fluid">
+                    <div class="app-content-1">
+                        <div class="d-flex-col profile-box1 ">
+                            <div class="profile-label-title">
+                                Hồ Sơ Của Tôi
+                            </div>
+                            <div class="profile-label">
+                                Quản lí thông tin tài khoản để bảo mật tài khoản
+                            </div>
+                        </div>
+                        <div class="profile-box2">
+                            <form method="POST" enctype = "multipart/form-data" action="/buyer/{{buyer._id}}?_method=PUT">
+                              
+                                <div class="form-group row">
+                                  <label for="inputPassword3" class="col-sm-2 col-form-label">Địa chỉ</label>
+                                  <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="address" name="address" value = {{buyer.address}}>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Tên khách hàng</label>
+                                    <div class="col-sm-7">
+                                      <input type="text" class="form-control" id="shopname" name="shopname" value = {{buyer.username}}>
+                                    </div>
+                                  </div>
+                                <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Số điện thoại</label>
+                                    <div class="col-sm-7">
+                                      <input type="number" class="form-control" id="phone" name="phone" value = {{buyer.phone}}>
+                                    </div>
+                                  </div>
+                                <fieldset class="form-group">
+                                  <div class="row">
+                                    <legend class="col-form-label col-sm-2 pt-0">Giới tính</legend>
+                                    <div class="col-sm-7">
+                                      <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                                        <label class="form-check-label" for="gridRadios1">
+                                          Nam
+                                        </label>
+                                      </div>
+                                      <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                                        <label class="form-check-label" for="gridRadios2">
+                                          Nữ
+                                        </label>
+                                      </div>
+                                      <div class="form-check disabled">
+                                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
+                                        <label class="form-check-label" for="gridRadios3">
+                                          Khác
+                                        </label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </fieldset>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label col-form-label-lg">Email</label>
+                                    <div class="col-sm-7">
+                                      <input type="email" class="form-control form-control-lg" id="username" name="username" value = {{buyer.username}}>
+                                    </div>
+                                </div>
+                                  
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label col-form-label-lg">Mật khẩu hiện tại</label>
+                                    <div class="col-sm-7">
+                                      <input type="password" class="form-control form-control-lg" id="password" name="password" value = {{buyer.password}}>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label col-form-label-lg">Mật khẩu mới</label>
+                                    <div class="col-sm-7">
+                                      <input type="password" class="form-control form-control-lg" id="inputPasswordl3" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label col-form-label-lg">Ảnh đại diện</label>
+                                    <div class="col-sm-7">
+                                      <input type="file" class="form-control-file" id="avatar" name = "avatar">
+                                    </div>
+                                </div>
+                                  
+
+                                <div class="form-group row  d-flex justify-content-center">
+                                  <div class="col-sm-7  d-flex justify-content-center">
+                                    <button type="submit" class="btn1 btn--primary">Lưu</button>
+                                  </div>
+                                </div>
+                              </form>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
-    <div>
-
-        <form method="POST" enctype = "multipart/form-data" action="/buyer/{{buyer._id}}?_method=PUT">
-
-          <div class="form-group">
-          <label for="email-input">Email</label>
-          <input type="email" class="form-control" id="username" name="username" value = {{buyer.username}}>
-           </div>
 
 
-           <div class="form-group">
-          <label for="email-input">Mật khẩu</label>
-          <input type="password" class="form-control" id="password" name="password" value = {{buyer.password}}>
-           </div>
 
-          <div class="form-group">
-          <label>Biệt danh</label>
-          <input type="text" class="form-control" id="buyername" name="buyername" value = {{buyer.buyername}}>
-          </div>
-
-          <div class="form-group">
-          <label>Số điện thoại</label>
-          <input type="text" class="form-control" id="phone" name="phone" value = {{buyer.phone}}>
-        </div>
-
-
-          
-        <div class="form-group">
-          <label>Địa chỉ</label>
-          <input type="text" class="form-control" id="address" name="address" value = {{buyer.address}}>
-        </div>
-
-        <div class="form-group">
-        <label for="avatar">Ảnh đại diện</label>
-        <input type="file" class="form-control-file" id="avatar" name = "avatar">
-      </div>
-
-        <button type="submit" class="btn btn-primary">CẬP NHẬT</button>
-
-        </form>
-
-    </div>
-
-</div>
+</body>
+</html>

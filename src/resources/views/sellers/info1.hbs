@@ -13,31 +13,29 @@
     <div class="container-fluid app-content">
         <div class="row app-content0">
             <div class="col-2 col1 d-flex">
-                <nav class="category1">
+                  <nav class="category1">
                     <div class="category__info">
                         <div class="info-image">
-                            <img src="https://phunugioi.com/wp-content/uploads/2020/10/hinh-anh-avatar-doremon-cute.jpg" alt="avatar">
+                            <img src={{seller.avatar}} alt="avatar">
                         </div>
                         
                         <div class="info-name">
-                                tên tài khoản
+                                {{seller.username}}
                         </div>
                            
                        
                     </div>
                     <h3 class="category__heading">
-                        Tải khoản của tôi
+                        Tài khoản của tôi
                     </h3>
                     <ul class="category-list">
                         <li class="category-item">
-                            <a href="#" class="category-item__link">Hồ sơ</a>
+                            <a href="/seller/info" class="category-item__link">Hồ sơ</a>
                         </li>
                         <li class="category-item">
-                            <a href="#" class="category-item__link">Đổi mật khẩu</a>
+                            <a href="/seller/info" class="category-item__link">Đổi mật khẩu</a>
                         </li>
-                        <li class="category-item">
-                            <a href="#" class="category-item__link">Đơn mua</a>
-                        </li>
+                    
 
                     </ul>
                     <h3 class="category__heading">
@@ -45,10 +43,10 @@
                     </h3>
                     <ul class="category-list">
                         <li class="category-item">
-                            <a href="#" class="category-item__link">Tất cả sản phẩm</a>
+                            <a href="/me/stored/books" class="category-item__link">Tất cả sản phẩm</a>
                         </li>
                         <li class="category-item">
-                            <a href="#" class="category-item__link">Thêm sản phẩm</a>
+                            <a href="/books/create" class="category-item__link">Thêm sản phẩm</a>
                         </li>
 
                     </ul>
@@ -57,17 +55,30 @@
                     </h3>
                     <ul class="category-list">
                         <li class="category-item">
-                            <a href="#" class="category-item__link">Tất cả đơn hàng</a>
+                            <a href="/me/stored/orders/all" class="category-item__link">Tất cả đơn hàng</a>
                         </li>
                         <li class="category-item">
-                            <a href="#" class="category-item__link">Đơn huỷ</a>
+                            <a href="/me/stored/orders/canceled" class="category-item__link">Đơn huỷ</a>
                         </li>
                         <li class="category-item">
-                            <a href="#" class="category-item__link">Trả hàng/Hoàn tiền</a>
+                            <a href="/me/stored/orders/return" class="category-item__link">Trả hàng/Hoàn tiền</a>
                         </li>
 
                     </ul>
-                </nav>
+
+                     <h3 class="category__heading">
+                        Thanh toán
+                    </h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="/me/payment/unpaid" class="category-item__link">Sẽ thanh toán</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/me/payment/paid" class="category-item__link">Đã thanh toán</a>
+                        </li>
+                        
+                    </ul>
+                </nav> 
 
             </div>
             <div class="col">
@@ -93,7 +104,7 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Tên shop</label>
                                     <div class="col-sm-7">
-                                      <input type="text" class="product-value-input" id="shopname" name="shopname" value = {{seller.shopname}}>
+                                      <input type="text" class="form-control" id="shopname" name="shopname" value = {{seller.shopname}}>
                                     </div>
                                   </div>
                                 <div class="form-group row">

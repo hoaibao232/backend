@@ -1,52 +1,61 @@
-<div class="mt-4">
-    <h3>ĐƠN ĐẶT HÀNG</h3>
+<div class="grid">
+  <div class="container">
+    <div class="mt-5 mb-5">
+      <div class="d-flex justify-content-center">
 
-    <form method="POST" action="/order/storemany">
-         <div class="form-group">
-    <label for="name">Họ tên người nhận</label>
-    <input type="text" class="form-control" id="name" name = "name" required>
+        <h3 class="form-title">ĐƠN ĐẶT HÀNG</h3>
+      </div>
+
+      <form method="POST" action="/order/storemany" class="form-create-now">
+        <div class="form-group">
+          <label for="name">Họ tên người nhận</label>
+          <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Địa chỉ nhận hàng</label>
+          <input type="text" class="form-control" id="address" name="address" required>
+        </div>
+
+        <div class="form-group">
+          <label for="addresspm">Địa chỉ thanh toán</label>
+          <input type="text" class="form-control" id="addresspm" name="addresspm" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Số điện thoại</label>
+          <input type="number" class="form-control" id="phone" name="phone" required>
+        </div>
+
+        {{!-- {{#each carts}}
+        <div class="form-group">
+          <label for="productname">Sản phẩm</label>
+
+          <input type="text" class="form-control" value="{{this.productname}}" id="productnames" name="productnames">
+
+          <label for="quantity">Số lượng</label>
+          <input type="text" class="form-control" value="{{this.quantity}}" id="quantity" name="quantity">
+        </div>
+
+        <label for="totalprice">Tổng tiền</label>
+        <input type="text" class="form-control" value="{{this.totalprice}}" id="totalprice" name="totalprice">
+        {{/each}} --}}
+
+        <div class="form-group">
+          <label for="cartID">Cart ID</label>
+          {{#each carts}}
+          <input type="text" class="form-control" value="{{this._id}}" id="cartIds[]" name="cartIds">
+          {{/each}}
+        </div>
+
+
+
+        <div class="d-flex justify-content-center">
+
+          <button type="submit" class="btn1 btn--primary btn-create-now">Đặt hàng</button>
+        </div>
+      </form>
+
+    </div>
   </div>
-
-  <div class="form-group">
-    <label for="address">Địa chỉ nhận hàng</label>
-    <input type="text" class="form-control" id="address" name = "address" required>
-  </div>
-
-  <div class="form-group">
-    <label for="addresspm">Địa chỉ thanh toán</label>
-    <input type="text" class="form-control" id="addresspm" name = "addresspm" required>
-  </div>
-
-  <div class="form-group">
-    <label for="phone">Số điện thoại</label>
-    <input type="number" class="form-control" id="phone" name = "phone" required>
-  </div>
-
-  {{!-- {{#each carts}}
-  <div class="form-group">
-    <label for="productname">Sản phẩm</label>
-    
-    <input type="text" class="form-control" value="{{this.productname}}" id="productnames" name = "productnames">
-  
-    <label for="quantity">Số lượng</label>
-    <input type="text" class="form-control" value="{{this.quantity}}" id="quantity" name = "quantity">
-  </div>
-  
-    <label for="totalprice">Tổng tiền</label>
-    <input type="text" class="form-control" value="{{this.totalprice}}" id="totalprice" name = "totalprice">
-     {{/each}} --}}
-    
-      <div class="form-group">
-    <label for="cartID">Cart ID</label>
-     {{#each carts}}
-    <input type="text" class="form-control" value="{{this._id}}" id="cartIds[]" name = "cartIds">
-      {{/each}}
-  </div>
-
-
-
-
-  <button type="submit" class="btn btn-primary">Đặt hàng</button>
-</form>
-
 </div>
