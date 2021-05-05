@@ -7,9 +7,16 @@ const Schema = mongoose.Schema;
 
 const Book = new Schema({
     name: {type : String, text: true, index: true},
-   description: {type: String, required: true},
+    description: {type: String, required: true},
+    category : {type: String, required: true},
+    author : {type: String, required: true},
+    yearPublish : {type: String},
+    languages : {type: String, required: true},
+    NXB : {type: String},
+    warehouse : {type: String, required: true},
+    pages : {type : Number, default : 0},
+    weight : {type : Number, default : 0, required: true},
     image: {type: String},
-    videoID:{type: String, maxLength: 255},
     sellerID:{type: String, maxLength: 255},
     shopname : {type: String, maxLength: 255},
     price: {type: Number, default: 0},
@@ -30,15 +37,12 @@ const Book = new Schema({
         });
     }
     return this;
-
     }
-
 
   mongoose.plugin(slug);
   Book.plugin(mongooseDelete,{ 
     deletedAt: true,  
     overrideMethods: 'all' });
-
 
   module.exports = mongoose.model('Book', Book);
 

@@ -4,7 +4,13 @@ const  { mongooseToObject, mutipleMongooseToObject } = require('../../util/mongo
 const Buyer = require('./models/Buyer');
 const Order = require('./models/Order');
 const Cart = require('./models/Cart');
-
+const paypal = require('paypal-rest-sdk');
+var cardId1 = [];
+var name1
+var addresspm1
+var phone1
+var address1, total1;
+                                    
 
 class OrderController {
     
@@ -301,17 +307,37 @@ class OrderController {
                 res.render('orders/createmany', {
                carts: mutipleMongooseToObject(carts)
              }) })
-             
-               
                    .catch(next);
               
     }
     
     storeMany(req,res,next)
     {
+        const payerId = req.query.PayerID;
+        const paymentId = req.query.paymentId;
+
+        const execute_payment_json = {
+            "payer_id": payerId,
+            "transactions": [{
+                "amount": {
+                    "currency": "USD",
+                    "total": total1.toString()
+                }
+            }]
+          };
+
+          paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+            if (error) {
+                res.send('Payment Canceled')
+            } else {
+                console.log(JSON.stringify(payment));
+            }
+        });
+
+
         var errors = req.validationErrors();
         var flag = true;
-        Cart.find({_id: { $in : req.body.cartIds }})
+        Cart.find({_id: { $in : cardId1 }})
         .then(carts => {
             var output1 = [];
             carts.forEach(function(document) 
@@ -352,12 +378,12 @@ class OrderController {
                     }}
                 ])
                     .then(result => {
-                        console.log(result)
+                        // console.log(result)
                         result.forEach(function(group) {
                         var kk = [];
                         var total = 0;
                         var sellername;
-                        Cart.find({ $and : [ {_id: { $in : group.docs }}, {_id: { $in : req.body.cartIds }}]   })
+                        Cart.find({ $and : [ {_id: { $in : group.docs }}, {_id: { $in : cardId1 }}]   })
                             .then(carts => {
                                 carts.forEach(function(document) {
                                     var output = 
@@ -376,21 +402,22 @@ class OrderController {
                                     sellername = document.sellerName;
                                 })
 
-                                console.log(kk);
-                                console.log(group._id);
+                                // console.log(kk);
+                                // console.log(group._id);
                                 if(kk.length != 0)
                                 {
                                     var order1 = new Order(
                                         {
-                                            name : req.body.name,
-                                            address : req.body.address,
-                                            addresspm : req.body.addresspm,
-                                            phone : req.body.phone,
+                                            name : name1,
+                                            address : address1,
+                                            addresspm : addresspm1,
+                                            phone : phone1,
                                             userID : req.signedCookies.userId,
                                             products : kk,
                                             sellerID : group._id,
                                             payment : total,
                                             sellerName : sellername,
+                                            paymentID : paymentId,
                                         }
                                     );
                                     order1.save();
@@ -398,6 +425,8 @@ class OrderController {
                                 }
                             })
                         })
+                        Cart.deleteMany({_id: { $in : cardId1 }})
+                            .then({})
                         res.redirect('/order/show')
                     })
 
@@ -540,6 +569,77 @@ class OrderController {
             .catch({})
         res.redirect('back')
 
+    }
+
+    paymentOrders(req,res,next)
+    {
+        var items = [];
+        var total = 0;
+        var i = 0;
+        cardId1 = req.body.cartIds;
+        name1 = req.body.name;
+        addresspm1 = req.body.addresspm,
+        address1 = req.body.address,
+        phone1 = req.body.phone,
+
+        console.log(cardId1);
+        Cart.find({_id: { $in : req.body.cartIds}})
+        .then(carts => {
+            carts.forEach(function(document) {
+                i++;
+                var output = 
+            {
+                name: document.productname,
+                sku : `#00${i}`,
+                price: document.price.toString(),
+                currency : "USD",
+                quantity: document.quantity,
+            }
+                items.push(output);
+                total = total + document.totalprice;
+               
+            })
+            total1 = total;
+            console.log(items);
+            console.log(total);
+            const create_payment_json = {
+                "intent": "sale",
+                "payer": {
+                    "payment_method": "paypal"
+                },
+                "redirect_urls": {
+                    "return_url": "http://localhost:3001/order/storemany",
+                    "cancel_url": "http://localhost:3001/paypal/cancel"
+                },
+                "transactions": [{
+                    "item_list": {
+                        "items": items
+                    },
+                    "amount": {
+                        "currency": "USD",
+                        "total": total.toString()
+                    },
+                    "description": "Hat for the best team ever"
+                }]
+            }
+
+            paypal.payment.create(create_payment_json, function (error, payment) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    for(let i = 0;i < payment.links.length;i++){
+                        if(payment.links[i].rel === 'approval_url'){
+                          res.redirect(payment.links[i].href);
+                        }}
+                }
+            });
+        })
+
+    }
+
+    paypalCancel(req,res,next)
+    {
+        res.redirect('/cart/show');
     }
 
 

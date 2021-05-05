@@ -11,6 +11,7 @@ const AuthCommon = require('../middlewares/auth.middleware.common');
 const ordersRouter = require('./orders');
 const adminRouter = require('./admin');
 const AuthAdmin = require('../middlewares/admin.auth.middleware');
+const paypalRouter = require('./paypal');
 
 function route(app)
 {
@@ -22,6 +23,7 @@ function route(app)
     app.use('/order', ordersRouter);
     app.use('/cart', authMiddleware.requireAuth, cartsRouter);
     app.use('/admin', adminRouter);
+    app.use('/paypal', paypalRouter);
       app.use('/', siteRouter);
       //app.get('/news', (req, res) => {
         //res.render('news');

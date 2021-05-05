@@ -43,7 +43,7 @@
                             </div>
                         </div>
                     </div>
-                    {{!-- <div class="info-product info-product-category">
+                    <div class="info-product info-product-category">
                         <div class="grid__col-2">
                             <div class="product-title">
                                 <div class="">*</div>
@@ -52,12 +52,12 @@
                         </div>
                         <div class="grid__col-10">
                             <div class="product-value">
-                                <input type="text" class="product-value-input">
+                                <input type="text" id="category" name = "category" class="product-value-input" value="{{book.category}}">
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
 
-                    {{!-- <div class="info-product info-product-author">
+                    <div class="info-product info-product-author">
                         <div class="grid__col-2">
                             <div class="product-title">
                                 <div class="">*</div>
@@ -66,38 +66,82 @@
                         </div>
                         <div class="grid__col-10">
                             <div class="product-value">
-                                <input type="text" class="product-value-input">
+                                <input type="text" class="product-value-input" id = "author" name = "author" value="{{book.author}}">
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
 
-                    {{!-- <div class="info-product info-product-year-publish">
+                    <div class="info-product info-product-year-publish">
                         <div class="grid__col-2">
                             <div class="product-title">
-                                <div class="">*</div>
+                                <div class=""></div>
                                 <div class="product-title-text">Năm xuất bản</div>
                             </div>
                         </div>
                         <div class="grid__col-10">
                             <div class="product-value">
-                                <input type="text" class="product-value-input">
+                                <input type="text" id="yearPublish" name = "yearPublish" class="product-value-input" value="{{book.yearPublish}}">
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
 
-                    {{!-- <div class="info-product info-product-quantity-page">
+                    <div class="info-product info-product-year-publish">
+                        <div class="grid__col-2">
+                            <div class="product-title">
+                                <div class=""></div>
+                                <div class="product-title-text">Nhà xuất bản</div>
+                            </div>
+                        </div>
+                        <div class="grid__col-10">
+                            <div class="product-value">
+                                <input type="text" id="NXB" name = "NXB" class="product-value-input" value="{{book.NXB}}">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="info-product info-product-year-publish">
                         <div class="grid__col-2">
                             <div class="product-title">
                                 <div class="">*</div>
+                                <div class="product-title-text">Ngôn ngữ</div>
+                            </div>
+                        </div>
+                        <div class="grid__col-10">
+                            <div class="product-value">
+                                <input type="text" id="languages" name = "languages" class="product-value-input" value="{{book.languages}}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-product info-product-quantity-page">
+                        <div class="grid__col-2">
+                            <div class="product-title">
+                                <div class=""></div>
                                 <div class="product-title-text">Số trang</div>
                             </div>
                         </div>
                         <div class="grid__col-10">
                             <div class="product-value">
-                                <input type="text" class="product-value-input">
+                                <input type="text" id="pages" name = "pages" class="product-value-input" value="{{book.pages}}">
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
+
+                    <div class="info-product info-product-quantity-page">
+                        <div class="grid__col-2">
+                            <div class="product-title">
+                                <div class=""></div>
+                                <div class="product-title-text">Trọng lượng (gr)</div>
+                            </div>
+                        </div>
+                        <div class="grid__col-10">
+                            <div class="product-value">
+                                <input type="text" id="weight" name = "weight" class="product-value-input" value="{{book.weight}}">
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="info-product info-product-price">
                         <div class="grid__col-2">
@@ -117,7 +161,7 @@
                         <div class="grid__col-2">
                             <div class="product-title">
                                 <div class="">*</div>
-                                <div class="product-title-text">Kho hàng</div>
+                                <div class="product-title-text">Số lượng hàng trong kho</div>
                             </div>
                         </div>
                         <div class="grid__col-10">
@@ -126,19 +170,21 @@
                             </div>
                         </div>
                     </div>
-                    {{!-- <div class="info-product info-product-classifycation">
+                    <div class="info-product info-product-warehouse">
                         <div class="grid__col-2">
                             <div class="product-title">
                                 <div class="">*</div>
-                                <div class="product-title-text">Phân loại hàng</div>
+                                <div class="product-title-text">Kho hàng</div>
                             </div>
                         </div>
+                        
                         <div class="grid__col-10">
                             <div class="product-value">
-                                <input type="text" class="product-value-input">
+                                <input type="text" class="product-value-input" id="warehouse" name = "warehouse" value="{{book.warehouse}}">
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
+
                     <div class="info-product info-product-classifycation">
                         <div class="grid__col-2">
                             <div class="product-title">

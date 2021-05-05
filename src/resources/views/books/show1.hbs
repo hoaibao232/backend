@@ -406,13 +406,21 @@
                                 <div class="product-detail-title">
                                     CHI TIẾT SẢN PHẨM
                                 </div>
-                                <div class="product-detail-content">                                
+                                <div class="product-detail-content">
+                                    <div class="detail">
+                                        <div class="title">
+                                            Tác giả
+                                        </div>
+                                        <div class="value">
+                                            {{book.author}}
+                                        </div>
+                                    </div>                                
                                     <div class="detail">
                                         <div class="title">
                                             Danh Mục
                                         </div>
                                         <div class="value">
-                                            Shopee > Nhà Sách Online > Sách Tiéng Việt > Sách Kĩ Năng Sống
+                                            {{book.category}}
                                         </div>
                                     </div>
                                     <div class="detail">
@@ -420,15 +428,40 @@
                                             Nhà xuất bản
                                         </div>
                                         <div class="value">
-                                            NXB Thế Giới
+                                             {{book.NXB}}
                                         </div>
                                     </div>
                                     <div class="detail">
                                         <div class="title">
-                                            Công ty phát hành
+                                            Năm xuất bản
                                         </div>
                                         <div class="value">
-                                            Happy Live
+                                             {{book.yearPublish}}
+                                        </div>
+                                    </div>
+
+                                    <div class="detail">
+                                        <div class="title">
+                                            Ngôn ngữ
+                                        </div>
+                                        <div class="value">
+                                             {{book.languages}}
+                                        </div>
+                                    </div>
+                                    <div class="detail">
+                                        <div class="title">
+                                            Số trang
+                                        </div>
+                                        <div class="value">
+                                             {{book.pages}}
+                                        </div>
+                                    </div>
+                                    <div class="detail">
+                                        <div class="title">
+                                            Trọng lượng (g)
+                                        </div>
+                                        <div class="value">
+                                             {{book.weight}}
                                         </div>
                                     </div>
                                     <div class="detail">
@@ -436,7 +469,7 @@
                                             Kho Hàng
                                         </div>
                                         <div class="value">
-                                            184
+                                             {{book.quantities}}
                                         </div>
                                     </div>
                                     <div class="detail">
@@ -444,7 +477,7 @@
                                             Gửi từ
                                         </div>
                                         <div class="value">
-                                            Quận 7, TP. Hồ Chí Minh
+                                             {{book.warehouse}}
                                         </div>
                                     </div>
                                    

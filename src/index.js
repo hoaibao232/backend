@@ -14,6 +14,7 @@ const expressValidator = require('express-validator');
 var flash = require('connect-flash');
 const groupBy = require('handlebars-group-by');
 const cartMiddleware = require('./middlewares/cart.middleware');
+const paypal = require('paypal-rest-sdk');
 
 const server = require('http').createServer(express);
 const io = require('socket.io')(server);
@@ -69,7 +70,11 @@ app.engine('hbs', handlebars({
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources', 'views'));
 
-//console.log(__dirname)
+paypal.configure({
+  'mode': 'sandbox', //sandbox or live
+  'client_id': 'Aa74c5duEJAzu_CfU6sXiJk1AA1gX3DkZtMPe5LH0wED9CPxXp39V0ndRgs6XqHr0wQNm3cc_pWOPXoQ',
+  'client_secret': 'EJp1YetESIhruWIQaY6pMkjZFJHCWC4PP25vjeMmcDQvNGq2A3nH-DA_Zb7nAh9LNnqD47UCz5lfHsTU'
+});
 
 route(app);
 

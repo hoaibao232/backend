@@ -18,9 +18,10 @@ router.get('/shipping', authMiddleware.requireAuth, orderController.shippingOrde
 router.get('/completed', authMiddleware.requireAuth, orderController.completedOrders);
 router.get('/return', authMiddleware.requireAuth, orderController.returnOrders);
 router.post('/handle/create', authMiddleware.requireAuth, orderController.createMany);
-router.post('/storemany', authMiddleware.requireAuth, orderController.storeMany);
+router.get('/storemany', authMiddleware.requireAuth, orderController.storeMany);
 router.get('/:id/confirm', authMiddleware.requireAuth, orderController.confirm);
 router.get('/:id/return', authMiddleware.requireAuth, orderController.return);
 router.get('/confirmed', authMiddleware.requireAuth, orderController.confirmedOrders);
+router.post('/pay', orderController.paymentOrders)
 
 module.exports = router;

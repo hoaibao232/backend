@@ -19,6 +19,7 @@ const Order = new Schema({
     productID: {type: String, maxLength: 255},
     status: {type: String, default: "Not approved"},
     payment: {type: Number, default: 0},
+    paymentID: {type: String},
     sellerName: {type: String, maxLength: 255},
     // carts: [{cartIds : String}, {quantity : Number}, {total: Number}, {products: Array}],
     // cartIds: {type: Array},
