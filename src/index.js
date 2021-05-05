@@ -30,6 +30,7 @@ const db = require('./config/db');
 const Cart = require('./app/controllers/models/Cart');
 const sortMiddleware = require('./middlewares/sort.middleware');
 const mobileUse = require('./mobile/mobileUse');
+const routeAPI = require('./api/routes');
 
 //Connect to DB
 db.connect();
@@ -77,31 +78,10 @@ paypal.configure({
 });
 
 route(app);
-
+routeAPI(app);
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`)
 })
-
-//mobilerequest(io);
-
-// io.on('connection', (socket) => {
-//     console.log("Co nguoi connect ne");
-//     socket.on('clientSendItems', (arg) => {
-//         fs.readFile('items.json', (err, data) => {
-//            if (err) throw err;
-//            let items = JSON.parse(data);
-//            io.emit('serverSendItems', items);
-//         });
-//     });
-//     socket.on('clientSendItem', (arg) => {
-//         let data = JSON.stringify(arg, null, 2);
-//         fs.writeFile('item.json', data, (err) => {
-//             if (err) throw err;
-//             console.log(arg);
-//         });
-//     });
-// });
-// server.listen(3002);
 
 mobileUse();
