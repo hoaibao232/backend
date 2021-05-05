@@ -10,7 +10,7 @@ var name1
 var addresspm1
 var phone1
 var address1, total1;
-                                    
+var name2,addresspm2,phone2,address2,total2,bookID,quantity2,totalprice2;
 
 class OrderController {
     
@@ -61,51 +61,59 @@ class OrderController {
 
     storeNow(req,res,next)
     {
+        const payerId = req.query.PayerID;
+        const paymentId = req.query.paymentId;
+
+        const execute_payment_json = {
+            "payer_id": payerId,
+            "transactions": [{
+                "amount": {
+                    "currency": "USD",
+                    "total": totalprice2.toString()
+                }
+            }]
+          };
+
+          paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+            if (error) {
+                res.send('Payment Canceled')
+            } else {
+                console.log(JSON.stringify(payment));
+            }
+        });
+
         var errors = req.validationErrors();
         req.body.userID = req.signedCookies.userId;
-        Book.findOne({_id : req.body.bookid})
+        Book.findOne({_id : bookID})
             .then(book => {
                 // req.body.sellerID = book.sellerID;
                 // req.body.productID = req.body.bookid;
 
-                if((req.body.quantity > book.quantities) || ( book.quantities <= 0))
-                    {
-                            var error = {location: 'body', param: "quantity", msg: "Số lượng tối đa sản phẩm có thể đặt: ", value: book.quantities};
-                               
-                                if (!errors)
-                                {
-                                    errors = [];
-                                }
-                                errors.push(error);
-                                console.log(errors);
-                                req.session.errors = errors;
-                                req.session.success = false;
-                                res.redirect('/cart/show'); 
-                    }
-                         else {
-
                             var output = 
                             {
-                                quantity: req.body.quantity,
+                                quantity: quantity2,
                                 tittle: book.name,
                                 unit_cost: book.price,
-                                total_cost: req.body.totalprice,
+                                total_cost: totalprice2,
                                 sellerId: book.sellerID,
-                                bookId : req.body.bookid,
+                                bookId : bookID,
                                 cartId : "",
                                 sellerName : book.shopname,
                             }
                        
-                            req.body.userID = req.signedCookies.userId;
-                            req.body.products = output;
+                            var userID = req.signedCookies.userId;
                             req.session.success = true;
                             const order = new Order({
-                                name : req.body.name,
-                                address : req.body.address,
-                                addresspm : req.body.addresspm,
-                                phone : req.body.phone,
-                                userID : req.signedCookies.userId,
+                                name : name2,
+                                address : address2,
+                                addresspm : addresspm2,
+                                phone : phone2,
+                                userID : userID,
                                 products : output,
+                                payment : totalprice2,
+                                sellerID : book.sellerID,
+                                sellerName : book.shopname,
+                                paymentID : paymentId,
 
                             });
                             order.save();     
@@ -119,7 +127,7 @@ class OrderController {
 
                                 res.redirect('/order/show');
                               
-                         }        
+                              
 
             })
     }
@@ -642,6 +650,100 @@ class OrderController {
         res.redirect('/cart/show');
     }
 
+    paymentOrderNow(req,res,next)
+    {
+        var errors = req.validationErrors();
+        bookID = req.body.bookid;
+        req.body.userID = req.signedCookies.userId;
+        Book.findOne({_id : req.body.bookid})
+            .then(book => {
+                // req.body.sellerID = book.sellerID;
+                // req.body.productID = req.body.bookid;
+
+                if((req.body.quantity > book.quantities) || ( book.quantities <= 0))
+                    {
+                            var error = {location: 'body', param: "quantity", msg: "Số lượng tối đa sản phẩm có thể đặt: ", value: book.quantities};
+                               
+                                if (!errors)
+                                {
+                                    errors = [];
+                                }
+                                errors.push(error);
+                                console.log(errors);
+                                req.session.errors = errors;
+                                req.session.success = false;
+                                res.redirect('/cart/show'); 
+                    }
+                         else {
+                            var items = [];
+                            var total = 0;
+                            var i = 1;
+                            name2 = req.body.name;
+                            addresspm2 = req.body.addresspm;
+                            address2 = req.body.address;
+                            phone2 = req.body.phone;
+                            quantity2 = req.body.quantity;
+                            totalprice2 = req.body.totalprice;
+
+                            var output = 
+                            {
+                                // quantity: req.body.quantity,
+                                // tittle: book.name,
+                                // unit_cost: book.price,
+                                // total_cost: req.body.totalprice,
+                                // sellerId: book.sellerID,
+                                // bookId : req.body.bookid,
+                                // cartId : "",
+                                // sellerName : book.shopname,
+
+                                name: book.name,
+                                sku : `#${i}`,
+                                price: book.price.toString(),
+                                currency : "USD",
+                                quantity: req.body.quantity,
+                            }
+                             items.push(output);
+                             total = req.body.totalprice;
+                             total2 = total;
+
+                             const create_payment_json = 
+                             {
+                                "intent": "sale",
+                                "payer": {
+                                    "payment_method": "paypal"
+                                },
+                                "redirect_urls": {
+                                    "return_url": "http://localhost:3001/order/storenow",
+                                    "cancel_url": "http://localhost:3001/paypal/cancel"
+                                },
+                                "transactions": [{
+                                    "item_list": {
+                                        "items": items
+                                    },
+                                    "amount": {
+                                        "currency": "USD",
+                                        "total": total.toString()
+                                    },
+                                    "description": "Hat for the best team ever"
+                                }]
+                            }
+
+                            paypal.payment.create(create_payment_json, function (error, payment) {
+                                if (error) {
+                                    console.log(error);
+                                } else {
+                                    for(let i = 0;i < payment.links.length;i++){
+                                        if(payment.links[i].rel === 'approval_url'){
+                                          res.redirect(payment.links[i].href);
+                                        }}
+                                }
+                            });
+                              
+                         }        
+
+            })
+
+    }
 
 }
 

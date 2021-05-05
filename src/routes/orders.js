@@ -9,7 +9,7 @@ const AuthSeller = require('../middlewares/seller.auth.middleware');
 router.get('/:id/create', authMiddleware.requireAuth, orderController.create);
 router.post('/:slug/createnow', authMiddleware.requireAuth, orderController.createNow);
 router.post('/store', authMiddleware.requireAuth, orderController.store);
-router.post('/storenow', authMiddleware.requireAuth, orderController.storeNow);
+router.get('/storenow', authMiddleware.requireAuth, orderController.storeNow);
 router.get('/show', authMiddleware.requireAuth, orderController.show);
 router.get('/notapproved', authMiddleware.requireAuth, orderController.notApprovedOrders);
 router.get('/canceled', authMiddleware.requireAuth, orderController.canceledOrders);
@@ -23,5 +23,6 @@ router.get('/:id/confirm', authMiddleware.requireAuth, orderController.confirm);
 router.get('/:id/return', authMiddleware.requireAuth, orderController.return);
 router.get('/confirmed', authMiddleware.requireAuth, orderController.confirmedOrders);
 router.post('/pay', orderController.paymentOrders)
+router.post('/paynow', orderController.paymentOrderNow)
 
 module.exports = router;
