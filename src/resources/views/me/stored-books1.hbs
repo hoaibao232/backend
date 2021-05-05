@@ -188,7 +188,9 @@
                                         {{#each books}}
                                         <tr class="">
                                             <th scope="row">{{sum @index 1}}</th>
-                                             <td>{{this.name}}</td>
+                                             <td> <a target="_blank" rel="noopener noreferrer" href="/books/{{this.slug}}">{{this.name}}</a>
+                                                 
+                                                 </td>
                                              <td>{{this.description}}</td>
                                              <td>{{this.quantities}}</td>
                                              <td>{{this.sold}}</td>
