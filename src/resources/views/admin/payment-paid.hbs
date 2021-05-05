@@ -21,64 +21,83 @@
                      <nav class="category1">
                     <div class="category__info">
                         <div class="info-image">
-                            <img src={{seller.avatar}} alt="avatar">
+                            <img src="{{admin.avatar}}" alt="avatar">
                         </div>
                         
                         <div class="info-name">
-                                {{seller.username}}
+                                {{admin.username}}
                         </div>
                            
                        
                     </div>
                     <h3 class="category__heading">
-                        Tài khoản của tôi
+                        Tải khoản của tôi
                     </h3>
                     <ul class="category-list">
                         <li class="category-item">
-                            <a href="/seller/info" class="category-item__link">Hồ sơ</a>
-                        </li>
-                    
-
-                    </ul>
-                    <h3 class="category__heading">
-                        Quản lý sản phẩm
-                    </h3>
-                    <ul class="category-list">
-                        <li class="category-item">
-                            <a href="/me/stored/books" class="category-item__link">Tất cả sản phẩm</a>
-                        </li>
-                        <li class="category-item">
-                            <a href="/books/create" class="category-item__link">Thêm sản phẩm</a>
-                        </li>
-
-                    </ul>
-                    <h3 class="category__heading">
-                        Quản lý đơn hàng
-                    </h3>
-                    <ul class="category-list">
-                        <li class="category-item">
-                            <a href="/me/stored/orders/all" class="category-item__link">Tất cả đơn hàng</a>
-                        </li>
-                        <li class="category-item">
-                            <a href="/me/stored/orders/canceled" class="category-item__link">Đơn huỷ</a>
-                        </li>
-                        <li class="category-item">
-                            <a href="/me/stored/orders/return" class="category-item__link">Trả hàng/Hoàn tiền</a>
-                        </li>
-
-                    </ul>
-
-                     <h3 class="category__heading">
-                        Thanh toán
-                    </h3>
-                    <ul class="category-list">
-                        <li class="category-item">
-                            <a href="/me/payment/unpaid" class="category-item__link">Sẽ thanh toán</a>
-                        </li>
-                        <li class="category-item">
-                            <a href="/me/payment/paid" class="category-item__link">Đã thanh toán</a>
+                            <a href="/admin/info" class="category-item__link">Hồ sơ</a>
                         </li>
                         
+                    </ul>
+                    <h3 class="category__heading">
+                        Quản lý người mua
+                    </h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="/admin/stored/buyers" class="category-item__link">Danh sách tài khoản</a>
+                        </li>
+                        
+                    </ul>
+                    <h3 class="category__heading">
+                        Quản lý người bán
+                    </h3>
+                    <ul class="category-list">
+                         <li class="category-item">
+                            <a href="/admin/stored/sellers" class="category-item__link">Danh sách tài khoản</a>
+                        </li>
+
+                    </ul>
+                    <h3 class="category__heading">
+                        Quản lý sản phẩm
+                    </h3>
+                    <ul class="category-list">
+                         <li class="category-item">
+                            <a href="/admin/stored/books" class="category-item__link">Tất cả sản phẩm</a>
+                        </li>
+                         <li class="category-item">
+                            <a href="/admin/stored/books/seller" class="category-item__link">Sản phẩm theo người bán</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/admin/stored/books/inactive" class="category-item__link">Sản phẩm hết hàng</a>
+                        </li>
+
+                    </ul>
+                    <h3 class="category__heading">
+                        Quản lý đơn hàng
+                    </h3>
+                    <ul class="category-list">
+                         <li class="category-item">
+                            <a href="/admin/stored/orders/all" class="category-item__link">Tất cả đơn hàng</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/admin/stored/orders/canceled" class="category-item__link">Đã hủy</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/admin/stored/orders/return" class="category-item__link">Trả hàng/Hoàn tiền</a>
+                        </li>
+
+                    </ul>
+                    <h3 class="category__heading">
+                        Quản lý thanh toán
+                    </h3>
+                    <ul class="category-list">
+                         <li class="category-item">
+                            <a href="/admin/payment/unpaid" class="category-item__link">Sẽ thanh toán</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="/admin/payment/paid" class="category-item__link">Đã thanh toán</a>
+                        </li>
+
                     </ul>
                 </nav>
     
