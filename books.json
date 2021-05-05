@@ -1,0 +1,253 @@
+[{
+  "_id": {
+    "$oid": "606c43ea4452011eb0f8c859"
+  },
+  "price": 3.5,
+  "quantities": 10,
+  "deleted": false,
+  "name": "Combo Conan Màu - Tay Bắn Tỉa Ở Chiều Không Gian Khác: Tập 1 + 2 (Bộ 2 Tâp)",
+  "description": "Hiện trường vụ ám sát với một tay súng bắn tỉa là tòa tháp Bell Tree có độ cao 635 mét. Vô tình có mặt và chứng kiến sự việc, Conan đã lập tức rượt đuổi hung thủ bằng xe máy cùng Sera.\r\nCombo Conan Màu - Tay Bắn Tỉa Ở Chiều Không Gian Khác: Tập 1 + 2 (Bộ 2 Tâp)",
+  "videoID": "",
+  "image": "/uploads/6095fd09cb15f78fbadf69141a555e92",
+  "sellerID": "605dd35c0c9dc0078c85d242",
+  "createdAt": {
+    "$date": "2021-04-06T11:20:10.525Z"
+  },
+  "updatedAt": {
+    "$date": "2021-05-05T07:51:44.825Z"
+  },
+  "slug": "combo-conan-mau-tay-ban-tia-o-chieu-khong-gian-khac-tap-1-2-bo-2-tap",
+  "__v": 0,
+  "deletedAt": {
+    "$date": "2021-04-12T08:24:18.285Z"
+  },
+  "shopname": "Happy Book",
+  "sold": 18,
+  "category": "TRINH THÁM",
+  "NXB": "NXB Kim Đồng",
+  "author": "Gosho Aoyama",
+  "languages": "Tiếng Việt",
+  "pages": 120,
+  "warehouse": "Đà Nẵng",
+  "weight": 440,
+  "yearPublish": "2019"
+},{
+  "_id": {
+    "$oid": "606c45d94452011eb0f8c85a"
+  },
+  "price": 2.2,
+  "quantities": 23,
+  "deleted": false,
+  "name": "Thám Tử Lừng Danh Conan Hoạt Hình Màu: Ảo Thuật Gia Cuối Cùng Của Thế Kỉ - Tập 2",
+  "description": "Án mạng liên tiếp xảy ra xoay quanh Memories Egg – bảo vật của Vương triều Romanov!! Không những thế, ngay cả Kaito Kid cũng trở thành nạn nhân!?",
+  "videoID": "",
+  "image": "/uploads/b11d72f1eae214d731b1b91ea68661c5",
+  "sellerID": "605dd35c0c9dc0078c85d242",
+  "createdAt": {
+    "$date": "2021-04-06T11:28:25.015Z"
+  },
+  "updatedAt": {
+    "$date": "2021-05-05T07:50:21.568Z"
+  },
+  "slug": "tham-tu-lung-danh-conan-hoat-hinh-mau-ao-thuat-gia-cuoi-cung-cua-the-ki-tap-2",
+  "__v": 0,
+  "shopname": "Happy Book",
+  "sold": 8,
+  "NXB": "NXB Kim Đồng",
+  "author": "Gosho Aoyama",
+  "category": "TRINH THÁM",
+  "pages": 208,
+  "warehouse": "Đà Nẵng",
+  "weight": 220,
+  "yearPublish": "2021",
+  "languages": "Tiếng Việt"
+},{
+  "_id": {
+    "$oid": "606c46014452011eb0f8c85b"
+  },
+  "price": 3.1,
+  "quantities": 58,
+  "deleted": false,
+  "name": "Conan Hoạt Hình Màu - Bài Thơ Tình Thẫm Đỏ - Tập 1",
+  "description": "Cúp Satsuki là giải đấu karuta do “Hội Satsuki” dẫn đầu giới Bạch Nhân Nhất Thủ tổ chức… Nhà vô địch giải đấu ấy vừa bị sát hại!! Cùng lúc đó, một vụ đánh bom đã xảy ra tại Đài truyền hình Nichiuri, Osaka, nơi nhóm Conan được bám càng đến thăm nhân dịp Kogoro có việc ở đó!!",
+  "videoID": "",
+  "image": "/uploads/db9f00ade3ceac0361b2e1f89c202217",
+  "sellerID": "605dd35c0c9dc0078c85d242",
+  "createdAt": {
+    "$date": "2021-04-06T11:29:05.134Z"
+  },
+  "updatedAt": {
+    "$date": "2021-05-05T07:50:15.813Z"
+  },
+  "slug": "conan-hoat-hinh-mau-bai-tho-tinh-tham-d-tap-1",
+  "__v": 0,
+  "shopname": "Happy Book",
+  "sold": 5,
+  "NXB": "NXB Kim Đồng",
+  "author": "Gosho Aoyama, Takahiro Okura",
+  "category": "TRINH THÁM",
+  "pages": 208,
+  "warehouse": "Sài Gòn",
+  "weight": 220,
+  "yearPublish": "2020",
+  "languages": "Tiếng Việt"
+},{
+  "_id": {
+    "$oid": "606c462f4452011eb0f8c85c"
+  },
+  "price": 4,
+  "quantities": 22,
+  "deleted": false,
+  "name": "Vùng Đất Nam Bộ Dưới Triều Minh Mạng (1820-1841)",
+  "description": "Mục đích của cuốn sách này nhằm làm sáng tỏ một loạt những sự kiện chính trị quan trọng đã diễn ra ở Nam bộ trong nửa đầu thế kỷ XIX. Từ vùng đất này, các đội quân đã hành quân ra Bắc để thống nhất Việt Nam và lập nên vương triều Nguyễn (1802-1945).",
+  "videoID": "",
+  "image": "/uploads/8749f2ff7c3425b7ee30aaa858aaa833",
+  "sellerID": "605dd35c0c9dc0078c85d242",
+  "createdAt": {
+    "$date": "2021-04-06T11:29:51.716Z"
+  },
+  "updatedAt": {
+    "$date": "2021-05-05T07:50:09.129Z"
+  },
+  "slug": "vung-dat-nam-bo-duoi-trieu-minh-mang-1820-1841",
+  "__v": 0,
+  "shopname": "Happy Book",
+  "NXB": "NXB Hà Nội",
+  "author": "Choi Byung Wook",
+  "category": "TIỂU SỬ",
+  "pages": 380,
+  "warehouse": "Hà Nội",
+  "weight": 400,
+  "yearPublish": "2019",
+  "languages": "Tiếng Việt"
+},{
+  "_id": {
+    "$oid": "606c46a04452011eb0f8c85f"
+  },
+  "price": 253000,
+  "quantities": 8,
+  "deleted": false,
+  "name": "Sapiens - Lược Sử Loài Người Bằng Tranh - Tập 1: Khởi Đầu Của Loài Người",
+  "description": "Bộ truyện tranh này được chuyển thể từ cuốn sách best-seller “Sapiens: Lược sử loài người” của tác giả nổi tiếng Yuval Harari.",
+  "videoID": "",
+  "image": "/uploads/d6c831c1e985740c8848fcd102dcc6ca",
+  "sellerID": "606c464a4452011eb0f8c85d",
+  "createdAt": {
+    "$date": "2021-04-06T11:31:44.256Z"
+  },
+  "updatedAt": {
+    "$date": "2021-05-03T14:08:28.049Z"
+  },
+  "slug": "sapiens-luoc-su-loai-nguoi-bang-tranh-tap-1-khoi-dau-cua-loai-nguoi",
+  "__v": 0,
+  "shopname": "Conan truyền kì"
+},{
+  "_id": {
+    "$oid": "606c46db4452011eb0f8c860"
+  },
+  "price": 312000,
+  "quantities": 0,
+  "deleted": false,
+  "name": "Những Nhà Khoa Học Thay Đổi Lịch Sử",
+  "description": "Trải suốt tiến trình lịch sử, con người luôn bị thôi thúc, muốn hiểu rõ về thế giới xung quanh mình. Khoa học là nỗ lực đã và vẫn đang tiếp diễn của nhân loại nhằm tìm hiểu cách thức vũ trụ vận hành. Trên hành trình không ngừng nghỉ đó, có những cá nhân kiệt xuất đã để lại thành tựu vẫn còn ghi dấu trong cuộc sống ngày nay. Những thành tựu đó đồng thời trở thành động lực cho các thế hệ mai sau nỗ lực khám phá vũ trụ vô tận.",
+  "videoID": "",
+  "image": "/uploads/7a067ca7093ba1aa849e87ece692a16a",
+  "sellerID": "606c464a4452011eb0f8c85d",
+  "createdAt": {
+    "$date": "2021-04-06T11:32:43.364Z"
+  },
+  "updatedAt": {
+    "$date": "2021-05-03T14:08:28.167Z"
+  },
+  "slug": "nhung-nha-khoa-hoc-thay-doi-lich-su",
+  "__v": 0,
+  "shopname": "Conan truyền kì"
+},{
+  "_id": {
+    "$oid": "607402d6facd2a1f68db954b"
+  },
+  "price": 23.33,
+  "quantities": 16,
+  "deleted": false,
+  "name": "Lịch Sử Thế Giới",
+  "description": "Lịch Sử Thế Giới\r\n\r\nLịch Sử Thế Giới: Chân Dung Nhân Loại Theo Dòng Sự Kiện:\r\n\r\nVới lượng thông tin và hình ảnh đồ sộ, cuốn sách là hành trình hấp dẫn giúp bạn khám phá các bước tiến lịch sử đã làm nên chân dung nhân loại ngày nay.\r\n \r\n\r\nTOÀN DIỆN VÀ ĐỘC ĐÁO\r\n \r\n\r\nMở đầu từ sự xuất hiện loài người, cuốn sách đưa bạn qua tiến trình phát triển và suy tàn của các nền văn minh trên toàn thế giới, mà trọng tâm là các sự kiện chiến tranh, thương mại và thám hiểm, các cuộc cách mạng và đổi thay công nghệ… Đặc biệt, nội dung sách không chia theo chủ đề hay khu vực mà được trình bày theo diễn tiến thời gian nhằm giúp bạn có cái nhìn toàn cảnh và so sánh về sự phát triển của các quốc gia, dân tộc tại cùng một thời điểm trong quá khứ.\r\n \r\n\r\nMINH HỌA SỐNG ĐỘNG\r\n \r\n\r\nBên cạnh lượng thông tin dồi dào, cuốn sách còn cung cấp hơn 1000 hình minh họa độc đáo bao gồm các hiện vật, tác phẩm nghệ thuật, ảnh tư liệu nhằm tái hiện chân dung các nền văn hóa, sự kiện và nhân vật. Ngoài ra, cuốn sách còn có hàng trăm biểu đồ, bản đồ và số liệu phản ánh quy mô, tính chất và diễn biến của các sự kiện, thời kì lịch sử.\r\n \r\n\r\nĐỘI NGŨ BIÊN SOẠN UY TÍN\r\n \r\n\r\nĐây là công trình biên soạn của nhiều giảng viên, nhà nghiên cứu từ các trường đại học danh tiếng của Anh quốc như Oxford, Cambridge, Edinburgh cùng sự đóng góp của đội ngũ chuyên gia từ Viện Smithsonian, một hệ thống bao gồm gần 20 bảo tàng và trung tâm nghiên cứu cấp quốc gia của Hoa Kỳ, nơi lưu giữ 138 triệu hiện vật cùng các tư liệu quý giá về lịch sử nhân loại.\r\n\r\n\r\nĐẶC BIỆT BỔ SUNG\r\n \r\n\r\nVới mong muốn tiếp cận tốt hơn sự quan tâm của độc giả trong nước, nhóm biên dịch và hiệu đính đã bổ sung một số sự kiện lịch sử tiêu biểu của Việt Nam vào ấn bản tiếng Việt. Các sự kiện này được chọn lọc một cách cẩn trọng, tuân thủ tinh thần chung của bản gốc để đảm bảo tính nhất quán với tổng thể. Qua đó, bạn đọc sẽ có cái nhìn đối sánh về trình độ phát triển, các bước tiến của lịch sử Việt Nam so với các quốc gia trong khu vực và trên thế giới.",
+  "image": "/uploads/4e7944a2502d8e86cbfe32e97744a429",
+  "sellerID": "605dd35c0c9dc0078c85d242",
+  "createdAt": {
+    "$date": "2021-04-12T08:20:38.037Z"
+  },
+  "updatedAt": {
+    "$date": "2021-05-05T07:49:44.807Z"
+  },
+  "slug": "lich-su-the-gioi",
+  "__v": 0,
+  "shopname": "Happy Book",
+  "videoID": "",
+  "NXB": "NXB Dân Trí",
+  "author": "DK",
+  "category": "TIỂU SỬ",
+  "pages": 516,
+  "warehouse": "Đà Nẵng",
+  "weight": 3000,
+  "yearPublish": "2017",
+  "languages": "Tiếng Việt"
+},{
+  "_id": {
+    "$oid": "608b83a9dc6677472c0e29c3"
+  },
+  "price": 10.31,
+  "quantities": 26,
+  "sold": 0,
+  "deleted": false,
+  "name": "Muôn Kiếp Nhân Sinh - Many Times, Many Lives - Tập 2",
+  "description": "Cuốn Sách Của Những Cánh Bướm Rung Động\r\n\r\nTác phẩm Muôn Kiếp Nhân Sinh tập 1 của tác giả Nguyên Phong xuất bản giữa tâm điểm của đại dịch đã thực sự tạo nên một hiện tượng xuất bản hiếm có ở Việt Nam. Cuốn sách đã khơi dậy những trực cảm tiềm ẩn của con người, làm thay đổi góc nhìn cuộc sống và thức tỉnh nhận thức của chúng ta giữa một thế giới đang ngày càng bất ổn và đầy biến động. Ngoài việc phát hành hơn 200.000 bản trong 6 tháng, chưa kể lượng phát hành Ebook và Audio Book qua Voiz-FM, First News còn nhận được hàng ngàn tin nhắn, e-mail chuyển lời cảm ơn đến tác giả Nguyên Phong. Điều này chứng tỏ sức lan tỏa của cuốn sách đã tạo nên một hiện tượng trong văn hóa đọc của năm 2020. \r\n\r\nKhởi duyên cuốn sách Muôn Kiếp Nhân Sinh là cuộc điện thoại lúc đêm khuya từ Việt Nam qua Mỹ vào cuối năm 2016. Khi cảm nhận thế giới xung quanh còn quá nhiều áp bức, bất công và điều ác đang diễn ra, tôi đã đề nghị tác giả Nguyên Phong viết một cuốn sách về Nhân quả để cảnh báo và thức tỉnh con người (tác phẩm Hành Trình về Phương Đông do ông viết phóng tác gần năm mươi năm trước đã làm nhiều thế hệ người Việt Nam thay đổi tâm thức và được yêu thích cho đến giờ).\r\n\r\nLúc đó, tác giả Nguyên Phong đã kể tôi nghe về câu chuyện nhân quả và tiền kiếp đặc biệt kỳ lạ của Thomas - một doanh nhân thành đạt ở New York và cũng là người bạn tâm giao mà ông đã từng gặp ở Đại học Đài Bắc năm 2008. Sau cuộc điện thoại đêm khuya đó, ông đã lẳng lặng bay đến New York gặp Thomas và đề nghị được viết những câu chuyện lạ thường của Thomas thành sách.\r\n\r\nVà bất ngờ - Thomas đã đồng ý.\r\n\r\nMuôn Kiếp Nhân Sinh đã ra đời một cách kỳ lạ như  cuốn sách của nhân duyên và có một sứ mệnh đặc biệt. Tôi và nhiều độc giả Việt Nam đã thực sự lay động và đồng cảm sâu sắc với những lời chia sẻ tâm huyết của Thomas ở những trang sách cuối tập 1: “Tôi mong chúng ta - những cánh bướm bé nhỏ rung động mong manh - cũng có thể tạo nên những trận cuồng phong mãnh liệt để thức tỉnh mọi người”. \r\n\r\nTiếp nối các kiếp sống kỳ lạ của Thomas ở nền văn minh Atlantis và Ai Cập hùng mạnh ở tập 1, Muôn Kiếp Nhân Sinh tập 2 là cuộc hành trình vô tiền khoáng hậu tiếp theo của Thomas trên chuyến tàu xuyên thời gian - không gian trải dài từ nước Mỹ đương đại, ngược về vùng sa mạc Lưỡng Hà Assyria cho đến Hy Lạp, Ba Tư, Ấn Độ cổ đại qua những cuộc chinh phạt của Alexander Đại đế. Những ký ức về chiến binh kiêu hùng Achilles trong trận công thành Troy huyền thoại và sự thức tỉnh bất ngờ của vị đại đế bất bại khi chinh phục quốc gia huyền bí đã vẽ nên bức tranh kỳ vĩ về thân phận con người luôn phải xoay vần không ngừng trong bão tố Nhân quả của tham vọng, chiến tranh, hận thù và tình yêu trong suốt chiều dài lịch sử thế giới.\r\n\r\n Không chỉ là những bài học sâu sắc về Nhân quả của Thomas, Muôn Kiếp Nhân Sinh tập 2 còn vén bức màn bí ẩn và khám phá hành trình bất tận của những linh hồn qua các tầng cõi, trạm trung chuyển trong muôn vàn kiếp sống... Tất cả được đúc kết, xâu chuỗi lại một cách logic bằng góc nhìn hài hòa giữa tâm linh, ",
+  "videoID": "",
+  "image": "/uploads/17e81164f73d67e13f047933fe95ddd5",
+  "sellerID": "605dd35c0c9dc0078c85d242",
+  "shopname": "Happy Book",
+  "createdAt": {
+    "$date": "2021-04-30T04:12:25.716Z"
+  },
+  "updatedAt": {
+    "$date": "2021-05-05T07:49:52.882Z"
+  },
+  "slug": "muon-kiep-nhan-sinh-many-times-many-lives-tap-2",
+  "__v": 0,
+  "NXB": "NXB Tổng Hợp TPHCM",
+  "author": "Nguyên Phong",
+  "category": "TÂM LÝ",
+  "pages": 544,
+  "warehouse": "Sài Gòn",
+  "weight": 600,
+  "yearPublish": "2021",
+  "languages": "Tiếng Việt"
+},{
+  "_id": {
+    "$oid": "60923d5b31cff5401483fd3c"
+  },
+  "pages": 488,
+  "weight": 500,
+  "price": 3,
+  "quantities": 55,
+  "sold": 0,
+  "deleted": false,
+  "name": "Những Lời Chúng Tôi Nói Ở Bệnh Viện Bên Bờ Biển - Bản Giới Hạn - Tặng Kèm Bookmark + Postcard",
+  "description": "Một năm trước đã xảy ra một \"cuộc chiến\". Căn bệnh kì lạ nọ đột nhiên phát tán ở một địa phương hẻo lánh và lan rộng. Hàng ngàn người đã thiệt mạng, phần đông trong số đó là người lớn. Nhưng có vẻ như một số thiếu niên sống sót lại phát triển những sức mạnh siêu việt từ căn bệnh. Và cùng với căn bệnh là sự xuất hiện của các thế lực kì quái to lớn...\r\n\r\nMột năm sau, Uehara Sou tới thăm một bệnh viện bên bờ biển. Đấy là bệnh viện chuyên điều trị cho những người mắc phải căn bệnh kì lạ kia. Cậu cũng đã từng nằm viện ở đây, các đồng đội cũ của cậu hầu như đã hi sinh, những người còn sống thì vẫn chưa thể khỏi bệnh và xuất viện. Sou bắt đầu nhớ lại và kể về những sự kiện xảy ra vào \"ngày hôm ấy\".\r\n\r\nKết cục và chân tướng của cuộc chiến ấy là...\r\n\r\nNhững Lời Chúng Tôi Nói Ở Bệnh Viện Bên Bờ Biển là one-shot đặc sắc đến từ Kadokawa Shoten - Tác phẩm đã đoạt giải tác phẩm mới của website viết tiểu thuyết cho người trẻ tại Nhật, đồng thời xếp #2 trong Top 10 BXH Kono Light Novel Ga Sugoi – chuyên trang bình chọn Light Novel thường niên với lượng fan theo dõi đông đảo cả ở cả Nhật Bản, Việt Nam và trên toàn thế giới. Đây cũng là truyện ngắn 01 tập duy nhất trong Top 10 bảng xếp hạng.\r\n\r\nIshikawa Hiroshi sinh năm 1978 tại tỉnh Iwate. Anh đã nhận giải Xuất sắc hạng mục Tiểu thuyết của Enterbrain Entertainment Awards và xuất bản tác phẩm đầu tay dưới dòng tiểu thuyết Famitsu Bunko.\r\n\r\n---\r\n\r\nMột ấn phẩm của WINGS BOOKS - Thương hiệu sách trẻ của NXB Kim Đồng.",
+  "category": "VĂN HỌC",
+  "author": "Hiroshi Ishikawa, Mai Yoneya",
+  "yearPublish": "2021",
+  "NXB": "NXB Kim Đồng",
+  "warehouse": "Đà Nẵng",
+  "image": "/uploads/ced0dcf1e3b182981efd766b90fb3a3b",
+  "sellerID": "605dd35c0c9dc0078c85d242",
+  "shopname": "Happy Book",
+  "createdAt": {
+    "$date": "2021-05-05T06:38:19.126Z"
+  },
+  "updatedAt": {
+    "$date": "2021-05-05T07:02:50.783Z"
+  },
+  "slug": "nhung-loi-chung-toi-noi-o-benh-vien-ben-bo-bien-ban-gioi-han-tang-kem-bookmark-postcard",
+  "__v": 0,
+  "languages": "Tiếng Việt"
+}]
