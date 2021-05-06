@@ -1,7 +1,7 @@
 // const meRouter = require('./me');
 // const newsRouter = require('./news');
 const siteRouter = require('./site');
-// const booksRouter = require('./books');
+const booksRouter = require('./books');
 // const buyersRouter = require('./buyers');
 // const cartsRouter = require('./carts');
 // const authMiddleware = require('../middlewares/auth.middleware');
@@ -25,7 +25,7 @@ function routeAPI(app)
     // app.use('/admin', adminRouter);
     // app.use('/paypal', paypalRouter);
     // app.use('/', siteRouter);
-      
+    app.use('/api/books', booksRouter);
     app.use('/api', siteRouter)
 }
 

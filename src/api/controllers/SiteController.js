@@ -1,4 +1,3 @@
-
 const Book = require('../../app/controllers/models/Book');
 const  { mutipleMongooseToObject } = require('../../util/mongoose');
 Book.createIndexes({ name: "text" });
@@ -124,7 +123,6 @@ class SiteController {
        
         var searchQuery = req.query.search;
         res.locals.searchQuery = searchQuery;
-        // Book.find( { 'name' : { '$regex' : req.query.search, '$options' : 'i' } } )
         Book.find( {$text:{$search : searchQuery}}).sortable(req)
             .skip((perPage * page) - perPage)
             .limit(perPage)
