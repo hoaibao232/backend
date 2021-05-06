@@ -28,7 +28,7 @@ class BooksController {
     //POST
     store(req,res,next)
     {
-        
+        console.log(req.signedCookies.sellerId);
         Seller.findOne({_id: req.signedCookies.sellerId})
             .then(seller => {
                 var imagestr = "\\" + req.file.path.split('\\').slice(1).join('\\');

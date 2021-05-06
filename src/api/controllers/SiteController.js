@@ -2,9 +2,11 @@ const Book = require('../../app/controllers/models/Book');
 const  { mutipleMongooseToObject } = require('../../util/mongoose');
 const fs = require('fs');
 Book.createIndexes({ name: "text" });
+var result1 = []
+
 
 class SiteController {
-    
+
     // [GET] /
     index(req, res, next){
         let courseQuery = Book.find({});
@@ -84,7 +86,7 @@ class SiteController {
                     var result = [];
                     var output;
                    books.forEach(document => {
-                    fs.readFile("C:/Users/admin/Desktop/blog/public/" + document.image, 'utf8' , (err, data) => {
+                        fs.readFile("C:/Users/admin/Desktop/blog/public/" + document.image, 'utf8' , (err, data) => {
                             if (err) {
                                 console.error(err)
                                 return
@@ -94,14 +96,13 @@ class SiteController {
                                 imagePath : data,
                             }
                             // console.log(output);
-                            result.push(output)
-                            res.json(result);
-                            
+                            result1.push(output)
                         })   
 
-                        // console.log(result);
-                   });
                         
+                   });
+                        // console.log(result1);
+                        res.json(result1);
                    
                 })
             
