@@ -2,6 +2,7 @@ const Book = require('../../app/controllers/models/Book');
 const Buyer = require('../../app/controllers/models/Buyer');
 const Seller = require('../../app/controllers/models/Seller');
 const  { mongooseToObject } = require('../../util/mongoose');
+const fs = require('fs')
 
 class BooksController {    
     //[GET] /course/:slug
@@ -121,7 +122,15 @@ class BooksController {
     {
         // Book.find({})
         //     .then(books => {
-                res.sendFile("C:/Users/admin/Desktop/blog/public/uploads/2cf6056cc58d527307537b09f1102a4d");
+                // res.readFile("C:/Users/admin/Desktop/blog" + "/public/uploads/2cf6056cc58d527307537b09f1102a4d");
+                
+                    fs.readFile("C:/Users/admin/Desktop/blog/public/uploads/2cf6056cc58d527307537b09f1102a4d", 'utf8' , (err, data) => {
+                    if (err) {
+                        console.error(err)
+                        return
+                    }
+                    res.json(data)
+                    })
     //         })
     }
 

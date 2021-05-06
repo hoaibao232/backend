@@ -1,5 +1,6 @@
 const Book = require('../../app/controllers/models/Book');
 const  { mutipleMongooseToObject } = require('../../util/mongoose');
+const fs = require('fs');
 Book.createIndexes({ name: "text" });
 
 class SiteController {
@@ -77,28 +78,30 @@ class SiteController {
             }
             // return;
         }
-       
-        if(req.query.hasOwnProperty('_sort')) {
-            const isVaildtype = ['asc', 'desc'].includes(req.query.type);
-            courseQuery = courseQuery.sort({
-                [req.query.column] : isVaildtype ? req.query.type : 'asc',
-            })
-        }
-
-        Book.find({}).sortable(req)
-            .skip((perPage * page) - perPage)
-            .limit(perPage)
+        Book.find({})
             .then(books => 
                 {
-                    Book.count()
-                        .then(count => {
-                            // res.render('home1', { 
-                            //     books: mutipleMongooseToObject(books),
-                            //     current: page,
-                            //     pages: Math.ceil(count / perPage),
-                            // });
-                            res.json(books);
-                        })
+                    var result = [];
+                    var output;
+                   books.forEach(document => {
+                    fs.readFile("C:/Users/admin/Desktop/blog/public/" + document.image, 'utf8' , (err, data) => {
+                            if (err) {
+                                console.error(err)
+                                return
+                             }
+                            output = {
+                                book : document,
+                                imagePath : data,
+                            }
+                            // console.log(output);
+                            result.push(output)
+                            res.json(result);
+                            
+                        })   
+
+                        // console.log(result);
+                   });
+                        
                    
                 })
             
