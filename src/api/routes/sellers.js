@@ -9,9 +9,9 @@ var upload = multer({ dest: './public/uploads/' })
 
 router.get('/sign-up', sellerController.create);
 router.get('/login', sellerController.login);
-router.get('/logout', sellerController.logout);
-router.get('/info', AuthSeller.requireAuthSeller, sellerController.sellerinfo);
-router.put('/:id', upload.single('avatar'), AuthSeller.requireAuthSeller, sellerController.update);
-router.post('/store', sellerController.store);
-router.post('/verifyaccount', sellerController.verifyaccount);
+router.get('/logout', sellerController.logout); //done
+router.get('/info', AuthSeller.requireAuthSeller, sellerController.sellerinfo); //done
+router.put('/:id', upload.single('avatar'), AuthSeller.requireAuthSeller, sellerController.update); //done
+router.post('/store', sellerController.store); //done
+router.post('/verifyaccount', sellerController.verifyaccount); //done
 module.exports = router;

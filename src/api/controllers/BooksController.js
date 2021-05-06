@@ -43,7 +43,7 @@ class BooksController {
                             if (err) return console.error(err);
                           });
                         
-                     res.json('Add product successfully!') 
+                     res.json({message : 'Add product successfully'}) 
                     }
                     )
                     .catch(error => {});
@@ -65,57 +65,121 @@ class BooksController {
     //PUT /course/:id
     update(req,res,next)
     {
-        if(!req.file)
-        {
-            Book.findOne({_id: req.params.id})
-                .then(book => {
-                    req.body.image = book.image;
-                    Book.updateOne({_id: req.params.id }, req.body)
-                        .then(() => res.redirect('/me/stored/books'))
-                        .catch(next);
+        Book.find({_id: req.params.id}, function(err, result) {
+            if (err) { 
+                res.statusCode = 500;
+                return res.json({
+                    message : 'Book not found'
                 })
-        }
-        else{
-            req.body.image = "\\" + req.file.path.split('\\').slice(1).join('\\');
-            Book.updateOne({_id: req.params.id }, req.body)
-                .then(() => res.redirect('/me/stored/books'))
-                .catch(next);
-        }
+             }
+        
+            if (result) {
+                if(!req.file)
+                {
+                    Book.findOne({_id: req.params.id})
+                        .then(book => {
+                            req.body.image = book.image;
+                            Book.updateOne({_id: req.params.id }, req.body)
+                                .then(() => res.json({message : 'Update book info successfully'}))
+                                .catch(next);
+                        })
+                }
+                else{
+                    req.body.image = "\\" + req.file.path.split('\\').slice(1).join('\\');
+                    Book.updateOne({_id: req.params.id }, req.body)
+                        .then(() => res.json({message : 'Update book info successfully'}))
+                        .catch(next);
+                }
+            } 
+            else {
+                    res.statusCode = 500;
+                    return res.json({
+                        message : 'Book not found'
+                    })
+            }
+        })
        
     }
 
     //DELETE /course/:id
     destroy(req,res,next)
     {
-        Book.findOne({_id: req.params.id})
-        .then((books) => {
-                Seller.updateOne({_id: books.sellerID}, { $inc : {productsCount : -1} }, function(err, doc) {
-                  if (err) return console.error(err);
-                  console.log("Document inserted succussfully!");
-                   });
+        Book.find({_id: req.params.id}, function(err, result) {
+            if (err) { 
+                res.statusCode = 404;
+                return res.json({
+                    message : 'Book not found'
+                })
+             }
+             if (result) {
+                Book.findOne({_id: req.params.id})
+                    .then((books) => {
+                        Seller.updateOne({_id: books.sellerID}, { $inc : {productsCount : -1} }, function(err, doc) {
+                        if (err) return console.error(err);
+                        });
+                        })
+                Book.delete({_id: req.params.id})
+                        .then(() => res.json({message : 'Delete book successfully'}))
+                        .catch(next);
+                        }
+                else {
+                    res.statusCode = 404;
+                    return res.json({
+                        message : 'Book not found'
+                        })
+                    }
         })
-    
 
-       Book.delete({_id: req.params.id})
-            .then(() => res.redirect('back'))
-            .catch(next);
+
+        
     }
 
     //DELETE /course/:id/force
     forceDestroy(req,res,next)
     {
-           
-        Book.deleteOne({_id: req.params.id})
-            .then(() => res.redirect('back'))
-            .catch(next);
+        Book.find({_id: req.params.id}, function(err, result) {
+            if (err) { 
+                res.statusCode = 404;
+                return res.json({
+                    message : 'Book not found'
+                })
+             }
+        
+            if (result) {
+                Book.deleteOne({_id: req.params.id})
+                    .then(() => res.json({message : 'Destroy book successfully'}))
+                    .catch(next);
+            } else {
+                res.statusCode = 404;
+                return res.json({
+                    message : 'Book not found'
+                })
+            }
+        })  
     }
 
      //[PATCH] /course/:id/restore
     restore(req,res,next)
     {
-       Book.restore({_id: req.params.id})
-            .then(() => res.redirect('back'))
-            .catch(next);
+        Book.find({_id: req.params.id}, function(err, result) {
+            if (err) { 
+                res.statusCode = 404;
+                return res.json({
+                    message : 'Book not found'
+                })
+             }
+        
+            if (result) {
+                Book.restore({_id: req.params.id})
+                    .then(() => res.json({message : 'Restore book successfully'}))
+                    .catch(next);
+            } else {
+                res.statusCode = 404;
+                return res.json({
+                    message : 'Book not found'
+                })
+            }
+        })  
     }
 
     sendFile(req,res,next)

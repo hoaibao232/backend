@@ -107,16 +107,6 @@ class SiteController {
                 })
             
             .catch(next);
-
-
-        // Book.find({})
-        //     .then(books => 
-        //         {
-        //        res.json(books);
-        //         })
-            
-        //     .catch(next);
-
     }
 
     //[GET] /search
