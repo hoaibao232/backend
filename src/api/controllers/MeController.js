@@ -12,7 +12,15 @@ class MeController {
     //[GET] /me/stored/books
     storedBooks(req,res, next)
     {
-        let bookQuery = Book.find({sellerID : req.signedCookies.sellerId})
+        Book.find({sellerID : req.signedCookies.sellerId}, function(err,result) {
+            if (err) { 
+                res.statusCode = 404;
+                return res.json({
+                    message : err
+                })
+             }
+             if (result) {
+                let bookQuery = Book.find({sellerID : req.signedCookies.sellerId})
         
                 Promise.all([bookQuery, Book.countDocumentsDeleted()])
                 .then(([books, deletedCount]) =>
@@ -20,37 +28,105 @@ class MeController {
                 )
                 .catch(next);
   
+            } else {
+                if (err) { 
+                    res.statusCode = 404;
+                    return res.json({
+                        message : 'Books not found'
+                    })
+                 }   
+            }
+        })
+       
+      
     }
 
     inactiveBooks(req,res, next)
     {
-        let bookQuery = Book.find({sellerID : req.signedCookies.sellerId, quantities : 0}).sortable(req);
+        Book.find({sellerID : req.signedCookies.sellerId}, function(err,result) {
+            if (err) { 
+                res.statusCode = 404;
+                return res.json({
+                    message : err
+                })
+             }
+             if (result) {
+                
+                let bookQuery = Book.find({sellerID : req.signedCookies.sellerId, quantities : 0}).sortable(req);
 
-        Promise.all([bookQuery, Book.countDocumentsDeleted()])
-        .then(([books, deletedCount]) =>
-                res.json(books)
-        )
-        .catch(next);
-        
+                Promise.all([bookQuery, Book.countDocumentsDeleted()])
+                .then(([books, deletedCount]) =>
+                        res.json(books)
+                    )
+                    .catch(next);
+  
+            } else {
+                if (err) { 
+                    res.statusCode = 404;
+                    return res.json({
+                        message : 'Books not found'
+                    })
+                 }   
+            }
+        })   
     }
 
     activeBooks(req,res, next)
     {
-        let bookQuery = Book.find({sellerID : req.signedCookies.sellerId, quantities :{$ne : 0} }).sortable(req);
 
-        Promise.all([bookQuery, Book.countDocumentsDeleted()])
-        .then(([books, deletedCount]) =>
-            res.json(books)
-        )
-        .catch(next);
+        Book.find({sellerID : req.signedCookies.sellerId}, function(err,result) {
+            if (err) { 
+                res.statusCode = 404;
+                return res.json({
+                    message : err
+                })
+             }
+             if (result) {
+                
+                let bookQuery = Book.find({sellerID : req.signedCookies.sellerId, quantities :{$ne : 0} }).sortable(req);
+
+                Promise.all([bookQuery, Book.countDocumentsDeleted()])
+                .then(([books, deletedCount]) =>
+                    res.json(books)
+                )
+                .catch(next);
+  
+            } else {
+                if (err) { 
+                    res.statusCode = 404;
+                    return res.json({
+                        message : 'Books not found'
+                    })
+                 }   
+            }
+        })
     }
 
     //[GET] /me/trash/courses
    trashBooks(req,res, next)
     {
-        Book.findDeleted({}).sortable(req)
-            .then(books => res.json(books))
-            .catch(next);
+        Book.findDeleted({}, function(err,result) {
+            if (err) { 
+                res.statusCode = 404;
+                return res.json({
+                    message : err
+                })
+             }
+             if (result) {
+                Book.findDeleted({})
+                    .then(books => res.json(books))
+                    .catch(next);
+                
+            } else {
+                if (err) { 
+                    res.statusCode = 404;
+                    return res.json({
+                        message : 'Books not found'
+                    })
+                 }   
+            }
+
+        })
         
     }
 
@@ -60,12 +136,7 @@ class MeController {
         var output = []
         Order.find({'products.sellerId' : req.signedCookies.sellerId})
             .then(orders => {
-                orders.forEach(function(document) {output.push(document.products) })
-                //console.log(orders.products),
-
-                // var produdctIDs = output.map(function(products){ return products.quantity})
-                // console.log(produdctIDs)
-
+                orders.forEach(function(document) {output.push(document.products) })    
                 Book.find({_id : {$in : output.bookId}})
                     .then(books => {
                         console.log(books);
@@ -76,96 +147,251 @@ class MeController {
 
     notApprovedOrders(req,res,next)
     {
-        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Not approved"}).sortable(req)
-            .then(orders => {
-                res.json(orders)
-            })    
+        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Not approved" }, function(err, result) {
+            if (err) { 
+                res.statusCode = 404;
+                return res.json({
+                    message : err
+                })
+             }
+        
+            if (result) {
+                Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Not approved"}).sortable(req)
+                .then(orders => {
+                    res.json(orders)
+                })    
+            } else {
+                    res.statusCode = 404;
+                    return res.json({
+                        message : 'Orders not found'
+                    })
+            }
+        })     
     }
 
     Approve(req,res,next)
     {
-        Order.updateOne({_id: req.params.id }, {status : "Approved"})
-            .then(() => res.json('Approved'))
-            .catch(next);
+        Order.find({_id: req.params.id }, function(err, result) {
+            if (err) { 
+                res.statusCode = 500;
+                return res.json({
+                    message : 'Order not found'
+                })
+             }
+        
+            if (result) {
+                Order.updateOne({_id: req.params.id }, {status : "Approved"})
+                    .then(() => res.json({ message : 'Approved successfully'}))
+                    .catch(next);
+            } else {
+                    res.statusCode = 500;
+                    return res.json({
+                        message : 'Order not found'
+                    })
+            }
+        })
     }
 
     Cancel(req,res,next)
     {
-        Order.updateOne({_id: req.params.id }, {status : "Canceled"})
-            .then(() => res.json('Canceled'))
-            .catch(next);
+        Order.find({_id: req.params.id }, function(err, result) {
+            if (err) { 
+                res.statusCode = 500;
+                return res.json({
+                    message : 'Order not found'
+                })
+             }
+        
+            if (result) {
+                Order.updateOne({_id: req.params.id }, {status : "Canceled"})
+                    .then(() => res.json({message : 'Cancel successfully'}))
+                    .catch(next);
+            } else {
+                    res.statusCode = 500;
+                    return res.json({
+                        message : 'Order not found'
+                    })
+            }
+        })
     }
 
     canceledOrders(req,res,next)
     {
-        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Canceled"}).sortable(req)
-        .then(orders => {
-            res.json(orders)
-        })  
+        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Canceled" }, function(err, result) {
+            if (err) { 
+                res.statusCode = 404;
+                return res.json({
+                    message : err
+                })
+             }
+        
+            if (result) {
+                Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Canceled"}).sortable(req)
+                .then(orders => {
+                    res.json(orders)
+                })      
+            } else {
+                    res.statusCode = 404;
+                    return res.json({
+                        message : 'Orders not found'
+                    })
+            }
+        })     
     }
 
     toShipOrders(req,res,next)
     {
-        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Approved" }).sortable(req)
-            .then(orders => {
-                res.json(orders)
-        })
+        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Approved" }, function(err, result) {
+            if (err) { 
+                res.statusCode = 404;
+                return res.json({
+                    message : err
+                })
+             }
+        
+            if (result) {
+                Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Approved" })
+                .then(orders => {
+                    res.json(orders)
+                    })
+            } else {
+                    res.statusCode = 404;
+                    return res.json({
+                        message : 'Orders not found'
+                    })
+            }
+        })     
     }
 
     readyShip(req,res,next)
     {
-        Order.updateOne({_id: req.params.id }, {status : "toShip"})
-            .then(() => res.json('readyShip'))
-            .catch(next);
+        Order.find({_id: req.params.id }, function(err, result) {
+            if (err) { 
+                res.statusCode = 500;
+                return res.json({
+                    message : 'Order not found'
+                })
+             }
+        
+            if (result) {
+                Order.updateOne({_id: req.params.id }, {status : "toShip"})
+                    .then(() => res.json({message :'readyShip successfully'}))
+                    .catch(next);
+            } else {
+                    res.statusCode = 500;
+                    return res.json({
+                        message : 'Order not found'
+                    })
+            }
+        })
     }
 
     shippingOrders(req,res,next)
     {
-        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "toShip" }).sortable(req)
-            .then(orders => {
-                res.json(orders)
-        })
+        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "toShip" }, function(err, result) {
+            if (err) { 
+                res.statusCode = 404;
+                return res.json({
+                    message : err
+                })
+             }
+        
+            if (result) {
+                Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "toShip" }).sortable(req)
+                    .then(orders => {
+                        res.json(orders)
+                        })
+            } else {
+                    res.statusCode = 404;
+                    return res.json({
+                        message : 'Orders not found'
+                    })
+            }
+        })     
     }
 
     completed(req,res,next)
     {
-        Order.updateOne({_id: req.params.id }, {status : "Completed"})
-            .then({})
-            .catch({})
+        Order.find({_id: req.params.id }, function(err, result) {
+            if (err) { 
+                res.statusCode = 500;
+                return res.json({
+                    message : 'Order not found'
+                })
+             }
+        
+            if (result) {
+                Order.updateOne({_id: req.params.id }, {status : "Completed"})
+                    .then({})
+                    .catch({})
+                Order.findOne({_id: req.params.id })
+                    .then(order => {
+                    Book.findOne({_id: order.products[0].bookId})
+                        .then(book => {
+                            var totalSold = book.sold + order.products[0].quantity;
+                            Book.updateOne({_id: order.products[0].bookId }, {sold : totalSold })
+                                .then({})
+                                .catch({})
+                        })
 
-        Order.findOne({_id: req.params.id })
-            .then(order => {
-                
-                
-                    
-                Book.findOne({_id: order.products[0].bookId})
-                    .then(book => {
-                        var totalSold = book.sold + order.products[0].quantity;
-                        console.log(totalSold)
-                        Book.updateOne({_id: order.products[0].bookId }, {sold : totalSold })
-                            .then({})
-                            .catch({})
+                    res.json('completed')
+                })
+            } else {
+                    res.statusCode = 500;
+                    return res.json({
+                        message : 'Order not found'
                     })
-
-                res.json('completed')
-            })
+            }
+        })
         
     }
 
     completedOrders(req,res,next)
     {
-        Order.find({'products.sellerId' : req.signedCookies.sellerId, $or : [{status : "Completed"}, {status : "Buyer-Confirmed"}] }).sortable(req)
-            .then(orders => {
-                res.json(orders)
-        })
+        Order.find({'products.sellerId' : req.signedCookies.sellerId, $or : [{status : "Completed"}, {status : "Buyer-Confirmed"}] }, function(err, result) {
+            if (err) { 
+                res.statusCode = 404;
+                return res.json({
+                    message : err
+                })
+             }
+        
+            if (result) {
+                Order.find({'products.sellerId' : req.signedCookies.sellerId, $or : [{status : "Completed"}, {status : "Buyer-Confirmed"}] }).sortable(req)
+                    .then(orders => {
+                    res.json(orders)
+                 })
+            } else {
+                    res.statusCode = 404;
+                    return res.json({
+                        message : 'Orders not found'
+                    })
+            }
+        })     
     }
 
     returnOrders(req,res,next)
     {
-        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Return" }).sortable(req)
-            .then(orders => {
-                res.json(orders)
-        })
+        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Return" }, function(err, result) {
+            if (err) { 
+                res.statusCode = 404;
+                return res.json({
+                    message : err
+                })
+             }
+        
+            if (result) {
+                Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Return" }).sortable(req)
+                    .then(orders => {
+                    res.json(orders)
+                })
+            } else {
+                    res.statusCode = 404;
+                    return res.json({
+                        message : 'Orders not found'
+                    })
+            }
+        })     
     }
 
      // me/stored/handle-form-actions
@@ -202,6 +428,20 @@ class MeController {
 
      paymentPaid(req,res,next)
      {
+        // // Website you wish to allow to connect
+        // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+
+        // // Request methods you wish to allow
+        // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+        // // Request headers you wish to allow
+        // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+        // // Set to true if you need the website to include cookies in the requests sent
+        // // to the API (e.g. in case you use sessions)
+        // res.setHeader('Access-Control-Allow-Credentials', true);
+
+
         Order.aggregate([
                 {$match : { $and : [ {'products.sellerId' : req.signedCookies.sellerId}, {status : "Buyer-Confirmed"}]  }},
                 {
@@ -214,8 +454,13 @@ class MeController {
                 }
                 ])
             .then(result => {
-                // res.json(result[0].totalPaid);
-                res.locals.totalPaid = result[0].totalPaid;
+                if(!result[0])
+                {
+                    res.locals.totalPaid = 0;
+                }
+                else{
+                    res.locals.totalPaid = result[0].totalPaid;
+                }
             })
 
          Order.aggregate([
@@ -230,16 +475,27 @@ class MeController {
                 }
             ])
                 .then(result => {
-                    // res.json(result[0].totalUnpaid);
-                    res.locals.totalUnpaid = result[0].totalUnpaid;
+                    if(!result[0])
+                    {
+                        res.locals.totalUnpaid = 0;
+                    }
+                    else{
+                        res.locals.totalUnpaid = result[0].totalUnpaid;
+                    }
+                   
                 })
+                .catch(next);
         
         
         var output = []
         Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Buyer-Confirmed"}).sortable(req)
             .then(orders => {
                 orders.forEach(function(document) {output.push(document.products) })
-                res.json(orders);
+                res.json({
+                    order : orders,
+                    totalPaid : res.locals.totalPaid,
+                    totalUnpaid : res.locals.totalUnpaid,
+                });
             })  
 
 
@@ -260,8 +516,14 @@ class MeController {
             }
             ])
         .then(result => {
-            // res.json(result[0].totalPaid);
-            res.locals.totalPaid = result[0].totalPaid;
+            // res.locals.totalPaid = result[0].totalPaid;
+                if(!result[0])
+                {
+                    res.locals.totalPaid = 0;
+                }
+                else{
+                    res.locals.totalPaid = result[0].totalPaid;
+                }
         })
         // {status : {$ne : "Completed"}}
 
@@ -277,15 +539,25 @@ class MeController {
             }
         ])
             .then(result => {
-                // res.json(result[0].totalUnpaid);
-                res.locals.totalUnpaid = result[0].totalUnpaid;
+                // res.locals.totalUnpaid = result[0].totalUnpaid;
+                 if(!result[0])
+                    {
+                        res.locals.totalUnpaid = 0;
+                    }
+                    else{
+                        res.locals.totalUnpaid = result[0].totalUnpaid;
+                    }
             })
 
         var output = []
         Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Completed"}).sortable(req)
             .then(orders => {
                 orders.forEach(function(document) {output.push(document.products) })
-                res.json(orders);
+                res.json({
+                    order : orders,
+                    totalPaid : res.locals.totalPaid,
+                    totalUnpaid : res.locals.totalUnpaid,
+                });
             })    
      }
 

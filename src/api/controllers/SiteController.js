@@ -16,7 +16,6 @@ class SiteController {
         var category;
         if(req.query.hasOwnProperty('category')) {
             const isVaildtype = ['VanHoc', 'KinhTe', 'TamLy', 'SachThieuNhi', 'TieuSu', 'NgoaiNgu', 'GiaoKhoa', 'TrinhTham', 'TruyenTranh' ].includes(req.query.category);
-            console.log(req.query.category)
             switch (req.query.category) {
                 case 'VanHoc':
                     Book.find({category : "VĂN HỌC"})
@@ -78,7 +77,6 @@ class SiteController {
                 default:
                     break;
             }
-            // return;
         }
         Book.find({})
             .then(books => 
@@ -96,14 +94,24 @@ class SiteController {
                                 imagePath : data,
                             }
                             // console.log(output);
-                            result1.push(output)
+                            if (result1.length < books.length) {
+                                result1.push(output)
+                            }
                         })   
 
-                        
                    });
-                        // console.log(result1);
-                        res.json(result1);
-                   
+                        if(result1.length > 0)
+                        {
+                            res.json(result1);
+                        }
+                        else 
+                        {
+                            res.statusCode = 404;
+                            res.json({
+                                message : "Empty"
+                            });
+                        }
+                        
                 })
             
             .catch(next);

@@ -232,7 +232,7 @@ class SellerController {
                         message : 'Seller not found'
                     })
             }
-        }).limit(1)
+        })
     }
 
     logout(req,res,next)

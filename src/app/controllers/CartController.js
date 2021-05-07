@@ -30,7 +30,9 @@ class CartController {
 
                                 Cart.findOne({productslug : req.params.slug, userID : req.signedCookies.userId})
                                     .then (cart1 => {
-                                        Cart.updateOne({productslug : req.params.slug, userID : req.signedCookies.userId}, { $inc: {quantity : req.body.quanty, totalprice : req.body.quanty * cart1.price} }, function(err, doc) {
+                                        var total = Math.round((req.body.quanty * cart1.price + Number.EPSILON) * 100) / 100;
+                                        console.log(total);
+                                        Cart.updateOne({productslug : req.params.slug, userID : req.signedCookies.userId}, { $inc: {quantity : req.body.quanty, totalprice : total} }, function(err, doc) {
                                             if (err) return console.error(err);
                                             console.log("Update cart successfully!");
                                           });
