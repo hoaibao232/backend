@@ -98,8 +98,9 @@
                                         
                                     </div>
                                     <!-- Lấy tên sản phẩm -->
+                                   
                                     <div class="cart-item-product__name">
-                                        {{this.productname}}
+                                        <a target="_blank" rel="noopener noreferrer" href="/books/{{this.productslug}}">{{this.productname}}</a>
                                     </div>
                                 </div>
                                 <div class="cart-item-price">
@@ -107,16 +108,13 @@
                                     <!-- Lấy giá sản phẩm -->
                                     <div class="cart-item-price__text">{{this.price}}</div>
                                 </div>
+                                 
                                 <div class="cart-item-quantity">
                                     <form class="quantity__box-button" method="POST" action="/cart/{{this._id}}?_method=PUT">
-                                        <!-- Lấy số lượng -->
-                                        {{!-- <button type="button" class="quantity__box-button--sub">-</button> --}}
-                                        {{!-- <button class="quantity__box-button--label">{{this.quantity}}</button> --}}
-                                       {{!--   <form method="POST" action="/cart/{{this._id}}?_method=PUT" class="updateCart"> --}}
-                                        <input type="text" class="quantity__box-button--label" id ="quantity" name = "quantity" value={{this.quantity}}  >
+                                       
+                                        <input type="text" class="quantity__box-button--label" id ="quantity" name = "quantity" value={{this.quantity}}>
+                                        <button class="information-button__text btn1 btn--highlight" type="submit" formaction="/cart/{{this._id}}?_method=PUT" method="POST">Cập nhật</button>
                                             
-                                       {{!--  </form> --}}
-                                        {{!-- <button type="button" class="quantity__box-button--add">+</button> --}}
                                     </form>
                                 </div>
                                 <div class="cart-item-total-price">
@@ -128,7 +126,7 @@
                                     <a href="" class="btn1 btn--primary" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-course-modal">
                                         Xóa
                                     </a>
-                                     <button class="information-button__text btn1 btn--highlight" type="submit" formaction="/cart/{{this._id}}?_method=PUT" method="POST">Cập nhật</button>
+                                     {{!-- <button class="information-button__text btn1 btn--highlight" type="submit" formaction="/cart/{{this._id}}?_method=PUT" method="POST">Cập nhật</button> --}}
                                 </div>
                             </div>
                                
@@ -138,6 +136,7 @@
                    
                 </div>
                 {{/each}}
+                
                  <div class="cart-page-product-section__buy">
                         <div class="total-buy-label">Tổng số tiền:</div>
                         <div class="" style="width: 15%;display: flex; align-items: center; padding: 0 20px; color: var(--primary-color); font-size: 2.2rem;; font-weight: 400;">
@@ -149,7 +148,7 @@
                            
                         </div>
                         <button class="btn1
-                         btn--primary btn-buy" type="submit">Mua Hàng</button>
+                         btn--primary btn-buy" type="submit" disabled>Mua Hàng</button>
                     </div>
             </div>
         </div>
@@ -190,7 +189,7 @@
         var orderId;
         var checkboxAll = $('#checkbox-all')
         var orderItemCheckbox = $('input[name="orderIds[]"]')
-        var checkAllSubmitBtn = $('.check-all-submit-btn')
+        var checkAllSubmitBtn = $('.btn-buy')
         var containerForm = document.forms['container-form']
         getTotal();
 
@@ -240,6 +239,7 @@
     var $buttonsub = document.querySelector('.quantity__box-button--sub');
     var $counter = document.querySelector('.quantity__box-button--label');
     var $totalpricee = document.querySelector('.buy-total-quantity11');
+     var checkAllSubmitBtn = $('.check-all-submit-btn')
 
     $buttonadd.addEventListener('click', function(){
     $counter.value = parseInt($counter.value) + 1; // `parseInt` converts the `value` from a string to a number
@@ -261,8 +261,6 @@
      };
 
       
-
-   
 
 </script>
    

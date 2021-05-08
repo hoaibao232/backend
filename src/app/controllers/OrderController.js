@@ -88,7 +88,6 @@ class OrderController {
             .then(book => {
                 // req.body.sellerID = book.sellerID;
                 // req.body.productID = req.body.bookid;
-
                             var output = 
                             {
                                 quantity: quantity2,

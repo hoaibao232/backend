@@ -242,11 +242,9 @@ class CartController {
             .then(books => {
                 var output = []
                 books.forEach(function(document) {output.push(document.slug) }),
-                console.log(output),
                 Cart.find({productslug : output, userID : req.signedCookies.userId})
                     .then(carts => 
                     {
-                        console.log(carts);
                         res.render('carts/show1', { 
                             carts: mutipleMongooseToObject(carts),
                             success:  req.session.success,
@@ -280,11 +278,9 @@ class CartController {
 
         Cart.findOne({_id: req.params.id, userID : req.signedCookies.userId})
             .then (cart => {
-                cart.totalprice = parseFloat((req.body.quantity * cart.price).toFixed(2));
-                
-                var newtotalprice = cart.totalprice;
+                var newtotalprice = parseFloat((req.body.quantity * cart.price).toFixed(2));
                 req.session.success = true;
-                
+                console.log(req.body)
                 Cart.updateOne({_id: req.params.id, userID : req.signedCookies.userId}, { $set: { quantity: req.body.quantity, totalprice : newtotalprice  } })
                     .then(() => res.redirect('/cart/show'))
                     .catch(next);
