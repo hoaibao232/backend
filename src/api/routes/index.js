@@ -11,7 +11,7 @@ const AuthSeller = require('../../middlewares/seller.auth.middleware');
 const ordersRouter = require('./orders');
 const adminRouter = require('./admin');
 // const AuthAdmin = require('../middlewares/admin.auth.middleware');
-// const paypalRouter = require('./paypal');
+const paypalRouter = require('./paypal');
 
 function routeAPI(app)
 {
@@ -21,7 +21,7 @@ function routeAPI(app)
     app.use('/api/orders', ordersRouter);
     app.use('/api/carts', authMiddleware.requireAuth, cartsRouter);
     app.use('/api/admin', adminRouter);
-    // app.use('/paypal', paypalRouter);
+    app.use('/api/paypal', paypalRouter);
     app.use('/api/books', booksRouter);
     app.use('/api', siteRouter)
 }

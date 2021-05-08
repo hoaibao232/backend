@@ -13,26 +13,7 @@ module.exports = function mobileUse(req,res,next)
     
     io.on('connection', (socket) => {
         console.log("Co nguoi connect ne");
-        
-            //MOBILE SENT TO WEB
-        // socket.on('clientSendItems', (arg) => {
-        //     fs.readFile('items.json', (err, data) => {
-        //        if (err) throw err;
-        //        let items = JSON.parse(data);
-        //        io.emit('serverSendItems', items);
-        //     });
-        // });
-
-        //MOBILE SIGN-UP
-        // socket.on('clientSignUp', (arg) => {
-        //     fs.readFile('items.json', (err, data) => {
-        //        if (err) throw err;
-        //        let items = JSON.parse(data);
-        //        io.emit('serverSendItems', items);
-        //     });
-        // });
-
-
+    
         //DANG KY NGUOI MUA
         socket.on('clientSignUp', (arg) => {
             Buyer.findOne({username : arg.username})
@@ -89,9 +70,6 @@ module.exports = function mobileUse(req,res,next)
             Book.find({})
                 .then(books => {
                     io.emit('serverHomeProducts', JSON.parse(JSON.stringify(books)));
-                    // console.log(JSON.parse(JSON.stringify(books)))
-                    // console.log(arg);
-                   
                 })
               })
 
@@ -100,8 +78,7 @@ module.exports = function mobileUse(req,res,next)
                 Buyer.findOne({_id : arg})
                     .then(buyer => {
                         io.emit('serverBuyerProfile', JSON.parse(JSON.stringify(buyer)));
-                        // console.log(JSON.parse(JSON.stringify(buyer)))
-                        // console.log(arg);
+                        
                     })
     
                   })
@@ -116,7 +93,6 @@ module.exports = function mobileUse(req,res,next)
                             phone: arg.phone,
                             password : arg.password,
                          })
-                         
                             .then({})
                             
                     })
@@ -139,14 +115,11 @@ module.exports = function mobileUse(req,res,next)
                                     var output = []
                                     
                                     cart.forEach(function(document) {output.push(document.userID) }),
-                                    //console.log(output),
-    
                                     Cart.updateOne({productslug : book.slug, userID : arg.userId}, { $inc: {quantity : arg.quantity} }, function(err, doc) {
                                         if (err) return console.error(err);
                                         console.log("Buyer on Mobile Add Product to Cart Successfully");
                                       });
                                 })
-                            
                                 .catch(next);
                                 
                                 //neu ton tai nhung chua co userID
@@ -158,7 +131,6 @@ module.exports = function mobileUse(req,res,next)
                                         {
                                             var output = []
                                            doc.forEach(function(document) {output.push(document.userID)})
-                                        //    console.log(output)
                                             if(output.indexOf(arg.userId) <= -1)
                                             {
                                                 var cart = new Cart();
@@ -171,7 +143,7 @@ module.exports = function mobileUse(req,res,next)
                                                 cart.sellerName = book.shopname;
                                                 cart.productslug = book.slug;
                                                 cart.quantity = arg.quantity;
-                                                cart.totalprice = arg.quantity * book.price;
+                                                cart.totalprice = parseFloat((arg.quantity * book.price).toFixed(2));
                                                 cart.save(function(err, doc) 
                                                 {
                                                 if (err) return console.error(err);
@@ -200,30 +172,23 @@ module.exports = function mobileUse(req,res,next)
                             cart.sellerName = book.shopname;
                             cart.productslug = book.slug;
                             cart.quantity = arg.quantity;
-                            cart.totalprice = cart.quantity * book.price;
+                            cart.totalprice = parseFloat((cart.quantity * book.price).toFixed(2));
                             cart.save(function(err, doc) 
                             {
                              if (err) return console.error(err);
                              console.log("Document inserted succussfully!");
                             })
-                            //console.log(cart);
                         }
     
                     })
-
-                    // console.log(arg.slug);
-
-                    // console.log(arg.userId);
-                    
     
                     Cart.findOne({productslug : book.slug, userID : arg.userId})
                         .then(cart => {
                             console.log(cart.productslug);
-                            var totalpricee = cart.price * (cart.quantity + 1 );
-                            // console.log(totalpricee);
+                            var totalpricee = parseFloat((cart.price * (cart.quantity + 1 )).toFixed(2));
                             Cart.updateOne({productslug : book.slug, userID : arg.userId}, { $set: {totalprice : totalpricee} }, function(err, doc) {
                                 if (err) return console.error(err);
-                                console.log("Document inserted succussfully!!!!!!");
+                                console.log("Document inserted successfully!!!!!!");
                               });
                         })
                         .catch({})
@@ -242,7 +207,6 @@ module.exports = function mobileUse(req,res,next)
                                 .then(carts => 
                                 {
                                     io.emit('serverBuyerShowCart', JSON.parse(JSON.stringify(carts)));
-                                    // console.log(carts);
                                     
                                 })
                                 .catch(next);
@@ -252,7 +216,6 @@ module.exports = function mobileUse(req,res,next)
 
                //CART TO ORDER
                socket.on('cartToOrders', (arg) => {
-                // console.log(arg);
                    arg.forEach(function (element) {
                        Cart.findOne({ userId: arg[0].userId, _id: element._id })
                            .then(cart => {
@@ -270,8 +233,6 @@ module.exports = function mobileUse(req,res,next)
                     cartIds.push(document._id);
                             
                 })
-                // console.log(cartIds);
-
                 Cart.find({_id: { $in : cartIds }})
                 .then(carts => {
                     var output1 = [];
@@ -340,8 +301,6 @@ module.exports = function mobileUse(req,res,next)
                                         sellername = document.sellerName;
                                     })
     
-                                    // console.log(kk);
-                                    // console.log(group._id);
                                     if(kk.length != 0)
                                     {
                                         var order1 = new Order(
@@ -366,42 +325,6 @@ module.exports = function mobileUse(req,res,next)
                                     .then({})
             
                         })
-
-                        // var books = [];
-                        // Cart.find({_id: { $in : cartIds }})
-                        //     .then(carts => {
-                        //         carts.forEach(function(document) 
-                        //         {
-                        //         var output = 
-                        //                 {
-                        //                     quantity: document.quantity,
-                        //                     tittle: document.productname,
-                        //                     unit_cost: document.price,
-                        //                     total_cost: document.totalprice,
-                        //                     sellerId: document.sellerID,
-                        //                     bookId : document.productID,
-                        //                     cartId : document._id,
-                        //                     sellerName : document.sellerName,
-                        //                 }
-                                    
-                                  
-                        //             const order = new Order({
-                        //                 userID : arg[0].userID,
-                        //                 products : output,
-
-                        //             });
-                        //             order.save();   
-                                    
-                        //         })
-
-                        //         Cart.deleteMany({_id: { $in : cartIds }})
-                        //             .then({})
-
-                                
-                
-                // })
-
-                    
                 })
 
            })
@@ -413,9 +336,6 @@ module.exports = function mobileUse(req,res,next)
                    
                 Book.findOne({_id : arg._id})
                 .then(book => {
-                // req.body.sellerID = book.sellerID;
-                // req.body.productID = req.body.bookid;
-
                 if((arg.quantity > book.quantities) || ( book.quantities <= 0))
                     {
                             str = "Order quantity is bigger than book's quantity left";
@@ -427,7 +347,7 @@ module.exports = function mobileUse(req,res,next)
                                 quantity: arg.quantity,
                                 tittle: book.name,
                                 unit_cost: book.price,
-                                total_cost: book.price * arg.quantity,
+                                total_cost: parseFloat((book.price * arg.quantity).toFixed(2)),
                                 sellerId: book.sellerID,
                                 bookId : arg._id,
                                 cartId: "",
@@ -442,13 +362,11 @@ module.exports = function mobileUse(req,res,next)
                                 addresspm: arg.addresspm,
                                 phone: arg.phone,
                                 userID: arg.userId,
-                                payment: arg.price * arg.quantity,
+                                payment: parseFloat((arg.price * arg.quantity).toFixed(2)),
                                 products : output,
                                 sellerName: arg.sellerName,
                             });
                             order.save();     
-
-
                                 var newquantity = book.quantities - arg.quantity;
                                 Book.updateOne({_id : arg._id},  { $set: {quantities : newquantity} }, function(err, doc) {
                                     if (err) return console.error(err);
@@ -483,59 +401,13 @@ module.exports = function mobileUse(req,res,next)
                 
                 Order.find({userID : arg})
                     .then(orders => {
-                        // var sent = [
-                        //     userID,
-                        //     status,
-                        //     products,
-                        // ];
-
                         var output1 = [];
                         orders.forEach(function(document) 
                         {
-                            
-
-                        output1.push(document);         
+                            output1.push(document);         
                         })
                         io.emit('serverOrderAll', JSON.parse(JSON.stringify(output1)))
                         console.log(output1);
-
-                        // var output2 = [];
-                        // orders.forEach(function(document) 
-                        // {
-                        //     var sent = [
-                        //         document.status,
-                        //     ];
-
-                        // output2.push(sent);         
-                        // })
-                        // io.emit('serverOrderAllStatus', JSON.parse(JSON.stringify(output2)))
-
-                        // var output3 = [];
-                        // orders.forEach(function(document) 
-                        // {
-                        //     var sent = [
-                        //         document.products,
-                        //     ];
-
-                        // output3.push(sent);         
-                        // })
-                        // io.emit('serverOrderAllProducts', JSON.parse(JSON.stringify(output3)))
-
-
-                        // console.log()
-                       
-                        // io.emit('serverOrderAll', JSON.parse(JSON.stringify(output1)))
-                        // console.log(JSON.parse(JSON.stringify(output1)))
-                        
-                        // orders.forEach(function(document) {
-
-                        //     io.emit('severOrderAllID', JSON.parse(JSON.stringify(document._id)))
-                        //     io.emit('severOrderAllStatus', JSON.parse(JSON.stringify(document.status)))
-                        //     io.emit('severOrderAllProducts', JSON.parse(JSON.stringify(document.products)))
-                        //     // console.log(document.products)
-                        // })
-                       
-                       
                     })
            })
 
