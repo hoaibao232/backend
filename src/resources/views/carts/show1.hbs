@@ -257,7 +257,7 @@
         $(".cart-item-total-price__text").each(function() {   
             sum += Number($(this).text());
         });
-        $totalpricee.innerText =  sum; // an add function shouldn't really "alert"
+        $totalpricee.innerText =  sum.toFixed(2); // an add function shouldn't really "alert"
      };
 
       

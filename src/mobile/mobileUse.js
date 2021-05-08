@@ -3,7 +3,7 @@ const Book = require('../app/controllers/models/Book');
 const Buyer = require('../app/controllers/models/Buyer');
 const Cart = require('../app/controllers/models/Cart');
 const Order = require('../app/controllers/models/Order');
-
+var result1 = []
 module.exports = function mobileUse(req,res,next)
 {
     const app = require('express')();
@@ -91,11 +91,10 @@ module.exports = function mobileUse(req,res,next)
                     io.emit('serverHomeProducts', JSON.parse(JSON.stringify(books)));
                     // console.log(JSON.parse(JSON.stringify(books)))
                     // console.log(arg);
-                    
+                   
                 })
-
               })
-            
+
               //REQUEST PROFILE
               socket.on('buyerProfile', (arg) => {
                 Buyer.findOne({_id : arg})
@@ -254,6 +253,17 @@ module.exports = function mobileUse(req,res,next)
                //CART TO ORDER
                socket.on('cartToOrders', (arg) => {
                 // console.log(arg);
+                   arg.forEach(function (element) {
+                       Cart.findOne({ userId: arg[0].userId, _id: element._id })
+                           .then(cart => {
+                               Cart.updateOne({ _id: element._id }, { $set: { quantity: element.quantity } }, function (err, doc) {
+                                   if (err) return console.error(err);
+
+                               });
+                           })
+                   })
+
+
                 var cartIds = [];
                 arg.forEach(function(document) 
                 {
@@ -420,20 +430,21 @@ module.exports = function mobileUse(req,res,next)
                                 total_cost: book.price * arg.quantity,
                                 sellerId: book.sellerID,
                                 bookId : arg._id,
-                                cartId : "",
-                                sellerName : book.shopname,
+                                cartId: "",
+                                sellerName: arg.sellerName,
                             }
                        
                             userID = arg.userId;
                             products = output;
                             const order = new Order({
-                                // name : req.body.name,
-                                // address : req.body.address,
-                                // addresspm : req.body.addresspm,
-                                // phone : req.body.phone,
-                                userID : userID,
+                                name: arg.name,
+                                address: arg.address,
+                                addresspm: arg.addresspm,
+                                phone: arg.phone,
+                                userID: arg.userId,
+                                payment: arg.price * arg.quantity,
                                 products : output,
-
+                                sellerName: arg.sellerName,
                             });
                             order.save();     
 
@@ -447,7 +458,25 @@ module.exports = function mobileUse(req,res,next)
 
             })
                     
-            })
+                })
+
+                    //DELETE CART
+                socket.on('deleteCartItem', (arg) => {
+                    Cart.deleteOne({ userID: arg.userId, productID: arg.productID }, function (err, doc) {
+                        if (err) return console.error(err);
+
+                    });  
+                });
+
+                //DELETE ORDER
+        socket.on('deleteOrder', (arg) => {
+            console.log(arg)
+                    Order.deleteOne({ userID: arg.userId, _id: arg.orderId }, function (err, doc) {
+                        if (err) return console.error(err);
+
+                    });
+                });
+
 
             //BUYER ORDER All
             socket.on('buyerOrderAll', (arg) => {

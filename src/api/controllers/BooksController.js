@@ -3,6 +3,7 @@ const Buyer = require('../../app/controllers/models/Buyer');
 const Seller = require('../../app/controllers/models/Seller');
 const  { mongooseToObject } = require('../../util/mongoose');
 const fs = require('fs')
+var result1 = []
 
 class BooksController {    
     //[GET] /course/:slug
@@ -182,20 +183,41 @@ class BooksController {
         })  
     }
 
-    sendFile(req,res,next)
+    byte(req,res,next)
     {
-        // Book.find({})
-        //     .then(books => {
-                // res.readFile("C:/Users/admin/Desktop/blog" + "/public/uploads/2cf6056cc58d527307537b09f1102a4d");
-                
-                    fs.readFile("C:/Users/admin/Desktop/blog/public/uploads/2cf6056cc58d527307537b09f1102a4d", 'utf8' , (err, data) => {
-                    if (err) {
-                        console.error(err)
-                        return
-                    }
-                    res.json(data)
+        Book.find({})
+            .then(books => {
+                var output;
+                books.forEach(document => {
+                    fs.readFile("D:/backend-main/public/" + document.image, (err, data) => {
+                        if (err) {
+                            console.error(err)
+                            return
+                        }
+                        output = {
+                            bookId: document._id,
+                            imagePath: data,
+                        }
+                        // console.log(output);
+                        if (result1.length < books.length) {
+                            result1.push(output)
+                        }
                     })
-    //         })
+
+                });
+                if (result1.length > 0) {
+                    res.json(result1);
+                }
+                else {
+                    res.statusCode = 404;
+                    res.json({
+                        message: "Empty"
+                    });
+                }
+
+            })
+
+            .catch(next);
     }
 
 }

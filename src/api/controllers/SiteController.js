@@ -84,20 +84,13 @@ class SiteController {
                     var result = [];
                     var output;
                    books.forEach(document => {
-                        fs.readFile("C:/Users/admin/Desktop/blog/public/" + document.image, 'utf8' , (err, data) => {
-                            if (err) {
-                                console.error(err)
-                                return
-                             }
-                            output = {
-                                book : document,
-                                imagePath : data,
-                            }
-                            // console.log(output);
-                            if (result1.length < books.length) {
-                                result1.push(output)
-                            }
-                        })   
+                       output = {
+                           book: document,
+                       }
+                       // console.log(output);
+                       if (result1.length < books.length) {
+                           result1.push(output)
+                       }  
 
                    });
                         if(result1.length > 0)

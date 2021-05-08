@@ -7,7 +7,7 @@ const AuthSeller = require('../../middlewares/seller.auth.middleware');
 const { route } = require('../../routes/me');
 var upload = multer({ dest: './public/uploads/' }) 
 
-router.get('/sendFile', BooksController.sendFile)
+router.get('/byte', BooksController.byte)
 
 router.get('/create', AuthSeller.requireAuthSeller, BooksController.create);
 router.post('/store', upload.single('image'), BooksController.store); //done
