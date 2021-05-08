@@ -189,7 +189,7 @@ class BooksController {
             .then(books => {
                 var output;
                 books.forEach(document => {
-                    fs.readFile("D:/backend-main/public/" + document.image, (err, data) => {
+                    fs.readFile("C:/Users/admin/Desktop/blog/public/" + document.image, (err, data) => {
                         if (err) {
                             console.error(err)
                             return

@@ -30,7 +30,7 @@ class CartController {
 
                                 Cart.findOne({productslug : req.params.slug, userID : req.signedCookies.userId})
                                     .then (cart1 => {
-                                        var total = Math.round((req.body.quanty * cart1.price + Number.EPSILON) * 100) / 100;
+                                        var total = parseFloat((req.body.quanty * cart1.price).toFixed(2));
                                         console.log(total);
                                         Cart.updateOne({productslug : req.params.slug, userID : req.signedCookies.userId}, { $inc: {quantity : req.body.quanty, totalprice : total} }, function(err, doc) {
                                             if (err) return console.error(err);
@@ -58,7 +58,7 @@ class CartController {
                                             cart2.sellerName = book.shopname;
                                             cart2.productslug = book.slug;
                                             cart2.quantity = req.body.quanty;
-                                            cart2.totalprice = cart2.quantity * cart2.price;
+                                            cart2.totalprice = parseFloat((cart2.quantity * cart2.price).toFixed(2));
                                             cart2.save(function(err, doc) 
                                             {
                                             if (err) return console.error(err);
@@ -81,7 +81,7 @@ class CartController {
                         cart3.sellerName = book.shopname;
                         cart3.productslug = book.slug;
                         cart3.quantity = 1;
-                        cart3.totalprice = cart3.quantity * cart3.price;
+                        cart3.totalprice = parseFloat((cart3.quantity * cart3.price).toFixed(2));
                         cart3.save(function(err, doc) 
                         {
                          if (err) return console.error(err);
@@ -280,7 +280,7 @@ class CartController {
 
         Cart.findOne({_id: req.params.id, userID : req.signedCookies.userId})
             .then (cart => {
-                cart.totalprice = req.body.quantity * cart.price;
+                cart.totalprice = parseFloat((req.body.quantity * cart.price).toFixed(2));
                 
                 var newtotalprice = cart.totalprice;
                 req.session.success = true;

@@ -117,12 +117,10 @@ class OrderController {
 
                             });
                             order.save();     
-
-
-                                var newquantity = book.quantities - req.body.quantity;
-                                Book.updateOne({_id : req.body.bookid},  { $set: {quantities : newquantity} }, function(err, doc) {
+                                var newquantity = book.quantities - quantity2;
+                                Book.updateOne({_id : bookID},  { $set: {quantities : newquantity} }, function(err, doc) {
                                     if (err) return console.error(err);
-                                    
+                                    else console.log('Order now successfully')
                                 });
 
                                 res.redirect('/order/show');

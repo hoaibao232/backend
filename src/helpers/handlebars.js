@@ -3,7 +3,7 @@ const handlebars = require('handlebars')
 module.exports = {
     sum: (a,b) => a + b,
     ifEquals: (a,b) => (a === b) ? true : false,
-    multi : (a,b) => a * b,
+    multi : (a,b) => parseFloat((a * b).toFixed(2)),
     sortable: (field, sort) => {
       const sortType = field === sort.column ? sort.type : 'default'
 
