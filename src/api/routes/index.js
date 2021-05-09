@@ -15,15 +15,15 @@ const paypalRouter = require('./paypal');
 
 function routeAPI(app)
 {
-    app.use('/api/me', AuthSeller.requireAuthSeller, meRouter);  
-    app.use('/api/buyers', buyersRouter);
-    app.use('/api/sellers', sellersRouter);
-    app.use('/api/orders', ordersRouter);
-    app.use('/api/carts', authMiddleware.requireAuth, cartsRouter);
-    app.use('/api/admin', adminRouter);
-    app.use('/api/paypal', paypalRouter);
-    app.use('/api/books', booksRouter);
-    app.use('/api', siteRouter)
+    app.use('/api/me', AuthSeller.requireAuthSeller, meRouter);  //seller manage books, orders, payment
+    app.use('/api/buyers', buyersRouter); //login, logout, signup, info, update info
+    app.use('/api/sellers', sellersRouter); //login, logout, signup, info, update info
+    app.use('/api/orders', ordersRouter); //buyer manage orders
+    app.use('/api/carts', authMiddleware.requireAuth, cartsRouter); //buyer add, show, update, delete cart
+    app.use('/api/admin', adminRouter); //admin manage books, sellers, buyers, orders, payment
+    app.use('/api/paypal', paypalRouter); //cancel paypal payment
+    app.use('/api/books', booksRouter); //xem, thêm, sửa, xóa sách
+    app.use('/api', siteRouter) //home, search
 }
 
 module.exports = routeAPI;
