@@ -21,7 +21,7 @@ const io = require('socket.io')(server);
 const fs = require('fs');
 
 const urlencodedParser = bodyParser.urlencoded({extended : true});
-
+var cors = require('cors')
 const app = express();
 const port = 3001;
 
@@ -37,6 +37,9 @@ db.connect();
 
 app.use(morgan('combined'))
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.use(cors()) // Use this after the variable declaration
 
 app.use(express.urlencoded(
   {
