@@ -216,7 +216,6 @@ class BooksController {
                 }
 
             })
-
             .catch(next);
     }
 

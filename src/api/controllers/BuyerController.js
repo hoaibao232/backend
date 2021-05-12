@@ -196,7 +196,8 @@ class BuyerController {
                     });
                             //   res.redirect('/')
                             res.json({
-                                message : 'Login successfully'
+                                message : 'Login successfully',
+                                userId : result._id,
                             })
                 }
                 
