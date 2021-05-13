@@ -413,7 +413,6 @@ class OrderController {
                                 req.session.errors = errors;
                                 req.session.success = false;
                                 res.json(error); 
-                                
                              }
 
                             i++;   

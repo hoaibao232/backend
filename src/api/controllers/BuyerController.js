@@ -191,16 +191,21 @@ class BuyerController {
 
                 }
                 else {
-                    res.cookie('userId', result._id, {
+                    res.status(202)
+                    .cookie('userId', result._id, {
+                        maxAge: 60 * 60 * 1000, // 1 hour
+                        httpOnly: true,
+                        secure: true,
+                        sameSite: true,
                         signed: true
-                    });
+                    })
+                    .json('cookies being initialsied');
                             //   res.redirect('/')
-                            res.json({
-                                message : 'Login successfully',
-                                userId : result._id,
-                            })
+                            // res.json({
+                            //     message : 'Login successfully',
+                            //     userId : result._id,
+                            // })
                 }
-                
             }
           })
           .catch(err => {});

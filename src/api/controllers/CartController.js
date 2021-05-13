@@ -10,13 +10,13 @@ class CartController {
     
     add(req,res,next)
     {
-        var sessionId = req.signedCookies.sessionId;
+        // var sessionId = req.signedCookies.sessionId;
 
-        if(!sessionId)
-        {
-            res.redirect('/');
-            return;
-        }
+        // // if(!sessionId)
+        // // {
+        // //     res.redirect('/');
+        // //     return;
+        // // }
         
         Book.findOne({slug : req.params.slug})
             .then (book => {
@@ -24,7 +24,7 @@ class CartController {
                     if (err) { return console.error(err); }
                     else if (cart) //SAN PHAM TON TAI TRONG CART
                     {
-                        //USER DA CO SP NAY TRONG CART
+                        //USER DA CO SP NAY TRONG CART 
                                 var output = []
                                 
                                 cart.forEach(function(document) {output.push(document.userID) }),
