@@ -132,7 +132,7 @@ class BuyerController {
         // // to the API (e.g. in case you use sessions)
         // res.setHeader('Access-Control-Allow-Credentials', true);
 
-
+        console.log(req.headers)
         var username = req.body.username;
         var password = req.body.password;
         const buyer = new Buyer(req.body);
@@ -195,16 +195,24 @@ class BuyerController {
                     .cookie('userId', result._id, {
                         maxAge: 60 * 60 * 1000, // 1 hour
                         httpOnly: true,
-                        secure: true,
-                        sameSite: true,
+                        /* secure: true,
+                        sameSite: true, */
                         signed: true
                     })
-                    .json('cookies being initialsied');
+                    .json({message : 'cookies being initialsied',
+                            cookie : result._id
+
+                        });
+
+                       /*  res.locals.cookies = result._id;
+ */
+
                             //   res.redirect('/')
                             // res.json({
                             //     message : 'Login successfully',
                             //     userId : result._id,
                             // })
+                   /*  res.setHeader('set-Cookies', result._id); */
                 }
             }
           })
@@ -213,10 +221,32 @@ class BuyerController {
 
     buyerinfo(req,res,next)
     {
-       Buyer.findOne({_id : req.signedCookies.userId})
-        .then(buyer => {
-            res.json(buyer);
-        })
+       /*  console.log(req.headers) */
+       
+        /* console.log(req.headers) */
+        var cookie2 = req.headers.userid;
+         if (cookie2){
+       /* const values = cookie2.split(';').reduce((res, item) => {
+            const data = item.trim().split('=');
+            return { ...res, [data[0]]: data[1] };
+        }, {});
+ */
+
+        /* console.log(values.userId); */
+
+        
+
+       /*  res.locals.cookies = values.userId; */
+        Buyer.findOne({_id : cookie2})
+            .then(buyer => {
+                res.statusCode = 202
+                res.json(buyer);
+
+            })
+        }
+        else {
+            res.json('');
+        }
     }
 
     update(req,res,next)

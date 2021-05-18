@@ -36,7 +36,9 @@
     "path": "^0.12.7",
     "paypal-rest-sdk": "^1.8.1",
     "shortid": "^2.2.16",
-    "socket.io": "^1.7.2"
+    "socket.io": "^1.7.2",
+    "universal-cookie": "^4.0.4",
+    "universal-cookie-express": "^4.0.3"
   },
   "devDependencies": {
     "morgan": "^1.10.0",

@@ -15,8 +15,8 @@ router.get('/toship', authMiddleware.requireAuth, orderController.toShipOrders);
 router.get('/shipping', authMiddleware.requireAuth, orderController.shippingOrders); //done
 router.get('/completed', authMiddleware.requireAuth, orderController.completedOrders); //done
 router.get('/return', authMiddleware.requireAuth, orderController.returnOrders); //done
-router.post('/handle/create', authMiddleware.requireAuth, orderController.createMany); //done (tạo order từ Cart(1 hoặc nhiều sp))
-router.get('/storemany', authMiddleware.requireAuth, orderController.storeMany); //done (xử lý nhiều order từ giỏ hàng)
+router.post('/handle/create', orderController.createMany); //done (tạo order từ Cart(1 hoặc nhiều sp))
+router.post('/storemany', authMiddleware.requireAuth, orderController.storeMany); //done (xử lý nhiều order từ giỏ hàng)
 router.get('/:id/confirm', authMiddleware.requireAuth, orderController.confirm); //done 
 router.get('/:id/return', authMiddleware.requireAuth, orderController.return); //done
 router.get('/confirmed', authMiddleware.requireAuth, orderController.confirmedOrders); //done

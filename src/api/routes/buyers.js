@@ -15,6 +15,6 @@ var upload = multer({ dest: './public/uploads/' })
 router.get('/logout', buyerController.logout); //done  
 router.post('/store', buyerController.store); //done (xử lý đăng kí)
 router.post('/verifyaccount', buyerController.verifyaccount); //done (xử lý đăng nhập)
-router.get('/info', authMiddleware.requireAuth, buyerController.buyerinfo); //done (show info)
+router.get('/info', buyerController.buyerinfo); //done (show info)
 router.put('/:id', upload.single('avatar'), authMiddleware.requireAuth, buyerController.update); //done (update info)
 module.exports = router;

@@ -382,8 +382,10 @@ class OrderController {
 
     createMany(req,res,next)
     {
+        console.log(req.body.data)
         var errors = req.validationErrors();
-        Cart.find({_id: { $in : req.body.orderIds}})
+        
+        Cart.find({_id: { $in : req.body.data.orderIds}})
             .then(carts => {
                 var output1 = [];
                 carts.forEach(function(document) 
@@ -421,11 +423,12 @@ class OrderController {
                     })
             })
             })
-         Cart.find({_id: { $in : req.body.orderIds }})
+         Cart.find({_id: { $in : req.body.data.orderIds }})
              .then(carts => {
             //     res.render('orders/createmany', {
             //    carts: mutipleMongooseToObject(carts)
             //  }) 
+                /* console.log(carts) */
                 res.json(carts)
             })
                    .catch(next);
@@ -601,17 +604,18 @@ class OrderController {
     }
 
     paymentOrders(req,res,next)
-    {
+    {   
+        console.log(req.body.data.cartIds)
         var items = [];
         var total = 0;
         var i = 0;
-        cardId1 = req.body.cartIds;
-        name1 = req.body.name;
-        addresspm1 = req.body.addresspm,
-        address1 = req.body.address,
-        phone1 = req.body.phone,
+        cardId1 = req.body.data.cartIds;
+        name1 = req.body.data.name;
+        addresspm1 = req.body.data.addresspm,
+        address1 = req.body.data.address,
+        phone1 = req.body.data.phone,
 
-        Cart.find({_id: { $in : req.body.cartIds}})
+        Cart.find({_id: { $in : req.body.data.cartIds}})
         .then(carts => {
             carts.forEach(function(document) {
                 i++;
@@ -636,8 +640,8 @@ class OrderController {
                     "payment_method": "paypal"
                 },
                 "redirect_urls": {
-                    "return_url": "http://localhost:3001/order/storemany",
-                    "cancel_url": "http://localhost:3001/paypal/cancel"
+                    "return_url": "http://localhost:3001/api/order/storemany",
+                    "cancel_url": "http://localhost:3001/api/paypal/cancel"
                 },
                 "transactions": [{
                     "item_list": {
