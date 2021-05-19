@@ -2,7 +2,9 @@ const Book = require('../../app/controllers/models/Book');
 const  { mongooseToObject, mutipleMongooseToObject } = require('../../util/mongoose');
 //const { mongooseToObject } = require('../../util/mongoose');
 const Buyer = require('../../app/controllers/models/Buyer');
+
 const bodyParser = require('body-parser');
+const { setCookie } = require('../../middlewares/cookie.middleware');
 
 class BuyerController {
     
@@ -221,10 +223,11 @@ class BuyerController {
 
     buyerinfo(req,res,next)
     {
-       /*  console.log(req.headers) */
+        /* console.log(req.headers) */
        
         /* console.log(req.headers) */
-        var cookie2 = req.headers.userid;
+        var cookie2 = setCookie(req);
+        /* console.log(cookie2) */
          if (cookie2){
        /* const values = cookie2.split(';').reduce((res, item) => {
             const data = item.trim().split('=');
@@ -251,7 +254,10 @@ class BuyerController {
 
     update(req,res,next)
     {
-        Buyer.find({_id: req.params.id }, function(err, result) {
+        console.log(req.body)
+        var cookie3 = setCookie(req)
+        //req.param : _id
+        Buyer.find({_id: cookie3 }, function(err, result) {
             if (err) { 
                 res.statusCode = 500;
                 return res.json({
@@ -262,9 +268,9 @@ class BuyerController {
             if (result) {
                 if(req.file)
                 {
-                    req.body.avatar = "\\" + req.file.path.split('\\').slice(1).join('\\');
+                    /* req.body.avatar = "\\" + req.file.path.split('\\').slice(1).join('\\'); */
                 }
-                Buyer.updateOne({_id: req.params.id }, req.body)
+                Buyer.updateOne({_id: cookie3 }, req.body.data)
                     .then(() => res.json({
                         message : 'Update buyer profile successfully'
                         }))

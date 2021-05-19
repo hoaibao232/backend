@@ -6,6 +6,8 @@ const Seller = require('../../app/controllers/models/Seller');
 const Cart = require('../../app/controllers/models/Cart');
 const Order = require('../../app/controllers/models/Order');
 const paypal = require('paypal-rest-sdk');
+const { setCookie } = require('../../middlewares/cookie.middleware');
+
 var cardId1 = [];
 var name1
 var addresspm1
@@ -182,7 +184,12 @@ class OrderController {
 
     show(req,res,next)
     {
-        Order.find({userID : req.signedCookies.userId }, function(err, result) {
+        console.log(req.headers)
+        var cookie3 = setCookie(req)
+        console.log(cookie3)
+
+
+        Order.find({userID : cookie3 }, function(err, result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -191,13 +198,14 @@ class OrderController {
              }
         
             if (result) {
-                Order.find({userID : req.signedCookies.userId}).sortable(req)
+                Order.find({userID : cookie3}).sortable(req)
                     .then((orders) =>{
                         // res.render('orders/show1', {
                         //     orders: mutipleMongooseToObject(orders),
                         //     success:  req.session.success,
                         //     errors: req.session.errors,
                         // })
+                        
                         res.json(orders)
                         req.session.errors = null;
                         req.session.success = null;
@@ -437,31 +445,34 @@ class OrderController {
     
     storeMany(req,res,next)
     {
-        const payerId = req.query.PayerID;
-        const paymentId = req.query.paymentId;
+        console.log(req.body.data);
+        // const payerId = req.query.PayerID;
+        var cookie3 = setCookie(req)
+        console.log(req.headers)
+        const paymentId = req.body.data.paymentId;
 
-        const execute_payment_json = {
-            "payer_id": payerId,
-            "transactions": [{
-                "amount": {
-                    "currency": "USD",
-                    "total": total1.toString()
-                }
-            }]
-          };
+        // const execute_payment_json = {
+        //     "payer_id": payerId,
+        //     "transactions": [{
+        //         "amount": {
+        //             "currency": "USD",
+        //             "total": total1.toString()
+        //         }
+        //     }]
+        //   };
 
-          paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
-            if (error) {
-                res.json({message : 'Payment Canceled'})
-            } else {
-                res.json(JSON.stringify(payment));
-            }
-        });
+        //   paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+        //     if (error) {
+        //         res.json({message : 'Payment Canceled'})
+        //     } else {
+        //         res.json(JSON.stringify(payment));
+        //     }
+        // });
 
 
         var errors = req.validationErrors();
         var flag = true;
-        Cart.find({_id: { $in : cardId1 }})
+        Cart.find({_id: { $in : req.body.data.cartIds }})
         .then(carts => {
             var output1 = [];
             carts.forEach(function(document) 
@@ -498,7 +509,7 @@ class OrderController {
                     }},
                     { $match: {
                         count: { $gt : 0 },
-                        // _id: { $in : req.body.cartIds }
+                        // _id: { $in : req.body.data.cartIds }
                     }}
                 ])
                     .then(result => {
@@ -507,7 +518,7 @@ class OrderController {
                         var kk = [];
                         var total = 0;
                         var sellername;
-                        Cart.find({ $and : [ {_id: { $in : group.docs }}, {_id: { $in : cardId1 }}]   })
+                        Cart.find({ $and : [ {_id: { $in : group.docs }}, {_id: { $in : req.body.data.cartIds}}]   })
                             .then(carts => {
                                 carts.forEach(function(document) {
                                     var output = 
@@ -532,11 +543,11 @@ class OrderController {
                                 {
                                     var order1 = new Order(
                                         {
-                                            name : name1,
-                                            address : address1,
-                                            addresspm : addresspm1,
-                                            phone : phone1,
-                                            userID : req.signedCookies.userId,
+                                            name : req.body.data.name,
+                                            address : req.body.data.address,
+                                            addresspm : req.body.data.addresspm,
+                                            phone : req.body.data.phone,
+                                            userID : cookie3,
                                             products : kk,
                                             sellerID : group._id,
                                             payment : total,
@@ -549,7 +560,7 @@ class OrderController {
                                 }
                             })
                         })
-                        Cart.deleteMany({_id: { $in : cardId1 }})
+                        Cart.deleteMany({_id: { $in : req.body.data.cartIds }})
                             .then({})
                         res.json({message : 'Order many successfully'})
                     })            
