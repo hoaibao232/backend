@@ -222,7 +222,10 @@ class OrderController {
 
     notApprovedOrders(req,res,next)
     {
-        Order.find({userID : req.signedCookies.userId, status : "Not approved"}, function(err, result) {
+        console.log(req.headers)
+        var cookie3 = setCookie(req)
+        console.log(cookie3)
+        Order.find({userID : cookie3, status : "Not approved"}, function(err, result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -231,7 +234,7 @@ class OrderController {
              }
         
             if (result) {
-                Order.find({userID : req.signedCookies.userId, status : "Not approved"}).sortable(req)
+                Order.find({userID : cookie3, status : "Not approved"}).sortable(req)
                     .then(orders => {
                         res.json(orders)
                     })    
@@ -246,7 +249,10 @@ class OrderController {
 
     canceledOrders(req,res,next)
     {
-        Order.find({userID : req.signedCookies.userId, status : "Canceled" }, function(err, result) {
+        console.log(req.headers)
+        var cookie3 = setCookie(req)
+        console.log(cookie3)
+        Order.find({userID : cookie3, status : "Canceled" }, function(err, result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -255,7 +261,7 @@ class OrderController {
              }
         
             if (result) {
-                Order.find({userID : req.signedCookies.userId, status : "Canceled"}).sortable(req)
+                Order.find({userID : cookie3, status : "Canceled"}).sortable(req)
                 .then(orders => {
                     res.json(orders)
                 })      
@@ -270,7 +276,12 @@ class OrderController {
 
     toShipOrders(req,res,next)
     {
-        Order.find({userID : req.signedCookies.userId, status : "Approved" }, function(err, result) {
+        console.log(req.headers)
+        var cookie3 = setCookie(req)
+        console.log(cookie3)
+
+        
+        Order.find({userID : cookie3, status : "Approved" }, function(err, result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -279,8 +290,9 @@ class OrderController {
              }
         
             if (result) {
-                Order.find({userID : req.signedCookies.userId, status : "Approved" }).sortable(req)
+                Order.find({userID : cookie3, status : "Approved" }).sortable(req)
                 .then(orders => {
+                    console.log(orders)
                     res.json(orders)
             })    
             } else {
@@ -293,8 +305,12 @@ class OrderController {
     }
 
     shippingOrders(req,res,next)
-    {
-        Order.find({userID : req.signedCookies.userId, status : "toShip" }, function(err, result) {
+    { 
+        var cookie3 = setCookie(req)
+        console.log(req.headers)
+        console.log(cookie3)
+
+        Order.find({userID : cookie3, status : "toShip" }, function(err, result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -303,7 +319,7 @@ class OrderController {
              }
         
             if (result) {
-                Order.find({userID : req.signedCookies.userId, status : "toShip" }).sortable(req)
+                Order.find({userID : cookie3, status : "toShip" }).sortable(req)
                 .then(orders => {
                     res.json(orders)
             })    
@@ -318,7 +334,10 @@ class OrderController {
 
     completedOrders(req,res,next)
     {
-        Order.find({userID : req.signedCookies.userId, status : "Completed" }, function(err, result) {
+        console.log(req.headers)
+        var cookie3 = setCookie(req)
+        console.log(cookie3)
+        Order.find({userID : cookie3, status : "Completed" }, function(err, result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -327,7 +346,7 @@ class OrderController {
              }
         
             if (result) {
-                Order.find({userID : req.signedCookies.userId, status : "Completed" }).sortable(req)
+                Order.find({userID : cookie3, status : "Completed" }).sortable(req)
                 .then(orders => {
                     res.json(orders)
             })    
@@ -342,7 +361,10 @@ class OrderController {
 
     returnOrders(req,res,next)
     {
-        Order.find({userID : req.signedCookies.userId, status : "Return" }, function(err, result) {
+            console.log(req.headers)
+            var cookie3 = setCookie(req)
+            console.log(cookie3)
+        Order.find({userID : cookie3, status : "Return" }, function(err, result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -351,7 +373,7 @@ class OrderController {
              }
         
             if (result) {
-                Order.find({userID : req.signedCookies.userId, status : "Return" }).sortable(req)
+                Order.find({userID : cookie3, status : "Return" }).sortable(req)
                 .then(orders => {
                     res.json(orders)
             })    
@@ -366,7 +388,10 @@ class OrderController {
 
     confirmedOrders(req,res,next)
     {
-        Order.find({userID : req.signedCookies.userId, status : "Buyer-Confirmed" }, function(err, result) {
+        console.log(req.headers)
+        var cookie3 = setCookie(req)
+        console.log(cookie3)
+        Order.find({userID : cookie3, status : "Buyer-Confirmed" }, function(err, result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -375,7 +400,7 @@ class OrderController {
              }
         
             if (result) {
-                Order.find({userID : req.signedCookies.userId, status : "Buyer-Confirmed" }).sortable(req)
+                Order.find({userID : cookie3, status : "Buyer-Confirmed" }).sortable(req)
                 .then(orders => {
                     res.json(orders)
             })    

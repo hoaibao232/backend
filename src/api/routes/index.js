@@ -17,7 +17,7 @@ const  CookieRequire  = require('../../middlewares/cookie.middleware');
 
 function routeAPI(app)
 {
-    app.use('/api/me', AuthSeller.requireAuthSeller, meRouter);  //seller manage books, orders, payment
+    app.use('/api/me', meRouter);  //seller manage books, orders, payment
     app.use('/api/buyers', buyersRouter); //login, logout, signup, info, update info
     app.use('/api/sellers', sellersRouter); //login, logout, signup, info, update info
     app.use('/api/orders', ordersRouter); //buyer manage orders

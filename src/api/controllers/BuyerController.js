@@ -5,7 +5,8 @@ const Buyer = require('../../app/controllers/models/Buyer');
 
 const bodyParser = require('body-parser');
 const { setCookie } = require('../../middlewares/cookie.middleware');
-
+var path = require('path');
+const fs = require('fs')
 class BuyerController {
     
     create(req,res,next)
@@ -221,35 +222,47 @@ class BuyerController {
           .catch(err => {});
     }
 
+
     buyerinfo(req,res,next)
     {
-        /* console.log(req.headers) */
-       
-        /* console.log(req.headers) */
         var cookie2 = setCookie(req);
-        /* console.log(cookie2) */
-         if (cookie2){
-       /* const values = cookie2.split(';').reduce((res, item) => {
-            const data = item.trim().split('=');
-            return { ...res, [data[0]]: data[1] };
-        }, {});
- */
+        console.log(path.resolve("."))
+        if (cookie2){
 
-        /* console.log(values.userId); */
-
-        
-
-       /*  res.locals.cookies = values.userId; */
-        Buyer.findOne({_id : cookie2})
-            .then(buyer => {
-                res.statusCode = 202
-                res.json(buyer);
-
+            Buyer.findOne({_id : cookie2})
+                .then(buyer => {
+                    if(buyer.avatar)
+                    {
+                        fs.readFile(path.resolve(".") + '/public' + buyer.avatar, (err, data) => {
+                            if (err) {
+                                console.error(err)
+                                return
+                            }
+                            var output = {
+                                userInfo: buyer,
+                                imagePath: data,
+                            }
+                            
+                            console.log(output)
+                            res.status(202).json(output);
+                        })
+                    }
+                    else{
+                        var output = {
+                            userInfo: buyer,
+                            imagePath: '',
+                        }
+                        
+                        console.log(output)
+                        res.status(202).json(output);
+                    }
+            
             })
-        }
-        else {
-            res.json('');
-        }
+            }
+            else {
+                res.json('');
+            }
+      
     }
 
     update(req,res,next)
@@ -268,9 +281,9 @@ class BuyerController {
             if (result) {
                 if(req.file)
                 {
-                    /* req.body.avatar = "\\" + req.file.path.split('\\').slice(1).join('\\'); */
+                    req.body.avatar = "\\" + req.file.path.split('\\').slice(1).join('\\');
                 }
-                Buyer.updateOne({_id: cookie3 }, req.body.data)
+                Buyer.updateOne({_id: cookie3 }, req.body)
                     .then(() => res.json({
                         message : 'Update buyer profile successfully'
                         }))

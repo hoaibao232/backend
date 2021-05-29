@@ -33,6 +33,7 @@ class SiteController {
                 case 'VanHoc':
                     Book.find({category : "VĂN HỌC"})
                         .then(books => {
+                            console.log(books)
                         res.json(books);
                          })
                     break;
@@ -91,9 +92,10 @@ class SiteController {
                     break;
             }
         }
-        Book.find({})
+        Book.find({}).sortable(req)
             .then(books => 
                 {
+                    var result1 = []
                     var result = [];
                     var output;
                    books.forEach(document => {
@@ -121,6 +123,9 @@ class SiteController {
                 })
             
             .catch(next);
+
+
+            
     }
 
     //[GET] /search
@@ -128,7 +133,7 @@ class SiteController {
     {
         var perPage = 10
         var page = req.query.page
-       
+        console.log(req.query.search)
         var searchQuery = req.query.search;
         res.locals.searchQuery = searchQuery;
         Book.find( {$text:{$search : searchQuery}}).sortable(req)
@@ -143,6 +148,7 @@ class SiteController {
                         //     current: page,
                         //     pages: Math.ceil(count / perPage),
                         // });
+                        
                         res.json(books);
                     })
                     })

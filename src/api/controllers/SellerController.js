@@ -2,10 +2,13 @@ const { rmSync } = require('fs');
 const Book = require('../../app/controllers/models/Book');
 const Buyer = require('../../app/controllers/models/Buyer');
 const Seller = require('../../app/controllers/models/Seller');
+const { setCookie } = require('../../middlewares/cookie.middleware');
 const  { mongooseToObject, mutipleMongooseToObject } = require('../../util/mongoose');
+
 //const { mongooseToObject } = require('../../util/mongoose');
 
-
+var path = require('path');
+const fs = require('fs')
 
 class SellerController {
     
@@ -188,7 +191,8 @@ class SellerController {
             
                         //      .catch(next);
                         res.json({
-                            message : 'Login successfully'
+                            message : 'Login successfully',
+                            cookie : result._id
                         })
                      }   
             }
@@ -197,18 +201,75 @@ class SellerController {
     }
 
 
+  /*   sellerinfo(req,res,next)
+    {
+        console.log(req.headers)
+        var cookie2 = setCookie(req);
+
+        if (cookie2){
+            
+            Seller.findOne({_id : cookie2})
+                .then(seller => {
+                    console.log(seller)
+                    res.json(seller);
+            
+            })
+        }
+        else {
+            res.json('');
+        }
+    } */
+
     sellerinfo(req,res,next)
     {
-        Seller.findOne({_id : req.signedCookies.sellerId})
-            .then(seller => {
-                res.json(seller);
-        
-        })
+        var cookie2 = setCookie(req);
+     
+        if (cookie2){
+
+            Seller.findOne({_id : cookie2})
+                .then(seller => {
+                    if(seller.avatar)
+                    {
+                        fs.readFile(path.resolve(".") + '/public' + seller.avatar, (err, data) => {
+                            if (err) {
+                                console.error(err)
+                                return
+                            }
+                            var output = {
+                                userInfo: seller,
+                                imagePath: data,
+                            }
+                            
+                            console.log(output)
+                            res.status(202).json(output);
+                        })
+                    }
+                    else{
+                        var output = {
+                            userInfo: seller,
+                            imagePath: '',
+                        }
+                        
+                        console.log(output)
+                        res.status(202).json(output);
+                    }
+            
+            })
+            }
+            else {
+                res.json('');
+            }
+      
     }
 
     update(req,res,next)
     {
-        Seller.find({_id: req.params.id }, function(err, result) {
+        console.log('1111111111111111111')
+        console.log(req.body)
+        var cookie3 = setCookie(req)
+        console.log(cookie3)
+
+        Seller.find({_id: cookie3 }, function(err, result) {
             if (err) { 
                 res.statusCode = 500;
                 return res.json({
@@ -221,7 +282,7 @@ class SellerController {
                 {
                     req.body.avatar = "\\" + req.file.path.split('\\').slice(1).join('\\');
                 }
-                Seller.updateOne({_id: req.params.id }, req.body)
+                Seller.updateOne({_id: cookie3 }, req.body)
                     .then(() => res.json({
                         message : 'Update seller profile successfully'
                         }))

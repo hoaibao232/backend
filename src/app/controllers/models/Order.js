@@ -41,6 +41,7 @@ const Order = new Schema({
 
 //Custom query helper
 Order.query.sortable = function (req) {
+      console.log(req.query)
       if(req.query.hasOwnProperty('_sort')) {
         const isVaildtype = ['asc', 'desc'].includes(req.query.type);
         return this.sort({

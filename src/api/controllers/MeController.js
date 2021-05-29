@@ -3,7 +3,9 @@ const Book = require('../../app/controllers/models/Book');
 const Buyer = require('../../app/controllers/models/Buyer');
 const Seller = require('../../app/controllers/models/Seller');
 const Order = require('../../app/controllers/models/Order');
+
 const { cookie } = require('express-validator/check');
+const { setCookie } = require('../../middlewares/cookie.middleware');
 // Order.createIndexes({ status : "text" });
 
 class MeController {
@@ -12,7 +14,8 @@ class MeController {
     //[GET] /me/stored/books
     storedBooks(req,res, next)
     {
-        Book.find({sellerID : req.signedCookies.sellerId}, function(err,result) {
+        var cookie3 = setCookie(req)
+        Book.find({sellerID : cookie3}, function(err,result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -20,7 +23,7 @@ class MeController {
                 })
              }
              if (result) {
-                let bookQuery = Book.find({sellerID : req.signedCookies.sellerId})
+                let bookQuery = Book.find({sellerID : cookie3}).sortable(req)
         
                 Promise.all([bookQuery, Book.countDocumentsDeleted()])
                 .then(([books, deletedCount]) =>
@@ -43,7 +46,8 @@ class MeController {
 
     inactiveBooks(req,res, next)
     {
-        Book.find({sellerID : req.signedCookies.sellerId}, function(err,result) {
+        var cookie3 = setCookie(req)
+        Book.find({sellerID : cookie3}, function(err,result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -52,7 +56,7 @@ class MeController {
              }
              if (result) {
                 
-                let bookQuery = Book.find({sellerID : req.signedCookies.sellerId, quantities : 0}).sortable(req);
+                let bookQuery = Book.find({sellerID : cookie3, quantities : 0}).sortable(req);
 
                 Promise.all([bookQuery, Book.countDocumentsDeleted()])
                 .then(([books, deletedCount]) =>
@@ -73,8 +77,8 @@ class MeController {
 
     activeBooks(req,res, next)
     {
-
-        Book.find({sellerID : req.signedCookies.sellerId}, function(err,result) {
+        var cookie3 = setCookie(req)
+        Book.find({sellerID : cookie3}, function(err,result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -83,7 +87,7 @@ class MeController {
              }
              if (result) {
                 
-                let bookQuery = Book.find({sellerID : req.signedCookies.sellerId, quantities :{$ne : 0} }).sortable(req);
+                let bookQuery = Book.find({sellerID : cookie3, quantities :{$ne : 0} }).sortable(req);
 
                 Promise.all([bookQuery, Book.countDocumentsDeleted()])
                 .then(([books, deletedCount]) =>
@@ -105,6 +109,7 @@ class MeController {
     //[GET] /me/trash/courses
    trashBooks(req,res, next)
     {
+        var cookie3 = setCookie(req)
         Book.findDeleted({}, function(err,result) {
             if (err) { 
                 res.statusCode = 404;
@@ -113,7 +118,7 @@ class MeController {
                 })
              }
              if (result) {
-                Book.findDeleted({})
+                Book.findDeleted({}).sortable(req)
                     .then(books => res.json(books))
                     .catch(next);
                 
@@ -133,21 +138,26 @@ class MeController {
     //[GET] /me/stored/courses/all
     allOrders(req,res, next)
     {
+        console.log(req)
+        var cookie3 = setCookie(req);
+        console.log(cookie3)
         var output = []
-        Order.find({'products.sellerId' : req.signedCookies.sellerId})
+        Order.find({'products.sellerId' : cookie3}).sortable(req)
             .then(orders => {
                 orders.forEach(function(document) {output.push(document.products) })    
                 Book.find({_id : {$in : output.bookId}})
                     .then(books => {
                         console.log(books);
                     })
+                    console.log(orders)
                     res.json(orders)
             })    
     }
 
     notApprovedOrders(req,res,next)
     {
-        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Not approved" }, function(err, result) {
+        var cookie3 = setCookie(req);
+        Order.find({'products.sellerId' : cookie3, status : "Not approved" }, function(err, result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -156,7 +166,7 @@ class MeController {
              }
         
             if (result) {
-                Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Not approved"}).sortable(req)
+                Order.find({'products.sellerId' : cookie3, status : "Not approved"}).sortable(req)
                 .then(orders => {
                     res.json(orders)
                 })    
@@ -171,6 +181,7 @@ class MeController {
 
     Approve(req,res,next)
     {
+        
         Order.find({_id: req.params.id }, function(err, result) {
             if (err) { 
                 res.statusCode = 500;
@@ -217,7 +228,8 @@ class MeController {
 
     canceledOrders(req,res,next)
     {
-        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Canceled" }, function(err, result) {
+        var cookie3 = setCookie(req);
+        Order.find({'products.sellerId' : cookie3, status : "Canceled" }, function(err, result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -226,7 +238,7 @@ class MeController {
              }
         
             if (result) {
-                Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Canceled"}).sortable(req)
+                Order.find({'products.sellerId' : cookie3, status : "Canceled"}).sortable(req)
                 .then(orders => {
                     res.json(orders)
                 })      
@@ -241,7 +253,8 @@ class MeController {
 
     toShipOrders(req,res,next)
     {
-        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Approved" }, function(err, result) {
+        var cookie3 = setCookie(req);
+        Order.find({'products.sellerId' : cookie3, status : "Approved" }, function(err, result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -250,7 +263,7 @@ class MeController {
              }
         
             if (result) {
-                Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Approved" })
+                Order.find({'products.sellerId' : cookie3, status : "Approved" }).sortable(req)
                 .then(orders => {
                     res.json(orders)
                     })
@@ -265,6 +278,7 @@ class MeController {
 
     readyShip(req,res,next)
     {
+
         Order.find({_id: req.params.id }, function(err, result) {
             if (err) { 
                 res.statusCode = 500;
@@ -288,7 +302,8 @@ class MeController {
 
     shippingOrders(req,res,next)
     {
-        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "toShip" }, function(err, result) {
+        var cookie3 = setCookie(req);
+        Order.find({'products.sellerId' : cookie3, status : "toShip" }, function(err, result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -297,7 +312,7 @@ class MeController {
              }
         
             if (result) {
-                Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "toShip" }).sortable(req)
+                Order.find({'products.sellerId' : cookie3, status : "toShip" }).sortable(req)
                     .then(orders => {
                         res.json(orders)
                         })
@@ -334,7 +349,9 @@ class MeController {
                                 .catch({})
                         })
 
-                    res.json('completed')
+                    res.json({
+                        message : 'completed'
+                    })
                 })
             } else {
                     res.statusCode = 500;
@@ -348,7 +365,8 @@ class MeController {
 
     completedOrders(req,res,next)
     {
-        Order.find({'products.sellerId' : req.signedCookies.sellerId, $or : [{status : "Completed"}, {status : "Buyer-Confirmed"}] }, function(err, result) {
+        var cookie3 = setCookie(req);
+        Order.find({'products.sellerId' : cookie3, $or : [{status : "Completed"}, {status : "Buyer-Confirmed"}] }, function(err, result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -357,7 +375,7 @@ class MeController {
              }
         
             if (result) {
-                Order.find({'products.sellerId' : req.signedCookies.sellerId, $or : [{status : "Completed"}, {status : "Buyer-Confirmed"}] }).sortable(req)
+                Order.find({'products.sellerId' : cookie3, $or : [{status : "Completed"}, {status : "Buyer-Confirmed"}] }).sortable(req)
                     .then(orders => {
                     res.json(orders)
                  })
@@ -372,7 +390,8 @@ class MeController {
 
     returnOrders(req,res,next)
     {
-        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Return" }, function(err, result) {
+        var cookie3 = setCookie(req);
+        Order.find({'products.sellerId' : cookie3, status : "Return" }, function(err, result) {
             if (err) { 
                 res.statusCode = 404;
                 return res.json({
@@ -381,7 +400,7 @@ class MeController {
              }
         
             if (result) {
-                Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Return" }).sortable(req)
+                Order.find({'products.sellerId' : cookie3, status : "Return" }).sortable(req)
                     .then(orders => {
                     res.json(orders)
                 })
@@ -441,9 +460,10 @@ class MeController {
         // // to the API (e.g. in case you use sessions)
         // res.setHeader('Access-Control-Allow-Credentials', true);
 
+        var cookie3 = setCookie(req);
 
         Order.aggregate([
-                {$match : { $and : [ {'products.sellerId' : req.signedCookies.sellerId}, {status : "Buyer-Confirmed"}]  }},
+                {$match : { $and : [ {'products.sellerId' : cookie3}, {status : "Buyer-Confirmed"}]  }},
                 {
                     $unwind: "$products"
                 },
@@ -464,7 +484,7 @@ class MeController {
             })
 
          Order.aggregate([
-                {$match : { $and : [ {'products.sellerId' : req.signedCookies.sellerId}, {status : "Completed"}]  }},
+                {$match : { $and : [ {'products.sellerId' : cookie3}, {status : "Completed"}]  }},
                 {
                     $unwind: "$products"
                 },
@@ -488,7 +508,7 @@ class MeController {
         
         
         var output = []
-        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Buyer-Confirmed"}).sortable(req)
+        Order.find({'products.sellerId' : cookie3, status : "Buyer-Confirmed"}).sortable(req)
             .then(orders => {
                 orders.forEach(function(document) {output.push(document.products) })
                 res.json({
@@ -504,8 +524,9 @@ class MeController {
      paymentUnpaid(req,res,next)
      {
 
+        var cookie3 = setCookie(req);
         Order.aggregate([
-            {$match : { $and : [ {'products.sellerId' : req.signedCookies.sellerId}, {status : "Buyer-Confirmed"}]  }},
+            {$match : { $and : [ {'products.sellerId' : cookie3}, {status : "Buyer-Confirmed"}]  }},
             {
                 $unwind: "$products"
             },
@@ -528,7 +549,7 @@ class MeController {
         // {status : {$ne : "Completed"}}
 
         Order.aggregate([
-            {$match : { $and : [ {'products.sellerId' : req.signedCookies.sellerId}, {status : "Completed"}] }},
+            {$match : { $and : [ {'products.sellerId' : cookie3}, {status : "Completed"}] }},
             {
                 $unwind: "$products"
             },
@@ -550,7 +571,7 @@ class MeController {
             })
 
         var output = []
-        Order.find({'products.sellerId' : req.signedCookies.sellerId, status : "Completed"}).sortable(req)
+        Order.find({'products.sellerId' : cookie3, status : "Completed"}).sortable(req)
             .then(orders => {
                 orders.forEach(function(document) {output.push(document.products) })
                 res.json({
@@ -563,9 +584,10 @@ class MeController {
 
      searchOrders(req,res,next)
      {
+        var cookie3 = setCookie(req);
         var searchQuery = req.query.search;
-        console.log(searchQuery)
-        Order.find( {$text:{$search : searchQuery}, 'products.sellerId' : req.signedCookies.sellerId})
+        console.log('111111111')
+        Order.find( {$text:{$search : searchQuery}, 'products.sellerId' : cookie3})
             .then(orders => {
                 console.log(orders)
                 res.render('me/stored-orders-search', {

@@ -13,7 +13,7 @@ const Book = new Schema({
     yearPublish : {type: String},
     languages : {type: String, required: true},
     NXB : {type: String},
-    warehouse : {type: String, required: true},
+    warehouse : {type: String},
     pages : {type : Number, default : 0},
     weight : {type : Number, default : 0, required: true},
     image: {type: String},
@@ -30,6 +30,7 @@ const Book = new Schema({
 
 //Custom query helper
   Book.query.sortable = function (req) {
+      console.log(req.query)
       if(req.query.hasOwnProperty('_sort')) {
         const isVaildtype = ['asc', 'desc'].includes(req.query.type);
         return this.sort({
