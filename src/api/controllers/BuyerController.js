@@ -18,17 +18,18 @@ class BuyerController {
 
     store(req,res,next)
     {
-        const buyer = new Buyer(req.body);
-        const username1 = req.body.username;
-        const password = req.body.password;
+        console.log(req.body.data)
+        const buyer = new Buyer(req.body.data);
+        const username1 = req.body.data.username;
+        const password = req.body.data.password;
         //const value = req.body.username;
        
-        req.check('username', 'Bạn cần phải nhập địa chỉ Email').isEmail().normalizeEmail();
+        /* req.check('username', 'Bạn cần phải nhập địa chỉ Email').isEmail().normalizeEmail();
         req.check('password', 'Bạn cần phải nhập mât khẩu').notEmpty();
         req.check('confirmpassword', 'Bạn cần phải nhập lại mât khẩu').notEmpty();
         req.check('password', 'Độ dài mật khẩu tối thiểu là 6').isLength({
             min: 6
-        });
+        }); */
         var errors = req.validationErrors();
         if(errors){
             console.log(errors);
@@ -41,9 +42,9 @@ class BuyerController {
             })    
          }
 
-         else if(req.body.confirmpassword != req.body.password)
+         else if(req.body.data.confirmpassword != req.body.data.password)
          {
-            var error = {location: 'body', param: "confirmpassword", msg: "Mật khẩu và Mật khẩu nhập lại không trùng khớp", value: req.body.confirmpassword};
+            var error = {location: 'body', param: "confirmpassword", msg: "Mật khẩu và Mật khẩu nhập lại không trùng khớp", value: req.body.data.confirmpassword};
            
             if (!errors)
             {
@@ -64,7 +65,7 @@ class BuyerController {
          else{
         Buyer.findOne({username : username1})
             .then(user => {    
-                var error = {location: 'body', param: "username", msg: "Email này đã được đăng sử dụng để đăng kí", value: req.body.username};
+                var error = {location: 'body', param: "username", msg: "Email này đã được đăng kí", value: req.body.data.username};
                 if(user)
                 {
                 if (!errors)
@@ -76,10 +77,15 @@ class BuyerController {
                     req.session.errors = errors;
                     req.session.success = false;
                 // res.redirect('/buyer/sign-up');   
-                    res.statusCode = 400;
-                    return res.json({
-                        message : 'Email is used'
-                    })
+                    res.statusCode = 404;
+                    /* res.statusText = "error"; */
+                    return res.json(
+                        {
+                            message : 'Email is used'
+
+                        }
+
+                    )
                 }
                 else{
                     req.session.success = true;

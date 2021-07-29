@@ -184,6 +184,7 @@ class OrderController {
 
     show(req,res,next)
     {
+        console.log('11111111')
         console.log(req.headers)
         var cookie3 = setCookie(req)
         console.log(cookie3)

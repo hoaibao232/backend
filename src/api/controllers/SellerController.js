@@ -21,17 +21,17 @@ class SellerController {
 
     store(req,res,next)
     {
-        const seller = new Seller(req.body);
-        const username1 = req.body.username;
-        const password = req.body.password;
+        const seller = new Seller(req.body.data);
+        const username1 = req.body.data.username;
+        const password = req.body.data.password;
 
 
-        req.check('username', 'Bạn cần phải nhập địa chỉ Email').isEmail().normalizeEmail();
+      /*   req.check('username', 'Bạn cần phải nhập địa chỉ Email').isEmail().normalizeEmail();
         req.check('password', 'Bạn cần phải nhập mât khẩu').notEmpty();
         req.check('confirmpassword', 'Bạn cần phải nhập lại mât khẩu').notEmpty();
         req.check('password', 'Độ dài mật khẩu tối thiểu là 6').isLength({
             min: 6
-        });
+        }); */
         var errors = req.validationErrors();
         if(errors){
             console.log(errors);
@@ -43,9 +43,9 @@ class SellerController {
             })      
         }
 
-         else if(req.body.confirmpassword != req.body.password)
+         else if(req.body.data.confirmpassword != req.body.data.password)
          {
-            var error = {location: 'body', param: "confirmpassword", msg: "Mật khẩu và Mật khẩu nhập lại không trùng khớp", value: req.body.confirmpassword};
+            var error = {location: 'body', param: "confirmpassword", msg: "Mật khẩu và Mật khẩu nhập lại không trùng khớp", value: req.body.data.confirmpassword};
            
             if (!errors)
             {
@@ -65,7 +65,7 @@ class SellerController {
 
             Seller.findOne({username : username1})
             .then(user => {
-                var error = {location: 'body', param: "username", msg: "Email này đã được đăng sử dụng để đăng kí", value: req.body.username};
+                var error = {location: 'body', param: "username", msg: "Email này đã được đăng sử dụng để đăng kí", value: req.body.data.username};
                 if(user)
                 {
                     if (!errors)

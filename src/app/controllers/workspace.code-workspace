@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\..\\..\\webnha"
+		},
+		{
+			"path": "..\\..\\..\\..\\baoanh275.github.io"
+		},
+		{
+			"path": "..\\..\\..\\..\\damynghe"
+		},
+		{
+			"path": "..\\..\\..\\..\\reactjs"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "baoanh275.github.io"
+	}
+}
